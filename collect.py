@@ -388,20 +388,28 @@ def run(ticker):
     if hist.empty:
         raise RuntimeError(f"{ticker} 가격 이력 조회 실패")
 
-    # 옵션 호가는 항상 '현재' 값이므로, 현물도 같은 시점 값을 써야 계산이 맞는다.
-    # 장중이면 진행 중인 봉의 종가(=현재가), 장 마감 후·개장 전이면 직전 종가.
+    # 옵션 호가는 항상 '현재' 값이므로, 현물도 같은 시점 값을 쓴다.
     spot = float(hist["Close"].iloc[-1])
     et_now = datetime.now(timezone.utc) - timedelta(hours=4)  # 서머타임 기준 ET
     live = hist.index[-1].strftime("%Y-%m-%d") == et_now.strftime("%Y-%m-%d") and et_now.hour < 16
-    if live:
-        # OI는 직전 마감 기준이므로 스냅샷 라벨은 완료된 거래일로 둔다
-        hist = hist.iloc[:-1]
-        print(f"  [안내] 장중 실행 — 현물은 실시간 {spot:.2f}, OI는 직전 마감 기준입니다.")
-    if hist.empty:
-        raise RuntimeError(f"{ticker} 완료된 거래일 데이터 없음")
 
-    prev_close = float(hist["Close"].iloc[-1])
-    trade_date = hist.index[-1].strftime("%Y-%m-%d")  # 스냅샷 라벨 = OI가 속한 거래일
+    # 스냅샷 라벨은 반드시 'OI가 속한 거래일'이어야 한다.
+    # 미결제약정은 OCC가 밤새 정산해 OPRA가 미 동부 06:30에 배포하므로,
+    # 지금 받는 OI는 '가장 최근 06:30 경계' 직전에 끝난 거래일의 마감분이다.
+    # (예: ET 7/30 18:00에 받는 OI는 7/30이 아니라 7/29 마감분)
+    boundary = et_now.date() if (et_now.hour, et_now.minute) >= (6, 30) else et_now.date() - timedelta(days=1)
+    sessions = [d.strftime("%Y-%m-%d") for d in hist.index]
+    older = [d for d in sessions if d < boundary.strftime("%Y-%m-%d")]
+    if not older:
+        raise RuntimeError(f"{ticker} OI 기준 거래일을 정할 수 없음")
+    trade_date = older[-1]
+
+    prev_close = float(hist.loc[hist.index.strftime("%Y-%m-%d") == trade_date, "Close"].iloc[-1])
+    if live:
+        print(f"  [안내] 장중 실행 — 현물은 실시간 {spot:.2f}, 옵션 숫자는 {trade_date} 마감 기준입니다.")
+    elif sessions[-1] != trade_date:
+        print(f"  [안내] 주가는 {sessions[-1]} 마감({spot:.2f}), 옵션 숫자는 아직 {trade_date} 마감 기준입니다.")
+        print("         옵션 계약 수는 미 동부 06:30(한국 19:30)에 하루 한 번 갱신됩니다.")
 
     today = datetime.now(timezone.utc).date()
     exps = pick_expirations(t.options, today)
@@ -425,6 +433,8 @@ def run(ticker):
     result["spot_is_live"] = bool(live)
     result["prev_close"] = round(prev_close, 2)
     result["chg_pct"] = round((spot / prev_close - 1) * 100, 2)
+    result["price_date"] = hist.index[-1].strftime("%Y-%m-%d")  # 주가 기준일
+    result["oi_lag_sessions"] = sum(1 for d in hist.index.strftime("%Y-%m-%d") if d > trade_date)
     apath = BASE / "data" / "analytics" / f"{ticker}_{trade_date}.json"
     apath.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
     (BASE / "data" / "analytics" / f"{ticker}_latest.json").write_text(

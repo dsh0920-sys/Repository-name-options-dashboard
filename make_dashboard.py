@@ -1131,12 +1131,14 @@ def generate(ticker):
  <div class="sub">{regime_pill}</div>
  <div class="asof">
   <div class="asof-row"><span class="asof-tag live">주가</span>
-   {'실시간 (15~20분 지연)' if a.get('spot_is_live') else a['date'] + ' 장 마감값'}</div>
+   {'실시간 (15~20분 지연)' if a.get('spot_is_live') else (a.get('price_date') or a['date']) + ' 장 마감값'}</div>
   <div class="asof-row"><span class="asof-tag day">옵션 숫자</span>
-   <strong>{a['date']} 장 마감 기준</strong> — 보험이 얼마나 깔렸는지는 <strong>하루에 딱 한 번</strong>만 발표됩니다.</div>
-  <div class="asof-when">언제 바뀌나 — 미국 장은 한국시간 <strong>밤 10시 30분에 열려 새벽 5시에 닫힙니다</strong>.
-   그날 옵션 숫자는 그날 <strong>저녁(한국시간)</strong>에 정산이 끝나야 나옵니다.
-   그래서 이 페이지는 <strong>매일 저녁 9시에 자동으로 새로 받아옵니다</strong>. 그때가 간밤 것까지 반영된 가장 최신 시점입니다.</div>
+   <strong>{a['date']} 장 마감 기준</strong>{' — <strong style="color:var(--serious)">주가보다 ' + str(a['oi_lag_sessions']) + '거래일 뒤처져 있습니다.</strong>' if a.get('oi_lag_sessions', 0) >= 1 else ''}</div>
+  <div class="asof-when">왜 다르냐면 — 보험이 얼마나 깔렸는지는 미국 정산소가 밤새 계산해서
+   <strong>미 동부 오전 6시 30분(한국 저녁 7시 30분)에 하루 딱 한 번</strong> 발표합니다.
+   그래서 장이 끝나도 그날 옵션 숫자는 <strong>다음 날 저녁에야</strong> 나옵니다.
+   이 페이지는 <strong>미국장이 열린 동안 30분마다</strong> 자동으로 새로 받고,
+   가장 최신 옵션 숫자는 <strong>한국시간 저녁 8시 이후</strong>에 반영됩니다.</div>
  </div>
 </header>
 {intro}
