@@ -4,6 +4,7 @@ import json
 import os
 import re
 import sys
+from datetime import datetime
 from pathlib import Path
 
 import pandas as pd
@@ -863,6 +864,8 @@ header .asof strong{color:var(--ink)}
 .pill.pos{color:var(--good)}.pill.pos .dot{background:var(--good)}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:20px 0}
 .tile{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.byline{font-size:.72rem;font-weight:600;color:var(--muted);border:1px solid var(--border);
+ border-radius:5px;padding:2px 8px;margin-left:6px;vertical-align:2px}
 .tile.wide{grid-column:span 2}
 @media (max-width:520px){.tile.wide{grid-column:span 1}}
 .tile .k{font-size:.72rem;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
@@ -1005,7 +1008,24 @@ def generate(ticker):
     if not opath.exists():
         cands = sorted((BASE / "outlook").glob(f"{ticker}_*.md"))
         opath = cands[-1] if cands else None
-    outlook = md_to_html(opath.read_text(encoding="utf-8")) if opath else "<p class='muted'>전망 메모가 아직 없습니다.</p>"
+    # 전망은 사람이 쓰는 부분이라 언제 쓴 건지 반드시 표시한다
+    outlook_badge = ""
+    if opath:
+        wrote = opath.stem.split("_", 1)[1]
+        try:
+            age = (datetime.strptime(a["date"], "%Y-%m-%d") - datetime.strptime(wrote, "%Y-%m-%d")).days
+        except ValueError:
+            age = 0
+        if age >= 3:
+            outlook_badge = (f'<div class="callout" style="border-left-color:var(--crit)">'
+                             f'<strong>{wrote}에 쓴 글입니다 ({age}일 지남).</strong> '
+                             '위쪽 숫자와 그래프는 오늘 것으로 자동 갱신되지만, '
+                             '이 전망 글은 사람이 써야 해서 최신이 아닙니다. 흐름 참고용으로만 보세요.</div>')
+        else:
+            outlook_badge = f'<p class="muted" style="margin:0 0 10px">{wrote} 기준으로 쓴 글입니다.</p>'
+        outlook = outlook_badge + md_to_html(opath.read_text(encoding="utf-8"))
+    else:
+        outlook = "<p class='muted'>전망 메모가 아직 없습니다.</p>"
 
     spot = a["spot"]
     closes = px["Close"].tolist()
@@ -1161,7 +1181,9 @@ def generate(ticker):
  {note('term_structure')}
  <div class="card">{build_term_structure(a)}</div></section>
 {bt_section}
-<section><h2>전망</h2><div class="card prose">{outlook}</div></section>
+<section><h2>전망 <span class="byline">사람이 쓴 부분</span></h2>
+ <p class="desc">위쪽은 전부 자동 계산이고, 이 아래만 뉴스와 일정을 찾아 사람이 씁니다.</p>
+ <div class="card prose">{outlook}</div></section>
 <footer>데이터: 야후 파이낸스 (주가는 15~20분 지연, 보험 계약 수는 하루 한 번 갱신) · 증권사 행동 계산은 표준 공식을 쓴 근사치입니다.<br>
 본 대시보드는 정보 제공 목적이며 투자 자문이 아닙니다. 매매 판단과 책임은 이용자 본인에게 있습니다.</footer>
 </div>
