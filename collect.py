@@ -435,6 +435,9 @@ def run(ticker):
     result["chg_pct"] = round((spot / prev_close - 1) * 100, 2)
     result["price_date"] = hist.index[-1].strftime("%Y-%m-%d")  # 주가 기준일
     result["oi_lag_sessions"] = sum(1 for d in hist.index.strftime("%Y-%m-%d") if d > trade_date)
+    # 거래량은 OI와 달리 실시간으로 들어온다. 장중이면 '오늘 지금까지', 아니면 마지막 세션 전체.
+    result["volume_date"] = result["price_date"]
+    result["volume_is_live"] = bool(live)
     apath = BASE / "data" / "analytics" / f"{ticker}_{trade_date}.json"
     apath.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
     (BASE / "data" / "analytics" / f"{ticker}_latest.json").write_text(

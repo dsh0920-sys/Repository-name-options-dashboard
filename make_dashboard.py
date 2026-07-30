@@ -784,15 +784,26 @@ def build_unusual(a):
     tname = "오를 때 버는 보험(콜)" if top["type"] == "C" else "내릴 때 버는 보험(풋)"
     side = ("오를 때 버는 쪽(콜)" if nc > npu else ("내릴 때 버는 쪽(풋)" if npu > nc else "양쪽 비슷하게"))
     where = ("지금 가격 바로 근처" if len(near) >= len(f) * 0.5 else "지금 가격에서 떨어진 곳까지 넓게")
+    vdate = a.get("volume_date", a["date"])
+    when = ("<strong>오늘 지금까지</strong> 거래된 양" if a.get("volume_is_live")
+            else f"<strong>{vdate} 하루 동안</strong> 거래된 양")
+    lag = ""
+    if vdate != a["date"]:
+        lag = (f' 여기서 거래량은 {when.replace("<strong>", "").replace("</strong>", "")}이고, '
+               f'비교 대상인 계약 수는 {a["date"]} 마감분입니다. '
+               f'<strong>즉 "어제까지 깔린 지도 위에서 그 뒤에 어디가 뜨거웠나"를 보는 것입니다.</strong> '
+               '거래량은 실시간으로 들어오지만 계약 수는 하루 한 번만 갱신되기 때문입니다.')
     read = (f'<div class="callout"><strong>이 표 읽는 법</strong><br>'
             f'평소보다 유난히 많이 거래된 자리가 {len(f)}곳입니다. '
             f'그중 {nc}곳이 콜, {npu}곳이 풋이라 <strong>{side}</strong>에 더 몰렸습니다. '
             f'위치는 {where} 퍼져 있습니다. '
             f'가장 뜨거운 곳은 <strong>{fmt(top["strike"])}달러 {tname}</strong>으로, '
-            f'원래 깔려 있던 것의 <strong>{top["ratio"]:.0f}배</strong>가 하루에 거래됐습니다. '
-            '이 정도면 원래 있던 사람들끼리 주고받은 걸로는 설명이 안 됩니다. 새 돈이 들어온 자리로 봅니다.</div>')
+            f'원래 깔려 있던 것의 <strong>{top["ratio"]:.0f}배</strong>가 거래됐습니다. '
+            '이 정도면 원래 있던 사람들끼리 주고받은 걸로는 설명이 안 됩니다. 새 돈이 들어온 자리로 봅니다.'
+            + lag + '</div>')
     return (read + '<table class="ladder"><thead><tr><th>종류</th><th>가격</th><th>만기</th>'
-            '<th>오늘 거래</th><th>원래 있던 계약</th><th>배수</th><th>지금에서</th></tr></thead>'
+            f'<th>{"오늘 거래" if a.get("volume_is_live") else vdate[5:] + " 거래"}</th>'
+            '<th>원래 있던 계약</th><th>배수</th><th>지금에서</th></tr></thead>'
             f'<tbody>{trs}</tbody></table>'
             '<p class="muted">주의 — 많이 거래됐다는 것만 알 뿐, <strong>산 건지 판 건지는 알 수 없습니다.</strong> '
             '진짜 자리를 잡았는지는 다음 날 계약 수가 늘었는지로 확인해야 합니다.</p>')
@@ -1132,13 +1143,17 @@ def generate(ticker):
  <div class="asof">
   <div class="asof-row"><span class="asof-tag live">주가</span>
    {'실시간 (15~20분 지연)' if a.get('spot_is_live') else (a.get('price_date') or a['date']) + ' 장 마감값'}</div>
-  <div class="asof-row"><span class="asof-tag day">옵션 숫자</span>
-   <strong>{a['date']} 장 마감 기준</strong>{' — <strong style="color:var(--serious)">주가보다 ' + str(a['oi_lag_sessions']) + '거래일 뒤처져 있습니다.</strong>' if a.get('oi_lag_sessions', 0) >= 1 else ''}</div>
+  <div class="asof-row"><span class="asof-tag live">옵션 거래량</span>
+   {'<strong>오늘 지금까지</strong> (실시간)' if a.get('volume_is_live') else '<strong>' + (a.get('volume_date') or a['date']) + '</strong> 하루치'}</div>
+  <div class="asof-row"><span class="asof-tag day">옵션 계약 수</span>
+   <strong>{a['date']} 장 마감 기준</strong>{' — <strong style="color:var(--serious)">' + str(a['oi_lag_sessions']) + '거래일 뒤처져 있습니다.</strong>' if a.get('oi_lag_sessions', 0) >= 1 else ''}</div>
   <div class="asof-when">왜 다르냐면 — 보험이 얼마나 깔렸는지는 미국 정산소가 밤새 계산해서
    <strong>미 동부 오전 6시 30분(한국 저녁 7시 30분)에 하루 딱 한 번</strong> 발표합니다.
    그래서 장이 끝나도 그날 옵션 숫자는 <strong>다음 날 저녁에야</strong> 나옵니다.
    이 페이지는 <strong>미국장이 열린 동안 30분마다</strong> 자동으로 새로 받고,
-   가장 최신 옵션 숫자는 <strong>한국시간 저녁 8시 이후</strong>에 반영됩니다.</div>
+   가장 최신 계약 수는 <strong>한국시간 저녁 8시 이후</strong>에 반영됩니다.<br>
+   <strong>거래량은 다릅니다 — 실시간으로 들어옵니다.</strong> 그래서 "평소보다 많이 거래된 자리"를 보면
+   계약 수가 갱신되기 전에도 <strong>지금 어디가 뜨거운지</strong> 알 수 있습니다.</div>
  </div>
 </header>
 {intro}
