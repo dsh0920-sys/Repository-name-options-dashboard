@@ -16,10 +16,10 @@ BASE = Path(__file__).parent
 # 종목별 주소 — 대시보드 상단에서 서로 오갈 수 있게 한다.
 # 웹(깃허브 페이지)에서는 SITE_BASE 환경변수가 있으면 같은 폴더의 파일로 연결한다.
 _BASE_URL = os.environ.get("SITE_BASE", "").rstrip("/")
-SITES = [
-    ("QQQ", "나스닥100", f"{_BASE_URL}/QQQ.html" if _BASE_URL else "QQQ.html"),
-    ("NVDA", "엔비디아", f"{_BASE_URL}/NVDA.html" if _BASE_URL else "NVDA.html"),
-]
+_TICKERS = [("QQQ", "나스닥100"), ("NVDA", "엔비디아"), ("TSLA", "테슬라"),
+            ("AMZN", "아마존"), ("GOOGL", "알파벳A"), ("SOXX", "반도체")]
+SITES = [(tk, name, f"{_BASE_URL}/{tk}.html" if _BASE_URL else f"{tk}.html")
+         for tk, name in _TICKERS]
 
 
 def build_switcher(cur):

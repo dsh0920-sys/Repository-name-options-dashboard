@@ -31,24 +31,28 @@ jobs:
       - name: 데이터 수집과 대시보드 생성
         env:
           SITE_BASE: ${{ vars.SITE_BASE }}
+          TICKERS: QQQ NVDA TSLA AMZN GOOGL SOXX
         run: |
-          for TK in QQQ NVDA; do
+          for TK in $TICKERS; do
             python collect.py "$TK" || echo "::warning::$TK 수집 실패"
           done
-          python flows.py QQQ NVDA || true
-          for TK in QQQ NVDA; do
+          python flows.py $TICKERS || true
+          for TK in $TICKERS; do
             python make_dashboard.py "$TK" || echo "::warning::$TK 생성 실패"
           done
 
       - name: 웹 폴더로 복사
+        env:
+          TICKERS: QQQ NVDA TSLA AMZN GOOGL SOXX
         run: |
           mkdir -p docs
-          cp dashboard/QQQ_dashboard.html docs/QQQ.html
-          cp dashboard/NVDA_dashboard.html docs/NVDA.html
+          for TK in $TICKERS; do
+            [ -f "dashboard/${TK}_dashboard.html" ] && cp "dashboard/${TK}_dashboard.html" "docs/${TK}.html"
+          done
           cp docs/QQQ.html docs/index.html
           touch docs/.nojekyll
           # 스냅샷은 직전 2개만 남긴다 (저장소가 무한정 커지는 것 방지)
-          for TK in QQQ NVDA; do
+          for TK in $TICKERS; do
             ls -1 data/snapshots/${TK}_*.csv 2>/dev/null | head -n -2 | xargs -r rm -f
           done
 
