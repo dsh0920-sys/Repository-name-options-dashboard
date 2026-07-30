@@ -1,0 +1,66 @@
+name: 옵션 대시보드 자동 갱신
+
+on:
+  schedule:
+    # UTC 기준. 미국 정규장 13:30~20:00 UTC(서머타임) 동안 30분마다,
+    # 그리고 장 마감 정리분 1회. GitHub 크론은 10~30분 지연될 수 있다.
+    - cron: "0,30 13-20 * * 1-5"
+    - cron: "30 23 * * 1-5"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dashboard
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: 라이브러리 설치
+        run: pip install --quiet yfinance pandas requests
+
+      - name: 데이터 수집과 대시보드 생성
+        env:
+          SITE_BASE: ${{ vars.SITE_BASE }}
+        run: |
+          for TK in QQQ NVDA; do
+            python collect.py "$TK" || echo "::warning::$TK 수집 실패"
+          done
+          python flows.py QQQ NVDA || true
+          for TK in QQQ NVDA; do
+            python make_dashboard.py "$TK" || echo "::warning::$TK 생성 실패"
+          done
+
+      - name: 웹 폴더로 복사
+        run: |
+          mkdir -p docs
+          cp dashboard/QQQ_dashboard.html docs/QQQ.html
+          cp dashboard/NVDA_dashboard.html docs/NVDA.html
+          cp docs/QQQ.html docs/index.html
+          touch docs/.nojekyll
+          # 스냅샷은 직전 2개만 남긴다 (저장소가 무한정 커지는 것 방지)
+          for TK in QQQ NVDA; do
+            ls -1 data/snapshots/${TK}_*.csv 2>/dev/null | head -n -2 | xargs -r rm -f
+          done
+
+      - name: 변경분 커밋
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "바뀐 내용 없음"
+          else
+            git commit -m "자동 갱신 $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
