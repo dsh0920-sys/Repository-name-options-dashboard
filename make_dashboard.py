@@ -277,13 +277,13 @@ def build_price_chart(a, px):
     spot = a["spot"]
     levels = []
     mp = a["max_pain"].get(a["nearest_expiry"])
-    for v, lbl, cls in ((a.get("call_wall"), "위쪽 두꺼운 곳", "lv-call"), (a.get("put_wall"), "아래쪽 두꺼운 곳", "lv-put"),
-                        (a.get("gamma_flip"), "갈림길", "lv-flip"), (mp, "손해 제일 큰 값", "lv-mp")):
+    for v, lbl, cls in ((a.get("call_wall"), "위 보험벽", "lv-call"), (a.get("put_wall"), "아래 보험벽", "lv-put"),
+                        (a.get("gamma_flip"), "갈림길", "lv-flip"), (mp, "손해최대", "lv-mp")):
         if v:
             levels.append((v, lbl, cls))
     lo = min(min(closes), min(v for v, _, _ in levels)) * 0.995
     hi = max(max(closes), max(v for v, _, _ in levels)) * 1.005
-    W, H, L, R, T, B = 720, 300, 46, 92, 14, 26
+    W, H, L, R, T, B = 720, 300, 46, 132, 14, 26
     xs = lambda i: L + i / (len(closes) - 1) * (W - L - R)
     ys = lambda v: T + (hi - v) / (hi - lo) * (H - T - B)
     pts = " ".join(f"{xs(i):.1f},{ys(v):.1f}" for i, v in enumerate(closes))
@@ -311,12 +311,16 @@ def build_price_chart(a, px):
         anchor = "start" if i == 0 else ("end" if i == len(dates) - 1 else "middle")
         parts.append(f'<text x="{xs(i):.1f}" y="{H - 8}" class="axis" text-anchor="{anchor}">{dates[i][5:]}</text>')
     parts.append("</svg>")
-    return "\n".join(parts)
+    return ("\n".join(parts) +
+            '<p class="muted" style="margin-top:6px">오른쪽 이름표 — '
+            '<strong>위 보험벽</strong>·<strong>아래 보험벽</strong>은 보험이 제일 두껍게 깔린 가격, '
+            '<strong>갈림길</strong>은 증권사 성격이 바뀌는 값, '
+            '<strong>손해최대</strong>는 옵션 산 사람이 가장 많이 잃는 값입니다.</p>')
 
 
 def build_history_chart(hist_df):
-    series = [("spot", "주가", "hs-spot"), ("put_wall", "아래쪽", "hs-put"),
-              ("call_wall", "위쪽", "hs-call"), ("max_pain_near", "손해최대", "hs-mp")]
+    series = [("spot", "주가", "hs-spot"), ("put_wall", "아래 보험벽", "hs-put"),
+              ("call_wall", "위 보험벽", "hs-call"), ("max_pain_near", "손해최대", "hs-mp")]
     df = hist_df.tail(30).reset_index(drop=True)
     vals = [v for key, _, _ in series for v in df[key].dropna().tolist() if key in df]
     if not vals:
@@ -1123,10 +1127,16 @@ def generate(ticker):
 
     legend_pc = ('<div class="legend"><span><span class="sw" style="background:var(--put)"></span>풋</span>'
                  '<span><span class="sw" style="background:var(--call)"></span>콜</span></div>')
-    legend_hist = ('<div class="legend"><span><span class="sw" style="background:var(--ink)"></span>주가</span>'
-                   '<span><span class="sw" style="background:var(--put)"></span>아래쪽 두꺼운 곳</span>'
-                   '<span><span class="sw" style="background:var(--call)"></span>위쪽 두꺼운 곳</span>'
-                   '<span><span class="sw" style="background:var(--mp)"></span>손해 제일 큰 값</span></div>')
+    legend_hist = (
+        '<div class="legend"><span><span class="sw" style="background:var(--ink)"></span>주가</span>'
+        '<span><span class="sw" style="background:var(--put)"></span>아래 보험벽</span>'
+        '<span><span class="sw" style="background:var(--call)"></span>위 보험벽</span>'
+        '<span><span class="sw" style="background:var(--mp)"></span>손해최대</span></div>'
+        '<p class="muted" style="margin:0 0 10px">각 선이 뜻하는 것 — '
+        '<strong>아래 보험벽</strong>은 지금 가격 <em>아래쪽</em>에서 내릴 때 버는 보험(풋)이 제일 두껍게 깔린 가격, '
+        '<strong>위 보험벽</strong>은 <em>위쪽</em>에서 오를 때 버는 보험(콜)이 제일 두꺼운 가격입니다. '
+        '<strong>손해최대</strong>는 가장 가까운 만기에 <em>옵션을 산 사람들 전체가 가장 많이 잃는 가격</em>입니다. '
+        '셋 다 달러 값이고, 주가와 같은 눈금 위에 그려집니다.</p>')
     hist_note = ('<p class="muted">일별 스냅샷이 쌓이면 추세선이 그려집니다. (현재 '
                  f'{len(hist)}일치)</p>' if len(hist) < 3 else "")
     bt = build_backtest()
