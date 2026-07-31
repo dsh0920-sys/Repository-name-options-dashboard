@@ -424,6 +424,15 @@ def run(ticker):
             print(f"  [경고] {e} 만기 수집 실패: {ex}")
     df = pd.DataFrame(rows)
 
+    # 안전장치 — 미 동부 06:30 배포 직전 몇 시간 동안 야후는 계약 수를 통째로 0으로 비운다.
+    # 그 상태로 저장하면 풋월·콜월이 사라지고 흐름 이력이 영구히 오염되므로 저장하지 않는다.
+    filled = (df["oi"] > 0).mean() if len(df) else 0
+    if filled < 0.15:
+        raise RuntimeError(
+            f"{ticker} 계약 수가 비어 있습니다 (OI 있는 계약 {filled:.0%}). "
+            f"지금은 미 동부 {et_now:%H:%M} — 계약 수는 미 동부 06:30(한국 19:30)에 발표됩니다. "
+            "그 이후에 다시 실행하세요. 저장하지 않았습니다.")
+
     snap_path = BASE / "data" / "snapshots" / f"{ticker}_{trade_date}.csv"
     df.insert(0, "date", trade_date)
     df.insert(0, "ticker", ticker)
