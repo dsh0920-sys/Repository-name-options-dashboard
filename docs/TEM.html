@@ -1,0 +1,392 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="600"><meta name="description" content="TEM 옵션 대시보드 — 자동 갱신"></head><body><title>TEM 옵션 대시보드</title>
+
+<style>
+:root{color-scheme:light;
+ --page:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
+ --grid:#e1e0d9;--axis:#c3c2b7;--border:rgba(11,11,11,.10);
+ --call:#2a78d6;--put:#e34948;--flip:#4a3aa7;--mp:#eda100;
+ --good:#0ca30c;--serious:#ec835a;--crit:#d03b3b;--down:#d03b3b;--up:#006300;}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])){color-scheme:dark;
+ --page:#0d0d0d;--surface:#1a1a19;--ink:#ffffff;--ink2:#c3c2b7;--muted:#898781;
+ --grid:#2c2c2a;--axis:#383835;--border:rgba(255,255,255,.10);
+ --call:#3987e5;--put:#e66767;--flip:#9085e9;--mp:#c98500;--up:#0ca30c;}}
+:root[data-theme="dark"]{color-scheme:dark;
+ --page:#0d0d0d;--surface:#1a1a19;--ink:#ffffff;--ink2:#c3c2b7;--muted:#898781;
+ --grid:#2c2c2a;--axis:#383835;--border:rgba(255,255,255,.10);
+ --call:#3987e5;--put:#e66767;--flip:#9085e9;--mp:#c98500;--up:#0ca30c;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);
+ font-family:system-ui,-apple-system,"Segoe UI","Malgun Gothic",sans-serif;line-height:1.55}
+.wrap{max-width:1060px;margin:0 auto;padding:20px 20px 60px}
+.switch{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.tab{display:inline-flex;align-items:baseline;gap:6px;text-decoration:none;
+ border:1px solid var(--border);border-radius:999px;padding:7px 15px;
+ font-size:.88rem;font-weight:650;color:var(--ink2);background:var(--surface)}
+.tab em{font-style:normal;font-weight:400;font-size:.78rem;color:var(--muted)}
+.tab:hover{border-color:var(--call);color:var(--call)}
+.tab.on{background:var(--ink);color:var(--page);border-color:var(--ink)}
+.tab.on em{color:var(--page);opacity:.7}
+.tab:focus-visible{outline:2px solid var(--call);outline-offset:2px}
+header h1{font-size:1.45rem;margin:0 0 2px;letter-spacing:-.01em}
+header .sub{color:var(--ink2);font-size:.88rem}
+header .asof{margin-top:10px;font-size:.83rem;color:var(--ink2);background:var(--surface);
+ border:1px solid var(--border);border-radius:10px;padding:11px 14px;line-height:1.6;
+ display:flex;flex-direction:column;gap:5px}
+header .asof strong{color:var(--ink)}
+.asof-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.asof-tag{flex:none;font-size:.7rem;font-weight:700;border-radius:5px;padding:2px 8px;
+ border:1px solid var(--border);letter-spacing:.02em}
+.asof-tag.live{color:var(--good);border-color:var(--good)}
+.asof-tag.day{color:var(--mp);border-color:var(--mp)}
+.asof-when{margin-top:3px;padding-top:7px;border-top:1px solid var(--grid);
+ font-size:.8rem;color:var(--muted)}
+.asof-when strong{color:var(--ink2)}
+.zone-lab{font-size:11px;font-weight:700}
+.zone-lab.put{fill:var(--put)}.zone-lab.call{fill:var(--call)}
+.flip-lab{font-size:10.5px;font-weight:700;fill:var(--flip)}
+.magnet{fill:var(--mp);opacity:.72;stroke:var(--surface);stroke-width:2}
+.mag-lab{font-size:10px;fill:var(--muted);font-variant-numeric:tabular-nums}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 12px;
+ font-size:.8rem;font-weight:600;border:1px solid var(--border)}
+.pill .dot{width:8px;height:8px;border-radius:50%}
+.pill.neg{color:var(--serious)}.pill.neg .dot{background:var(--serious)}
+.pill.pos{color:var(--good)}.pill.pos .dot{background:var(--good)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:20px 0}
+.tile{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.byline{font-size:.72rem;font-weight:600;color:var(--muted);border:1px solid var(--border);
+ border-radius:5px;padding:2px 8px;margin-left:6px;vertical-align:2px}
+.tile.wide{grid-column:span 2}
+@media (max-width:520px){.tile.wide{grid-column:span 1}}
+.tile .k{font-size:.72rem;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.tile .v{font-size:1.32rem;font-weight:650;margin-top:2px}
+.tile .s{font-size:.76rem;color:var(--ink2)}
+.tile .v.down{color:var(--down)}.tile .v.up{color:var(--up)}
+section{margin-top:30px}
+section>h2{font-size:1.02rem;margin:0 0 4px}
+section>.desc{color:var(--ink2);font-size:.85rem;margin:0 0 12px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;overflow-x:auto}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:880px){.duo{grid-template-columns:1fr}}
+svg{width:100%;height:auto;display:block}
+svg text{font-family:inherit}
+.axis,.klabel{font-size:10.5px;fill:var(--muted)}
+.klabel{font-variant-numeric:tabular-nums}
+.grid{stroke:var(--grid);stroke-width:1}
+.axisline{stroke:var(--axis);stroke-width:1.5}
+.bar-put{fill:var(--put)}.bar-call{fill:var(--call)}
+.bar-put.wall,.bar-call.wall{stroke:var(--ink);stroke-width:1}
+[data-tip]:hover{opacity:.8;cursor:default}
+.wall-label{font-size:10.5px;font-weight:700}
+.wall-label.put{fill:var(--put)}.wall-label.call{fill:var(--call)}
+.spotline{stroke:var(--ink);stroke-width:1.2;stroke-dasharray:5 4}
+.spot-label,.spotline-label{font-size:11px;font-weight:700;fill:var(--ink)}
+.flipline{stroke:var(--flip);stroke-width:1.2;stroke-dasharray:5 4}
+.flipline-label{font-size:11px;font-weight:700;fill:var(--flip)}
+.price-line{stroke:var(--call);stroke-width:2}
+.price-area{fill:var(--call);opacity:.08}
+.price-dot{fill:var(--call)}
+.lv-call{stroke:var(--call);stroke-width:1.3;stroke-dasharray:6 4}
+.lv-put{stroke:var(--put);stroke-width:1.3;stroke-dasharray:6 4}
+.lv-flip{stroke:var(--flip);stroke-width:1.3;stroke-dasharray:2 4}
+.lv-mp{stroke:var(--mp);stroke-width:1.3;stroke-dasharray:2 4}
+.lv-call-t{fill:var(--call)}.lv-put-t{fill:var(--put)}.lv-flip-t{fill:var(--flip)}.lv-mp-t{fill:var(--mp)}
+.lv-call-t,.lv-put-t,.lv-flip-t,.lv-mp-t{font-size:10.5px;font-weight:650}
+.hs-spot{stroke:var(--ink);stroke-width:2}.hs-spot-dot{fill:var(--ink)}.hs-spot-t{fill:var(--ink)}
+.hs-put{stroke:var(--put);stroke-width:2}.hs-put-dot{fill:var(--put)}.hs-put-t{fill:var(--put)}
+.hs-call{stroke:var(--call);stroke-width:2}.hs-call-dot{fill:var(--call)}.hs-call-t{fill:var(--call)}
+.hs-mp{stroke:var(--mp);stroke-width:2}.hs-mp-dot{fill:var(--mp)}.hs-mp-t{fill:var(--mp)}
+.hs-spot-t,.hs-put-t,.hs-call-t,.hs-mp-t{font-size:10.5px;font-weight:650}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;color:var(--ink2);margin-bottom:8px}
+.legend .sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+table.ladder{width:100%;border-collapse:collapse;font-size:.86rem}
+table.ladder th{text-align:left;color:var(--muted);font-size:.72rem;letter-spacing:.04em;
+ border-bottom:1px solid var(--grid);padding:6px 8px}
+table.ladder td{padding:6px 8px;border-bottom:1px solid var(--grid)}
+table.ladder tr:last-child td{border-bottom:none}
+td.num,th.num{font-variant-numeric:tabular-nums}
+td.note{color:var(--ink2);font-size:.8rem}
+td.dist{color:var(--muted)}
+tr.spot-row td{background:color-mix(in srgb,var(--call) 10%,transparent);font-weight:700}
+.chip{display:inline-block;font-size:.7rem;font-weight:600;border-radius:5px;padding:1px 7px;border:1px solid var(--border)}
+.chip-opt{color:var(--call);border-color:var(--call)}
+.chip-tech{color:var(--ink2)}.chip-ma{color:var(--muted)}
+.chip-spot{background:var(--ink);color:var(--page);border-color:var(--ink)}
+.prose h3{font-size:1rem;margin:18px 0 6px}
+.prose h4{font-size:.9rem;margin:16px 0 6px}
+.prose p,.prose li{font-size:.9rem;color:var(--ink2)}
+.prose strong{color:var(--ink)}
+.prose a{color:var(--call)}
+.muted{color:var(--muted);font-size:.82rem}
+footer{margin-top:36px;padding-top:14px;border-top:1px solid var(--grid);color:var(--muted);font-size:.78rem}
+#tip{position:fixed;z-index:9;pointer-events:none;opacity:0;transition:opacity .12s;
+ background:var(--ink);color:var(--page);font-size:.78rem;padding:5px 9px;border-radius:7px;max-width:260px}
+details summary{cursor:pointer;color:var(--ink2);font-size:.84rem;margin-top:10px}
+.occ-bar{display:flex;height:26px;border-radius:6px;overflow:hidden;gap:2px}
+.occ-seg{height:100%}
+.minibar{height:11px;border-radius:3px;min-width:2px}
+.callout{border-left:3px solid var(--mp);background:color-mix(in srgb,var(--mp) 8%,transparent);
+ padding:10px 12px;border-radius:0 8px 8px 0;font-size:.86rem;color:var(--ink2);margin:0 0 12px}
+.callout strong{color:var(--ink)}
+.intro{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+ padding:16px 18px;margin:18px 0 0;display:flex;flex-direction:column;gap:8px}
+.intro p{margin:0;font-size:.9rem;color:var(--ink2);line-height:1.6}
+.intro strong{color:var(--ink)}
+.intro em{font-style:normal;font-weight:650;color:var(--ink)}
+.zones{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.zones li{font-size:.87rem;color:var(--ink2);line-height:1.6;display:flex;gap:8px;align-items:flex-start}
+.zb{flex:none;width:10px;height:10px;border-radius:3px;margin-top:6px}
+.zb.put{background:var(--put)}.zb.call{background:var(--call)}
+.alert{display:flex;gap:12px;align-items:flex-start;border-radius:12px;padding:14px 16px;margin-top:14px;
+ border:1px solid var(--border)}
+.alert.danger{background:color-mix(in srgb,var(--crit) 11%,transparent);border-color:var(--crit)}
+.alert.calm{background:color-mix(in srgb,var(--good) 10%,transparent);border-color:var(--good)}
+.al-ic{flex:none;font-size:1.3rem;line-height:1.2}
+.alert.danger .al-ic{color:var(--crit)}.alert.calm .al-ic{color:var(--good)}
+.al-t{font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:4px}
+.al-b{font-size:.86rem;color:var(--ink2);line-height:1.65}
+.al-b strong{color:var(--ink)}
+.note-box{border-left:3px solid var(--border);padding:0 0 0 12px;margin:0 0 14px;
+ display:flex;flex-direction:column;gap:5px}
+.n-head{margin:0;font-size:.88rem;font-weight:650;color:var(--ink)}
+.n-body{margin:0;font-size:.84rem;color:var(--ink2);line-height:1.6}
+.n-rows{display:flex;flex-direction:column;gap:3px;font-size:.82rem;color:var(--ink2)}
+.n-ar{display:inline-block;width:16px;font-weight:700}
+.n-ar.up{color:var(--up)}.n-ar.dn{color:var(--down)}
+.n-cav{font-size:.8rem;color:var(--muted);margin-top:2px}
+.tile{cursor:help}
+.tile-help{background:var(--surface);border:1px solid var(--border);border-radius:10px;
+ padding:10px 14px;margin-top:10px}
+.tile-help>summary{margin:0;font-weight:600;color:var(--ink)}
+.tile-help[open]>summary{margin-bottom:12px}
+.th-item{margin:0 0 14px}
+.th-item:last-child{margin-bottom:2px}
+.th-name{font-size:.8rem;font-weight:700;color:var(--ink);
+ letter-spacing:.02em;margin:0 0 4px}
+.th-item .note-box{margin:0}
+</style>
+
+<div id="tip"></div>
+<div class="wrap">
+<nav class="switch"><a class="tab" href="QQQ.html" target="_top">QQQ <em>나스닥100</em></a><a class="tab" href="NVDA.html" target="_top">NVDA <em>엔비디아</em></a><a class="tab" href="TSLA.html" target="_top">TSLA <em>테슬라</em></a><a class="tab" href="AMZN.html" target="_top">AMZN <em>아마존</em></a><a class="tab" href="GOOGL.html" target="_top">GOOGL <em>알파벳A</em></a><a class="tab" href="SOXX.html" target="_top">SOXX <em>반도체</em></a><a class="tab" href="PLTR.html" target="_top">PLTR <em>팔란티어</em></a><a class="tab" href="CRWV.html" target="_top">CRWV <em>코어위브</em></a><a class="tab" href="IREN.html" target="_top">IREN <em>아이렌</em></a><a class="tab" href="IONQ.html" target="_top">IONQ <em>아이온큐</em></a><span class="tab on">TEM <em>템퍼스AI</em></span><a class="tab" href="EWY.html" target="_top">EWY <em>한국</em></a></nav>
+<header>
+ <h1>TEM 옵션 대시보드 <span style="font-weight:400;color:var(--ink2);font-size:1rem">나스닥100 ETF</span></h1>
+ <div class="sub"><span class="pill pos"><span class="dot"></span>증권사는 지금 변동성을 줄이는 구간</span></div>
+ <div class="asof">
+  <div class="asof-row"><span class="asof-tag live">주가</span>
+   2026-07-30 장 마감값</div>
+  <div class="asof-row"><span class="asof-tag live">옵션 거래량</span>
+   <strong>2026-07-30</strong> 하루치</div>
+  <div class="asof-row"><span class="asof-tag day">옵션 계약 수</span>
+   <strong>2026-07-30 장 마감 기준</strong></div>
+  <div class="asof-when">왜 다르냐면 — 보험이 얼마나 깔렸는지는 미국 정산소가 밤새 계산해서
+   <strong>미 동부 오전 6시 30분(한국 저녁 7시 30분)에 하루 딱 한 번</strong> 발표합니다.
+   그래서 장이 끝나도 그날 옵션 숫자는 <strong>다음 날 저녁에야</strong> 나옵니다.
+   이 페이지는 <strong>미국장이 열린 동안 15분마다</strong> 자동으로 새로 받습니다.
+   새 계약 수가 화면에 들어오는 건 <strong>미국장이 열리는 한국시간 밤 10시 30분 무렵</strong>입니다.<br>
+   <strong>거래량은 다릅니다 — 실시간으로 들어옵니다.</strong> 그래서 "평소보다 많이 거래된 자리"를 보면
+   계약 수가 갱신되기 전에도 <strong>지금 어디가 뜨거운지</strong> 알 수 있습니다.</div>
+ </div>
+</header>
+
+<div class="intro">
+ <p><strong>이 페이지가 뭐냐면.</strong> 옵션은 주가가 오르거나 내릴 때 돈을 받는 <em>보험</em>입니다.
+ <span style="color:var(--call);font-weight:650">콜</span>은 오를 때 버는 보험,
+ <span style="color:var(--put);font-weight:650">풋</span>은 내릴 때 버는 보험이에요.
+ 이 페이지는 <strong>지금 사람들이 어느 가격에, 어느 쪽으로 보험을 걸어놨는지</strong>를 보여줍니다.</p>
+ <p><strong>증권사가 하는 일.</strong> 보험을 팔아준 증권사는 손해를 막으려고 주식을 사고팝니다.
+ 그 방향이 두 가지입니다. 값이 오를 때 <em>같이 사주면</em> 값이 더 오르고, 반대로 <em>팔아버리면</em> 더 못 오릅니다.
+ 이 규모가 워낙 커서 그날 시장이 얼마나 흔들릴지가 여기서 갈립니다.</p>
+ <p><strong>가격에 선이 하나 있습니다 — 지금은 44.24달러.</strong> 이 선을 기준으로 증권사가 하는 일이 정반대가 됩니다.</p>
+ <ul class="zones">
+  <li><span class="zb put"></span><strong>44.24달러 아래 = 변동성을 키우는 구간.</strong>
+   증권사가 오르면 같이 사고, 내리면 같이 팝니다. 같이 밀어주니 <strong>움직임이 커집니다.</strong></li>
+  <li><span class="zb call"></span><strong>44.24달러 위 = 변동성을 줄이는 구간.</strong>
+   증권사가 더 오르면 팔고, 더 내리면 사줍니다. 가려는 쪽을 막으니 <strong>가격이 묶입니다.</strong></li>
+ </ul>
+ <p><strong>오늘 한 줄.</strong> TEM는 44.29달러(+0.00%)로
+ <strong>변동성을 줄이는 구간</strong>에 있습니다. 그래서 값이 한쪽으로 멀리 못 갑니다.
+ 다만 <strong>오를지 내릴지는 알려주지 않습니다.</strong> 얼마나 흔들릴지만 알려줍니다.</p>
+ <p class="muted">각 칸과 그래프 옆에 "이게 뭐냐면" 설명을 같이 적어뒀습니다.
+ 요약 칸 설명은 바로 아래 "눌러서 펼치기"를 누르면 나옵니다.</p>
+</div>
+<div class="alert calm"><div class="al-ic">✓</div><div><div class="al-t">오늘은 비교적 얌전할 가능성이 큽니다</div><div class="al-b">지금 44.29달러는 갈림길(44.24) <strong>위</strong>입니다. 이 구간에서는 증권사가 더 오르면 팔고 더 내리면 사줘서 <strong>가격이 한쪽으로 멀리 가기 어렵습니다</strong>. 1년치 검증에서 이 구간의 다음날 움직임이 반대 구간의 <strong>절반</strong>이었습니다. 다만 갈림길과 0.1% 차이라 아래로 내려가면 성격이 바뀝니다.</div></div></div>
+
+<div class="tiles">
+ <div class="tile" data-tip="지금 이 주식이 얼마인지. 아래 칸들은 전부 이 가격을 중심으로 봅니다. ↑ 가격이 오르면 위쪽에 보험이 몰린 가격대에 가까워집니다. ↓ 가격이 내리면 아래쪽에 보험이 몰린 가격대에 가까워집니다. ⚠ 오늘 많이 올랐다고 내일도 오르는 건 아닙니다."><div class="k">지금 가격</div><div class="v up">44.29</div><div class="s">+0.00% · 어제보다</div></div>
+ <div class="tile" data-tip="보험이 가장 두껍게 깔린 곳. 사람들이 보험을 미리 사둔 가격대입니다. 아래쪽에는 내릴 때 돈 받는 보험(풋)이, 위쪽에는 오를 때 돈 받는 보험(콜)이 제일 많습니다. 살아있는 계약 수로 셉니다. ↑ 가격이 위쪽 숫자에 가까워지면 오를 때 버는 보험이 두꺼운 구간입니다. ↓ 가격이 아래쪽 숫자에 가까워지면 내릴 때 버는 보험이 두꺼운 구간입니다. ⚠ 1년치 검증에서 여기서 반등한다는 예측력은 없었습니다. 그냥 위치 정보일 뿐입니다."><div class="k">보험이 제일 두꺼운 곳</div><div class="v">40 / 50</div><div class="s">아래쪽 / 위쪽</div></div>
+ <div class="tile wide" data-tip="증권사가 지금 어떻게 사고파는지. 보험을 팔아준 증권사는 손해를 막으려고 주식을 사고팝니다. 그런데 그 방향이 상황에 따라 정반대가 됩니다. 값이 오를 때 같이 사주면 값이 더 오르고, 반대로 팔아버리면 더 못 오릅니다. 1년치 검증에서 &#x27;같이 간다&#x27; 구간의 다음날 움직임이 2배 컸습니다. ↑ 갈림길 위로 올라가면 &#x27;반대로 산다&#x27;로 바뀌어 흔들림이 눌립니다. ↓ 갈림길 아래면 &#x27;같이 간다&#x27;라서 흔들림이 커지기 쉽습니다. ⚠ 오를지 내릴지 방향은 알려주지 않습니다. 흔들림 크기만 알려줍니다."><div class="k">지금 어느 구간인가</div><div class="v up" style="font-size:1.12rem">변동성을 줄이는 구간</div><div class="s">증권사가 더 오르면 팔고, 더 내리면 사줍니다 · 갈림길 44.24</div></div>
+ <div class="tile wide" data-tip="다음 만기까지 갈 만한 가격 범위. 옵션 값을 보면 시장이 어디까지 움직인다고 보는지 나옵니다. 그걸 실제 가격으로 바꿔 적은 것입니다. 예를 들어 671~686이면, 다음 만기까지 대체로 그 사이에 있을 거라는 뜻입니다. 10번 중 6~7번은 이 안에서 끝납니다. ↑ 범위가 넓으면 시장이 큰 출렁임을 각오한다는 뜻입니다. ↓ 범위가 좁으면 조용한 하루를 예상한다는 뜻입니다. ⚠ 10번 중 3~4번은 이 범위를 벗어납니다. 한계선이 아니라 대략의 눈금입니다."><div class="k">07/31까지 갈 만한 범위</div><div class="v" style="font-size:1.16rem">40.54 ~ 48.04</div><div class="s">지금 44.29 · 3번 중 2번은 이 안에서 끝납니다</div></div>
+ <div class="tile" data-tip="보험료가 실제보다 비싼가. 옵션 보험료에는 앞으로의 예상 흔들림이 들어 있습니다. 그 예상치와 실제로 최근에 흔들린 정도를 나란히 비교한 것입니다. ↑ 예상치가 실제보다 크면 사람들이 그만큼 불안하다는 뜻입니다. ↓ 예상치가 실제보다 작으면 시장이 마음을 놓고 있다는 뜻입니다. ⚠ 보험료가 비싸다고 큰 사건이 온다는 뜻은 아닙니다."><div class="k">보험료 비싼 정도</div><div class="v">1.6%</div><div class="s">실제 흔들림은 71.2%</div></div>
+ <div class="tile" data-tip="내릴 쪽 보험이 더 많은가. 풋은 내릴 때, 콜은 오를 때 돈 받는 보험입니다. 풋 계약수를 콜 계약수로 나눈 값입니다. ↑ 1보다 크면 하락 대비 보험이 더 많이 깔려 있다는 뜻입니다. ↓ 1보다 작으면 상승 쪽에 돈이 더 깔렸다는 뜻입니다. ⚠ 누가 사고 누가 팔았는지는 이 숫자로 알 수 없습니다."><div class="k">내릴 쪽 vs 오를 쪽</div><div class="v">0.58</div><div class="s">1보다 크면 내릴 쪽이 많음 · 풋콜비율</div></div>
+ <div class="tile" data-tip="당일치기 옵션 비중. 만기는 그 계약이 끝나는 날입니다. 오늘 하루 만에 끝나는 옵션이 있습니다(0DTE). 내일 이후를 대비하는 돈이 아니라 오늘 안에 승부를 보려는 돈입니다. ↑ 비중이 높으면 장중 움직임이 커지기 쉽습니다. ↓ 비중이 낮으면 좀 더 길게 보는 돈이 많다는 뜻입니다. ⚠ 비중이 높다고 오를지 내릴지가 정해지는 것은 아닙니다."><div class="k">당일치기 비중</div><div class="v">45%</div><div class="s">오늘 안에 끝나는 계약 · 0DTE</div></div>
+ <div class="tile" data-tip="만기에 끌린다는 자석 가격. 만기일에 옵션을 산 사람들이 가장 많이 잃는 가격입니다. 만기 근처에 가격이 이쪽으로 끌린다는 속설이 있습니다. ↑ 현재가보다 위에 있으면 자석이 위쪽에 있다는 뜻입니다. ↓ 현재가보다 아래에 있으면 자석이 아래쪽에 있다는 뜻입니다. ⚠ 1년치 검증에서 그냥 오늘 가격을 쓰는 것보다 못 맞혔습니다. 예측에 쓰지 마세요."><div class="k">옵션 산 사람이 제일 손해 보는 값</div><div class="v">44</div><div class="s">2026-07-31 만기 기준</div></div>
+</div>
+<details class="tile-help"><summary>위 칸들이 각각 무슨 뜻인지 (눌러서 펼치기)</summary>
+<div class="th-item"><div class="th-name">지금 가격</div><div class="note-box"><p class="n-head">지금 이 주식이 얼마인지.</p><p class="n-body">아래 칸들은 전부 이 가격을 중심으로 봅니다.</p><div class="n-rows"><div><span class="n-ar up">↑</span>가격이 오르면 위쪽에 보험이 몰린 가격대에 가까워집니다.</div><div><span class="n-ar dn">↓</span>가격이 내리면 아래쪽에 보험이 몰린 가격대에 가까워집니다.</div></div><div class="n-cav">⚠ 오늘 많이 올랐다고 내일도 오르는 건 아닙니다.</div></div></div><div class="th-item"><div class="th-name">보험이 제일 많이 깔린 곳</div><div class="note-box"><p class="n-head">보험이 가장 두껍게 깔린 곳.</p><p class="n-body">사람들이 보험을 미리 사둔 가격대입니다. 아래쪽에는 내릴 때 돈 받는 보험(풋)이, 위쪽에는 오를 때 돈 받는 보험(콜)이 제일 많습니다. 살아있는 계약 수로 셉니다.</p><div class="n-rows"><div><span class="n-ar up">↑</span>가격이 위쪽 숫자에 가까워지면 오를 때 버는 보험이 두꺼운 구간입니다.</div><div><span class="n-ar dn">↓</span>가격이 아래쪽 숫자에 가까워지면 내릴 때 버는 보험이 두꺼운 구간입니다.</div></div><div class="n-cav">⚠ 1년치 검증에서 여기서 반등한다는 예측력은 없었습니다. 그냥 위치 정보일 뿐입니다.</div></div></div><div class="th-item"><div class="th-name">증권사가 어떻게 사고파나</div><div class="note-box"><p class="n-head">증권사가 지금 어떻게 사고파는지.</p><p class="n-body">보험을 팔아준 증권사는 손해를 막으려고 주식을 사고팝니다. 그런데 그 방향이 상황에 따라 정반대가 됩니다. 값이 오를 때 같이 사주면 값이 더 오르고, 반대로 팔아버리면 더 못 오릅니다. 1년치 검증에서 &#x27;같이 간다&#x27; 구간의 다음날 움직임이 2배 컸습니다.</p><div class="n-rows"><div><span class="n-ar up">↑</span>갈림길 위로 올라가면 &#x27;반대로 산다&#x27;로 바뀌어 흔들림이 눌립니다.</div><div><span class="n-ar dn">↓</span>갈림길 아래면 &#x27;같이 간다&#x27;라서 흔들림이 커지기 쉽습니다.</div></div><div class="n-cav">⚠ 오를지 내릴지 방향은 알려주지 않습니다. 흔들림 크기만 알려줍니다.</div></div></div><div class="th-item"><div class="th-name">내일까지 흔들릴 폭</div><div class="note-box"><p class="n-head">다음 만기까지 갈 만한 가격 범위.</p><p class="n-body">옵션 값을 보면 시장이 어디까지 움직인다고 보는지 나옵니다. 그걸 실제 가격으로 바꿔 적은 것입니다. 예를 들어 671~686이면, 다음 만기까지 대체로 그 사이에 있을 거라는 뜻입니다. 10번 중 6~7번은 이 안에서 끝납니다.</p><div class="n-rows"><div><span class="n-ar up">↑</span>범위가 넓으면 시장이 큰 출렁임을 각오한다는 뜻입니다.</div><div><span class="n-ar dn">↓</span>범위가 좁으면 조용한 하루를 예상한다는 뜻입니다.</div></div><div class="n-cav">⚠ 10번 중 3~4번은 이 범위를 벗어납니다. 한계선이 아니라 대략의 눈금입니다.</div></div></div><div class="th-item"><div class="th-name">보험료 비싼 정도</div><div class="note-box"><p class="n-head">보험료가 실제보다 비싼가.</p><p class="n-body">옵션 보험료에는 앞으로의 예상 흔들림이 들어 있습니다. 그 예상치와 실제로 최근에 흔들린 정도를 나란히 비교한 것입니다.</p><div class="n-rows"><div><span class="n-ar up">↑</span>예상치가 실제보다 크면 사람들이 그만큼 불안하다는 뜻입니다.</div><div><span class="n-ar dn">↓</span>예상치가 실제보다 작으면 시장이 마음을 놓고 있다는 뜻입니다.</div></div><div class="n-cav">⚠ 보험료가 비싸다고 큰 사건이 온다는 뜻은 아닙니다.</div></div></div><div class="th-item"><div class="th-name">내릴 쪽 vs 오를 쪽</div><div class="note-box"><p class="n-head">내릴 쪽 보험이 더 많은가.</p><p class="n-body">풋은 내릴 때, 콜은 오를 때 돈 받는 보험입니다. 풋 계약수를 콜 계약수로 나눈 값입니다.</p><div class="n-rows"><div><span class="n-ar up">↑</span>1보다 크면 하락 대비 보험이 더 많이 깔려 있다는 뜻입니다.</div><div><span class="n-ar dn">↓</span>1보다 작으면 상승 쪽에 돈이 더 깔렸다는 뜻입니다.</div></div><div class="n-cav">⚠ 누가 사고 누가 팔았는지는 이 숫자로 알 수 없습니다.</div></div></div><div class="th-item"><div class="th-name">당일치기 비중</div><div class="note-box"><p class="n-head">당일치기 옵션 비중.</p><p class="n-body">만기는 그 계약이 끝나는 날입니다. 오늘 하루 만에 끝나는 옵션이 있습니다(0DTE). 내일 이후를 대비하는 돈이 아니라 오늘 안에 승부를 보려는 돈입니다.</p><div class="n-rows"><div><span class="n-ar up">↑</span>비중이 높으면 장중 움직임이 커지기 쉽습니다.</div><div><span class="n-ar dn">↓</span>비중이 낮으면 좀 더 길게 보는 돈이 많다는 뜻입니다.</div></div><div class="n-cav">⚠ 비중이 높다고 오를지 내릴지가 정해지는 것은 아닙니다.</div></div></div><div class="th-item"><div class="th-name">만기 자석 가격</div><div class="note-box"><p class="n-head">만기에 끌린다는 자석 가격.</p><p class="n-body">만기일에 옵션을 산 사람들이 가장 많이 잃는 가격입니다. 만기 근처에 가격이 이쪽으로 끌린다는 속설이 있습니다.</p><div class="n-rows"><div><span class="n-ar up">↑</span>현재가보다 위에 있으면 자석이 위쪽에 있다는 뜻입니다.</div><div><span class="n-ar dn">↓</span>현재가보다 아래에 있으면 자석이 아래쪽에 있다는 뜻입니다.</div></div><div class="n-cav">⚠ 1년치 검증에서 그냥 오늘 가격을 쓰는 것보다 못 맞혔습니다. 예측에 쓰지 마세요.</div></div></div>
+</details>
+<section><h2>지금 가격이 어느 구간에 있나</h2>
+ <p class="desc">갈림길을 기준으로 증권사가 하는 일이 뒤집힙니다. 동그라미는 계약이 많이 쌓인 자리입니다.</p>
+ <div class="card"><svg viewBox="0 0 720 168" role="img" aria-label="가격 구간 지도"><rect x="16" y="54" width="338.5" height="30" rx="4" fill="var(--put)" opacity="0.16" data-tip="이 아래에서는 증권사가 오르면 같이 사고 내리면 같이 팔아 움직임을 키웁니다"/><rect x="354.5" y="54" width="349.5" height="30" rx="4" fill="var(--call)" opacity="0.16" data-tip="이 위에서는 증권사가 더 오르면 팔고 더 내리면 사줘서 움직임을 눌러줍니다"/><text x="185.2" y="73" class="zone-lab put" text-anchor="middle">변동성을 키우는 구간</text><text x="529.2" y="73" class="zone-lab call" text-anchor="middle">변동성을 줄이는 구간</text><line x1="354.5" y1="46" x2="354.5" y2="92" class="flipline"/><text x="354.5" y="42" class="flip-lab" text-anchor="middle">갈림길 44.24</text><line x1="16" y1="118" x2="704" y2="118" class="grid"/><circle cx="438.8" cy="118" r="17.0" class="magnet" data-tip="45달러 · 계약 16,970개 · 자석 세기 가장 셈"/><text x="438.8" y="148" class="mag-lab" text-anchor="middle">45</text><circle cx="272.3" cy="118" r="5.7" class="magnet" data-tip="43.5달러 · 계약 967개 · 자석 세기 보통"/><text x="272.3" y="137" class="mag-lab" text-anchor="middle">44</text><circle cx="216.9" cy="118" r="5.5" class="magnet" data-tip="43달러 · 계약 726개 · 자석 세기 보통"/><text x="216.9" y="137" class="mag-lab" text-anchor="middle">43</text><circle cx="549.7" cy="118" r="5.3" class="magnet" data-tip="46달러 · 계약 477개 · 자석 세기 보통"/><text x="549.7" y="136" class="mag-lab" text-anchor="middle">46</text><circle cx="660.7" cy="118" r="5.3" class="magnet" data-tip="47달러 · 계약 399개 · 자석 세기 보통"/><text x="660.7" y="136" class="mag-lab" text-anchor="middle">47</text><line x1="360.0" y1="46" x2="360.0" y2="126" class="spotline"/><text x="360.0" y="28" class="spot-label" text-anchor="middle">지금 44.29</text></svg><p class="muted" style="margin-top:10px">지금 44.29달러는 <strong>변동성을 줄이는 구간</strong>에 있습니다. 동그라미는 계약이 많이 쌓인 가격입니다. 클수록 많이 쌓였다는 뜻입니다.</p><table class="ladder" style="margin-top:8px"><thead><tr><th>가격</th><th>쌓인 계약</th><th>지금에서</th><th>세기</th></tr></thead><tbody><tr><td class="num">45</td><td class="num">16,970개</td><td class="num dist">+1.6%</td><td>●●●</td></tr><tr><td class="num">43.5</td><td class="num">967개</td><td class="num dist">-1.8%</td><td>●</td></tr><tr><td class="num">43</td><td class="num">726개</td><td class="num dist">-2.9%</td><td>●</td></tr><tr><td class="num">46</td><td class="num">477개</td><td class="num dist">+3.9%</td><td>●</td></tr><tr><td class="num">47</td><td class="num">399개</td><td class="num dist">+6.1%</td><td>●</td></tr></tbody></table><p class="muted">자석이라고 부르지만, 1년치로 채점해보니 실제로 가격을 끌어당기는 힘은 확인되지 않았습니다. "돈이 여기 몰려 있다"는 위치 표시로만 보세요.</p></div></section>
+<section><h2>돈이 들어오고 나간 흐름</h2>
+ <div class="note-box"><p class="n-head">새로 생긴 계약과 사라진 계약.</p><p class="n-body">위로 솟은 진한 막대는 그날 새로 생긴 계약입니다. 아래로 내려간 흐린 막대는 사라진 계약입니다. 사라진 이유는 걸어뒀던 사람이 정리했거나 서로 상쇄했기 때문입니다. 만기로 저절로 없어진 계약은 여기서 뺐습니다. 그건 누가 판 게 아니라 계약 수명이 끝난 것이니까요.</p><div class="n-rows"><div><span class="n-ar up">↑</span>위 막대가 길수록 그날 새 돈이 많이 들어온 것입니다.</div><div><span class="n-ar dn">↓</span>아래 막대가 길수록 그날 정리하고 나간 계약이 많은 것입니다.</div></div><div class="n-cav">⚠ 누가 왜 정리했는지, 사려던 건지 팔려던 건지는 알 수 없습니다.</div></div>
+ <div class="card"></div>
+ <div class="card" style="margin-top:12px"><p class='muted'>흐름 데이터가 아직 없습니다.</p></div></section>
+<div class="duo">
+ <section><h2>가격 지도</h2><div class="note-box"><p class="n-head">지금 가격 주변에 뭐가 있는지 보는 표.</p><p class="n-body">엘리베이터 층수판처럼 가격을 위아래로 늘어놓았습니다. 가운데가 지금 가격입니다. 위아래 칸에는 보험 계약이 몰린 자리를 적습니다. 최근 20일·50일·200일의 평균 가격을 이은 선도 함께 표시합니다.</p><div class="n-rows"><div><span class="n-ar up">↑</span>위쪽 칸이 촘촘하면 지금보다 높은 값에 걸린 돈이 많다는 뜻입니다.</div><div><span class="n-ar dn">↓</span>아래쪽 칸이 촘촘하면 지금보다 낮은 값에 걸린 돈이 많다는 뜻입니다.</div></div><div class="n-cav">⚠ 1년 검증에서 이 자리들은 반등을 맞히지 못했습니다. 위치 정보로만 보세요.</div></div>
+  <div class="card"><table class="ladder"><thead><tr><th>가격</th><th>구분</th><th>의미</th><th>현물대비</th></tr></thead><tbody><tr><td class="num">104.32</td><td><span class="chip chip-tech">기술</span></td><td class="note">최근 1년 중 가장 높았던 값</td><td class="num dist">+135.5%</td></tr><tr><td class="num">63.03</td><td><span class="chip chip-tech">기술</span></td><td class="note">과거에 2번 부딪히고 내려온 자리</td><td class="num dist">+42.3%</td></tr><tr><td class="num">61.79</td><td><span class="chip chip-tech">기술</span></td><td class="note">과거에 3번 부딪히고 내려온 자리</td><td class="num dist">+39.5%</td></tr><tr><td class="num">59.65</td><td><span class="chip chip-ma">이평</span></td><td class="note">최근 200일 평균 가격</td><td class="num dist">+34.7%</td></tr><tr><td class="num">54.62</td><td><span class="chip chip-tech">기술</span></td><td class="note">과거에 2번 부딪히고 내려온 자리</td><td class="num dist">+23.3%</td></tr><tr><td class="num">52.03</td><td><span class="chip chip-ma">이평</span></td><td class="note">최근 20일 평균 가격</td><td class="num dist">+17.5%</td></tr><tr><td class="num">51.06</td><td><span class="chip chip-ma">이평</span></td><td class="note">최근 50일 평균 가격</td><td class="num dist">+15.3%</td></tr><tr><td class="num">50</td><td><span class="chip chip-opt">옵션</span></td><td class="note">위쪽에서 오를 때 버는 보험이 제일 두꺼운 곳 · 7,387개 (콜월)</td><td class="num dist">+12.9%</td></tr><tr><td class="num">49.91</td><td><span class="chip chip-tech">기술</span></td><td class="note">과거에 3번 부딪히고 내려온 자리</td><td class="num dist">+12.7%</td></tr><tr class="spot-row"><td class="num">44.29</td><td><span class="chip chip-spot">현물</span></td><td class="note">지금 가격 (어제 종가)</td><td class="num dist">기준</td></tr><tr><td class="num">44.24</td><td><span class="chip chip-opt">옵션</span></td><td class="note">성격이 바뀌는 갈림길 · 위는 가격이 묶이고, 아래는 크게 움직임 (감마 플립)</td><td class="num dist">-0.1%</td></tr><tr><td class="num">43.5</td><td><span class="chip chip-opt">옵션</span></td><td class="note">2026-07-31 만기에 옵션 산 사람들이 가장 많이 잃는 값 (맥스페인)</td><td class="num dist">-1.8%</td></tr><tr><td class="num">42.51</td><td><span class="chip chip-tech">기술</span></td><td class="note">과거에 2번 부딪히고 올라온 자리</td><td class="num dist">-4.0%</td></tr><tr><td class="num">41.73</td><td><span class="chip chip-tech">기술</span></td><td class="note">과거에 1번 부딪히고 올라온 자리</td><td class="num dist">-5.8%</td></tr><tr><td class="num">40.77</td><td><span class="chip chip-tech">기술</span></td><td class="note">과거에 1번 부딪히고 올라온 자리</td><td class="num dist">-7.9%</td></tr><tr><td class="num">40</td><td><span class="chip chip-opt">옵션</span></td><td class="note">아래쪽에서 내릴 때 버는 보험이 제일 두꺼운 곳 · 9,467개 (풋월)</td><td class="num dist">-9.7%</td></tr></tbody></table></div></section>
+ <section><h2>어느 가격에 보험이 깔렸나</h2><div class="note-box"><p class="n-head">가격마다 보험이 얼마나 쌓였나.</p><p class="n-body">왼쪽 빨강은 내리면 돈 받는 보험(풋), 오른쪽 파랑은 오르면 돈 받는 보험(콜)입니다. 막대 길이는 지금 살아있는 계약 수입니다. 그날 사고판 횟수와 달리, 쌓인 채 남아 있는 양입니다.</p><div class="n-rows"><div><span class="n-ar up">↑</span>막대가 아주 길면 그 가격에 걸린 돈이 그만큼 많다는 뜻입니다.</div><div><span class="n-ar dn">↓</span>막대가 짧으면 그 가격은 사람들이 별로 신경 쓰지 않는 곳입니다.</div></div><div class="n-cav">⚠ 1년 검증에서 이 자리들은 주가를 멈춰 세우지 못했습니다. 위치 정보로만 보세요.</div></div>
+  <div class="card"><div class="legend"><span><span class="sw" style="background:var(--put)"></span>풋</span><span><span class="sw" style="background:var(--call)"></span>콜</span></div><svg viewBox="0 0 640 300" role="img" aria-label="행사가별 미결제약정">
+<line x1="320" y1="18" x2="320" y2="284" class="axisline"/>
+<rect x="296.0" y="20" width="0.0" height="12" rx="3" class="bar-put" data-tip="행사가 47.5 · 풋 OI 0계약"/>
+<rect x="344" y="20" width="0.0" height="12" rx="3" class="bar-call" data-tip="행사가 47.5 · 콜 OI 0계약"/>
+<text x="320" y="30" class="klabel" text-anchor="middle">48</text>
+<rect x="294.7" y="39" width="1.3" height="12" rx="3" class="bar-put" data-tip="행사가 47 · 풋 OI 72계약"/>
+<rect x="344" y="39" width="5.9" height="12" rx="3" class="bar-call" data-tip="행사가 47 · 콜 OI 327계약"/>
+<text x="320" y="49" class="klabel" text-anchor="middle">47</text>
+<rect x="296.0" y="58" width="0.0" height="12" rx="3" class="bar-put" data-tip="행사가 46.5 · 풋 OI 0계약"/>
+<rect x="344" y="58" width="0.0" height="12" rx="3" class="bar-call" data-tip="행사가 46.5 · 콜 OI 0계약"/>
+<text x="320" y="68" class="klabel" text-anchor="middle">46</text>
+<rect x="289.3" y="77" width="6.7" height="12" rx="3" class="bar-put" data-tip="행사가 46 · 풋 OI 372계약"/>
+<rect x="344" y="77" width="1.9" height="12" rx="3" class="bar-call" data-tip="행사가 46 · 콜 OI 105계약"/>
+<text x="320" y="87" class="klabel" text-anchor="middle">46</text>
+<rect x="296.0" y="96" width="0.0" height="12" rx="3" class="bar-put" data-tip="행사가 45.5 · 풋 OI 0계약"/>
+<rect x="344" y="96" width="0.0" height="12" rx="3" class="bar-call" data-tip="행사가 45.5 · 콜 OI 0계약"/>
+<text x="320" y="106" class="klabel" text-anchor="middle">46</text>
+<rect x="46.0" y="115" width="250.0" height="12" rx="3" class="bar-put" data-tip="행사가 45 · 풋 OI 13,872계약"/>
+<rect x="344" y="115" width="55.8" height="12" rx="3" class="bar-call" data-tip="행사가 45 · 콜 OI 3,098계약"/>
+<text x="320" y="125" class="klabel" text-anchor="middle">45</text>
+<rect x="296.0" y="134" width="0.0" height="12" rx="3" class="bar-put" data-tip="행사가 44.5 · 풋 OI 0계약"/>
+<rect x="344" y="134" width="0.0" height="12" rx="3" class="bar-call" data-tip="행사가 44.5 · 콜 OI 0계약"/>
+<text x="320" y="144" class="klabel" text-anchor="middle">44</text>
+<rect x="294.5" y="153" width="1.5" height="12" rx="3" class="bar-put" data-tip="행사가 44 · 풋 OI 81계약"/>
+<rect x="344" y="153" width="1.4" height="12" rx="3" class="bar-call" data-tip="행사가 44 · 콜 OI 77계약"/>
+<text x="320" y="163" class="klabel" text-anchor="middle">44</text>
+<rect x="296.0" y="172" width="0.0" height="12" rx="3" class="bar-put" data-tip="행사가 43.5 · 풋 OI 0계약"/>
+<rect x="344" y="172" width="17.4" height="12" rx="3" class="bar-call" data-tip="행사가 43.5 · 콜 OI 967계약"/>
+<text x="320" y="182" class="klabel" text-anchor="middle">44</text>
+<rect x="290.0" y="191" width="6.0" height="12" rx="3" class="bar-put" data-tip="행사가 43 · 풋 OI 333계약"/>
+<rect x="344" y="191" width="7.1" height="12" rx="3" class="bar-call" data-tip="행사가 43 · 콜 OI 393계약"/>
+<text x="320" y="201" class="klabel" text-anchor="middle">43</text>
+<rect x="294.6" y="210" width="1.4" height="12" rx="3" class="bar-put" data-tip="행사가 42.5 · 풋 OI 80계약"/>
+<rect x="344" y="210" width="0.0" height="12" rx="3" class="bar-call" data-tip="행사가 42.5 · 콜 OI 0계약"/>
+<text x="320" y="220" class="klabel" text-anchor="middle">42</text>
+<rect x="293.7" y="229" width="2.3" height="12" rx="3" class="bar-put" data-tip="행사가 42 · 풋 OI 130계약"/>
+<rect x="344" y="229" width="1.5" height="12" rx="3" class="bar-call" data-tip="행사가 42 · 콜 OI 82계약"/>
+<text x="320" y="239" class="klabel" text-anchor="middle">42</text>
+<rect x="294.5" y="248" width="1.5" height="12" rx="3" class="bar-put" data-tip="행사가 41.5 · 풋 OI 82계약"/>
+<rect x="344" y="248" width="0.0" height="12" rx="3" class="bar-call" data-tip="행사가 41.5 · 콜 OI 0계약"/>
+<text x="320" y="258" class="klabel" text-anchor="middle">42</text>
+<rect x="295.4" y="267" width="0.6" height="12" rx="3" class="bar-put" data-tip="행사가 41 · 풋 OI 34계약"/>
+<rect x="344" y="267" width="1.1" height="12" rx="3" class="bar-call" data-tip="행사가 41 · 콜 OI 61계약"/>
+<text x="320" y="277" class="klabel" text-anchor="middle">41</text>
+<line x1="30" y1="150" x2="610" y2="150" class="spotline"/>
+<text x="610" y="146" class="spot-label" text-anchor="end">현물 44.29</text>
+<text x="296" y="297" class="axis" text-anchor="end">← 풋 OI</text>
+<text x="344" y="297" class="axis">콜 OI →</text>
+</svg><details><summary>OI 상위 행사가 표로 보기</summary><table class="ladder"><thead><tr><th>풋 행사가</th><th>풋 OI</th><th>콜 행사가</th><th>콜 OI</th></tr></thead><tbody><tr><td class="num">45</td><td class="num">13,872</td><td class="num">50</td><td class="num">7,387</td></tr><tr><td class="num">40</td><td class="num">9,467</td><td class="num">45</td><td class="num">3,098</td></tr><tr><td class="num">50</td><td class="num">8,595</td><td class="num">43.5</td><td class="num">967</td></tr><tr><td class="num">46</td><td class="num">372</td><td class="num">40</td><td class="num">767</td></tr><tr><td class="num">43</td><td class="num">333</td><td class="num">43</td><td class="num">393</td></tr><tr><td class="num">48</td><td class="num">183</td><td class="num">49</td><td class="num">356</td></tr><tr><td class="num">42</td><td class="num">130</td><td class="num">47</td><td class="num">327</td></tr></tbody></table></details></div></section>
+</div>
+<section><h2>이 가격이 되면 증권사가 뭘 하나</h2>
+ <div class="note-box"><p class="n-head">증권사가 지금 어떻게 사고파는지.</p><p class="n-body">보험을 팔아준 증권사는 손해를 막으려고 주식을 사고팝니다. 그런데 그 방향이 상황에 따라 정반대가 됩니다. 값이 오를 때 같이 사주면 값이 더 오르고, 반대로 팔아버리면 더 못 오릅니다. 1년치 검증에서 &#x27;같이 간다&#x27; 구간의 다음날 움직임이 2배 컸습니다.</p><div class="n-rows"><div><span class="n-ar up">↑</span>갈림길 위로 올라가면 &#x27;반대로 산다&#x27;로 바뀌어 흔들림이 눌립니다.</div><div><span class="n-ar dn">↓</span>갈림길 아래면 &#x27;같이 간다&#x27;라서 흔들림이 커지기 쉽습니다.</div></div><div class="n-cav">⚠ 오를지 내릴지 방향은 알려주지 않습니다. 흔들림 크기만 알려줍니다.</div></div>
+ <div class="card"><svg viewBox="0 0 720 260" role="img" aria-label="가격별 증권사 행동 곡선"><rect x="20" y="26" width="680" height="94.0" fill="var(--call)" opacity="0.07"/><rect x="20" y="120.0" width="680" height="94.0" fill="var(--put)" opacity="0.07"/><text x="28" y="41" class="zone-lab call">↑ 변동성을 줄이는 구간 (오르면 팔고, 내리면 사줌)</text><text x="28" y="208" class="zone-lab put">↓ 변동성을 키우는 구간 (오르면 같이 사고, 내리면 같이 팜)</text><line x1="20" y1="120.0" x2="700" y2="120.0" class="axisline"/><polyline points="20.0,208.0 28.5,208.0 37.1,193.3 45.6,193.3 54.2,193.3 63.5,178.7 72.1,178.7 80.6,178.7 89.2,164.0 97.7,164.0 106.3,164.0 114.8,149.3 123.4,149.3 131.9,149.3 140.5,149.3 149.0,134.7 157.6,134.7 166.1,134.7 174.7,134.7 184.0,134.7 192.5,134.7 201.1,134.7 209.6,134.7 218.2,120.0 226.7,120.0 235.3,120.0 243.8,120.0 252.4,120.0 260.9,120.0 269.5,120.0 278.0,120.0 286.6,120.0 295.1,120.0 304.4,120.0 313.0,120.0 321.5,120.0 330.1,120.0 338.6,120.0 347.2,120.0 355.7,120.0 364.3,120.0 372.8,120.0 381.4,120.0 389.9,120.0 398.5,120.0 407.0,120.0 416.3,120.0 424.9,120.0 433.4,120.0 442.0,120.0 450.5,120.0 459.1,120.0 467.6,120.0 476.2,120.0 484.7,120.0 493.3,105.3 501.8,105.3 510.4,105.3 518.9,105.3 527.5,105.3 536.8,105.3 545.3,105.3 553.9,105.3 562.4,105.3 571.0,105.3 579.5,105.3 588.1,90.7 596.6,90.7 605.2,90.7 613.7,90.7 622.3,90.7 630.8,76.0 639.4,76.0 647.9,76.0 657.3,76.0 665.8,61.3 674.4,61.3 682.9,61.3 691.5,61.3 700.0,46.7" class="price-line" fill="none" stroke-width="2.5"/><line x1="355.7" y1="26" x2="355.7" y2="214" class="spotline"/><text x="350.7" y="229" class="spotline-label" text-anchor="end">지금 44.29</text><line x1="351.8" y1="26" x2="351.8" y2="214" class="flipline"/><text x="356.8" y="229" class="flipline-label" text-anchor="start">갈림길 44.24</text><text x="20.0" y="254" class="axis" text-anchor="middle">40</text><text x="360.0" y="254" class="axis" text-anchor="middle">44</text><text x="700.0" y="254" class="axis" text-anchor="middle">49</text></svg><p class="muted" style="margin-top:8px">가로축은 <strong>주가</strong>, 세로축은 <strong>그 가격이 되면 증권사가 변동성을 키우는지 줄이는지</strong>입니다. 지금 44.29달러는 선의 <strong>위쪽</strong>이라 <strong>변동성을 줄이는 구간</strong>입니다. 곡선이 가운데 선을 넘는 지점이 성격이 바뀌는 갈림길입니다.</p>
+  <details><summary>행사가별로 자세히 보기</summary><svg viewBox="0 0 720 250" role="img" aria-label="행사가별 감마 노출">
+<line x1="46" y1="116.0" x2="706" y2="116.0" class="axisline"/>
+<rect x="200.0" y="116.0" width="22.0" height="0.5" rx="3" class="bar-call" data-tip="40달러 부근 · 증권사 변동성 줄임 · 크기 0.00"/>
+<text x="211.0" y="234" class="axis" text-anchor="middle">40</text>
+<rect x="530.0" y="116.0" width="22.0" height="0.5" rx="3" class="bar-call" data-tip="45달러 부근 · 증권사 변동성 줄임 · 크기 0.00"/>
+<line x1="494.1" y1="16" x2="494.1" y2="216" class="spotline"/>
+<text x="490.1" y="26" class="spotline-label" text-anchor="end">현물 44.29</text>
+<line x1="490.8" y1="16" x2="490.8" y2="216" class="flipline"/>
+<text x="494.8" y="26" class="flipline-label" text-anchor="start">감마 플립 44.24</text>
+<text x="40" y="120.0" class="axis" text-anchor="end">0</text>
+<text x="40" y="26" class="axis" text-anchor="end">+1.0B</text>
+<text x="40" y="214" class="axis" text-anchor="end">-1.0B</text>
+</svg></details></div></section>
+<section><h2>최근 3개월 가격과 주요 선</h2>
+ <div class="note-box"><p class="n-head">3개월 주가에 주요 가격선 겹치기.</p><p class="n-body">굵은 선은 지난 3개월 실제 주가입니다. 가로선은 오늘 계산한 주요 가격 자리입니다. 가로선은 오늘 찍은 한 장의 사진이라 과거 구간과 딱 맞지는 않습니다.</p><div class="n-rows"><div><span class="n-ar up">↑</span>주가가 가로선보다 위에 있으면 그 자리를 이미 지나온 상태입니다.</div><div><span class="n-ar dn">↓</span>주가가 가로선보다 아래에 있으면 아직 그 자리 밑에 있는 상태입니다.</div></div><div class="n-cav">⚠ 여기 가로선의 자리들은 1년 검증에서 예측력이 없었습니다. 과거 주가를 막았다는 뜻이 아니라 오늘 기준 위치 표시입니다.</div></div>
+ <div class="card"><svg viewBox="0 0 720 300" role="img" aria-label="최근 90일 가격과 옵션 레벨">
+<line x1="46" y1="79.0" x2="628" y2="79.0" class="grid"/>
+<text x="40" y="83.0" class="axis" text-anchor="end">56</text>
+<line x1="46" y1="144.0" x2="628" y2="144.0" class="grid"/>
+<text x="40" y="148.0" class="axis" text-anchor="end">51</text>
+<line x1="46" y1="209.0" x2="628" y2="209.0" class="grid"/>
+<text x="40" y="213.0" class="axis" text-anchor="end">45</text>
+<polygon points="46.0,274.0 46.0,164.2 52.5,167.8 59.1,192.1 65.6,206.6 72.2,240.8 78.7,243.8 85.2,210.3 91.8,189.0 98.3,184.7 104.9,185.8 111.4,191.5 117.9,183.4 124.5,222.7 131.0,237.1 137.6,201.3 144.1,159.6 150.6,78.7 157.2,102.1 163.7,85.0 170.2,74.3 176.8,93.5 183.3,89.2 189.9,137.1 196.4,129.1 202.9,122.5 209.5,141.1 216.0,153.8 222.6,89.6 229.1,95.2 235.6,85.7 242.2,106.2 248.7,112.9 255.3,160.3 261.8,155.7 268.3,172.2 274.9,189.9 281.4,202.3 288.0,207.2 294.5,225.4 301.0,229.1 307.6,206.6 314.1,202.5 320.7,195.3 327.2,199.0 333.7,193.3 340.3,187.3 346.8,138.9 353.3,148.5 359.9,121.1 366.4,158.5 373.0,183.3 379.5,127.5 386.0,196.0 392.6,170.6 399.1,167.9 405.7,160.2 412.2,158.9 418.7,179.7 425.3,126.8 431.8,147.5 438.4,168.3 444.9,144.2 451.4,179.3 458.0,170.4 464.5,131.2 471.1,96.8 477.6,81.8 484.1,56.3 490.7,60.8 497.2,17.6 503.8,33.3 510.3,28.2 516.8,35.4 523.4,68.5 529.9,18.8 536.4,57.3 543.0,84.3 549.5,52.1 556.1,68.8 562.6,111.8 569.1,125.0 575.7,172.7 582.2,166.0 588.8,189.8 595.3,201.0 601.8,240.0 608.4,237.4 614.9,237.5 621.5,253.4 628.0,221.2 628.0,274.0" class="price-area"/>
+<polyline points="46.0,164.2 52.5,167.8 59.1,192.1 65.6,206.6 72.2,240.8 78.7,243.8 85.2,210.3 91.8,189.0 98.3,184.7 104.9,185.8 111.4,191.5 117.9,183.4 124.5,222.7 131.0,237.1 137.6,201.3 144.1,159.6 150.6,78.7 157.2,102.1 163.7,85.0 170.2,74.3 176.8,93.5 183.3,89.2 189.9,137.1 196.4,129.1 202.9,122.5 209.5,141.1 216.0,153.8 222.6,89.6 229.1,95.2 235.6,85.7 242.2,106.2 248.7,112.9 255.3,160.3 261.8,155.7 268.3,172.2 274.9,189.9 281.4,202.3 288.0,207.2 294.5,225.4 301.0,229.1 307.6,206.6 314.1,202.5 320.7,195.3 327.2,199.0 333.7,193.3 340.3,187.3 346.8,138.9 353.3,148.5 359.9,121.1 366.4,158.5 373.0,183.3 379.5,127.5 386.0,196.0 392.6,170.6 399.1,167.9 405.7,160.2 412.2,158.9 418.7,179.7 425.3,126.8 431.8,147.5 438.4,168.3 444.9,144.2 451.4,179.3 458.0,170.4 464.5,131.2 471.1,96.8 477.6,81.8 484.1,56.3 490.7,60.8 497.2,17.6 503.8,33.3 510.3,28.2 516.8,35.4 523.4,68.5 529.9,18.8 536.4,57.3 543.0,84.3 549.5,52.1 556.1,68.8 562.6,111.8 569.1,125.0 575.7,172.7 582.2,166.0 588.8,189.8 595.3,201.0 601.8,240.0 608.4,237.4 614.9,237.5 621.5,253.4 628.0,221.2" class="price-line" fill="none"/>
+<line x1="46" y1="154.0" x2="628" y2="154.0" class="lv-call" data-tip="위쪽 두꺼운 곳 50"/>
+<text x="633" y="158.0" class="lv-call-t">위쪽 두꺼운 곳 50</text>
+<line x1="46" y1="221.8" x2="628" y2="221.8" class="lv-flip" data-tip="갈림길 44.24"/>
+<text x="633" y="225.8" class="lv-flip-t">갈림길 44.24</text>
+<line x1="46" y1="230.5" x2="628" y2="230.5" class="lv-mp" data-tip="손해 제일 큰 값 43.5"/>
+<text x="633" y="247.5" class="lv-mp-t">손해 제일 큰 값 43.5</text>
+<line x1="46" y1="271.6" x2="628" y2="271.6" class="lv-put" data-tip="아래쪽 두꺼운 곳 40"/>
+<text x="633" y="275.6" class="lv-put-t">아래쪽 두꺼운 곳 40</text>
+<circle cx="628.0" cy="221.2" r="4" class="price-dot"/>
+<text x="620.0" y="212.2" class="spot-label" text-anchor="end">44.29</text>
+<text x="46.0" y="292" class="axis" text-anchor="start">03-23</text>
+<text x="340.3" y="292" class="axis" text-anchor="middle">05-27</text>
+<text x="628.0" y="292" class="axis" text-anchor="end">07-30</text>
+</svg></div></section>
+<section><h2>주요 가격선이 매일 어떻게 옮겨갔나</h2>
+ <div class="note-box"><p class="n-head">주요 가격선이 날마다 옮겨간 길.</p><p class="n-body">매일 계산한 주요 가격 자리를 이어 그린 선입니다. 값 자체보다 움직이는 방향이 핵심입니다. 하루 변화보다 며칠 연속 같은 방향인지를 보는 게 좋습니다.</p><div class="n-rows"><div><span class="n-ar up">↑</span>선이 계속 올라가면 대비하는 자리가 점점 높아지고 있다는 뜻입니다.</div><div><span class="n-ar dn">↓</span>선이 계속 내려가면 대비하는 자리가 점점 낮아지고 있다는 뜻입니다.</div></div><div class="n-cav">⚠ 이 자리들은 1년 검증에서 예측력이 없었습니다. 자리가 내려가도 주가가 따라 내려간다는 뜻은 아닙니다.</div></div>
+ <div class="card"><div class="legend"><span><span class="sw" style="background:var(--ink)"></span>주가</span><span><span class="sw" style="background:var(--put)"></span>아래쪽 두꺼운 곳</span><span><span class="sw" style="background:var(--call)"></span>위쪽 두꺼운 곳</span><span><span class="sw" style="background:var(--mp)"></span>손해 제일 큰 값</span></div><svg viewBox="0 0 720 240" role="img" aria-label="주요 레벨 일별 추이">
+<line x1="46" y1="64.0" x2="640" y2="64.0" class="grid"/>
+<text x="40" y="68.0" class="axis" text-anchor="end">48</text>
+<line x1="46" y1="114.0" x2="640" y2="114.0" class="grid"/>
+<text x="40" y="118.0" class="axis" text-anchor="end">45</text>
+<line x1="46" y1="164.0" x2="640" y2="164.0" class="grid"/>
+<text x="40" y="168.0" class="axis" text-anchor="end">42</text>
+<circle cx="46.0" cy="127.9" r="3.5" class="hs-spot-dot" data-tip="2026-07-30 · 주가 44.29"/>
+<text x="54.0" y="131.9" class="hs-spot-t">주가</text>
+<circle cx="46.0" cy="206.7" r="3.5" class="hs-put-dot" data-tip="2026-07-30 · 아래쪽 40"/>
+<text x="54.0" y="210.7" class="hs-put-t">아래쪽</text>
+<circle cx="46.0" cy="23.2" r="3.5" class="hs-call-dot" data-tip="2026-07-30 · 위쪽 50"/>
+<text x="54.0" y="27.2" class="hs-call-t">위쪽</text>
+<circle cx="46.0" cy="142.4" r="3.5" class="hs-mp-dot" data-tip="2026-07-30 · 손해최대 43.5"/>
+<text x="54.0" y="146.4" class="hs-mp-t">손해최대</text>
+<text x="46.0" y="232" class="axis" text-anchor="start">07-30</text>
+<text x="46.0" y="232" class="axis" text-anchor="start">07-30</text>
+</svg><p class="muted">일별 스냅샷이 쌓이면 추세선이 그려집니다. (현재 1일치)</p></div></section>
+<section><h2>어제 대비 늘고 준 자리</h2>
+ <div class="note-box"><p class="n-head">어제보다 늘어난 자리, 줄어든 자리.</p><p class="n-body">어제와 오늘의 계약 수를 가격별로 비교한 표입니다. 늘었으면 그 가격에 새 돈이 걸린 것이고, 줄었으면 걸어놨던 돈을 정리한 것입니다.</p><div class="n-rows"><div><span class="n-ar up">↑</span>늘어난 숫자가 클수록 그 가격에 새로 걸린 돈이 많습니다.</div><div><span class="n-ar dn">↓</span>줄어든 숫자가 클수록 그 가격에서 돈이 빠져나갔습니다.</div></div><div class="n-cav">⚠ 이 표는 지금 위치를 보여줄 뿐, 앞으로의 방향을 맞히지는 못합니다.</div></div>
+ <div class="card"><p class='muted'>전일 스냅샷이 아직 없어 다음 수집부터 표시됩니다.</p></div></section>
+<section><h2>평소보다 유난히 많이 거래된 자리</h2>
+ <div class="note-box"><p class="n-head">평소보다 유난히 많이 거래된 자리.</p><p class="n-body">원래 깔려 있던 계약 수보다 그날 거래가 훨씬 많은 자리입니다. 1,000계약 깔린 곳에서 20,000번 거래됐다면 20배입니다. 기존 사람들끼리 주고받은 것으로는 설명이 안 되는 규모라, 새 돈이 들어왔을 가능성이 큽니다.</p><div class="n-rows"><div><span class="n-ar up">↑</span>배수가 클수록 평소와 다른 큰 돈이 움직였을 가능성이 큽니다.</div><div><span class="n-ar dn">↓</span>배수가 낮으면 원래 있던 사람들끼리의 평범한 거래에 가깝습니다.</div></div><div class="n-cav">⚠ 산 건지 판 건지 모르고, 진짜 쌓였는지는 다음날 확인해야 합니다.</div></div>
+ <div class="card"><p class='muted'>기준(거래량 5,000+ 그리고 기존 OI의 1.5배 이상)을 넘는 특이 거래가 없습니다.</p></div></section>
+<section><h2>누가 거래했나</h2>
+ <div class="note-box"><p class="n-head">어제 누가 얼마나 거래했나.</p><p class="n-body">미국 옵션 정산소가 매일 내는 자료입니다. 어제 거래를 누가 했는지 나눠 봅니다. 여기 중개상이 다른 칸에서 말하는 증권사와 같은 쪽입니다. 증권사가 자기 돈으로 직접 건 것은 얼마 안 됩니다.</p><div class="n-rows"><div><span class="n-ar up">↑</span>내릴 쪽 비율이 1보다 크면 하락 대비에 더 기울었다는 뜻입니다.</div><div><span class="n-ar dn">↓</span>그 비율이 1보다 작으면 상승 쪽에 더 기울었다는 뜻입니다.</div></div><div class="n-cav">⚠ 산 건지 판 건지 안 나오고, 중개상 몫은 방향 신호가 아닙니다.</div></div>
+ <div class="card"><div class="callout"><strong>이 표 읽는 법</strong><br>거래의 절반 이상은 <strong>중개상</strong>입니다. 이들은 손님 반대편을 받아주는 역할이라 방향 신호로 읽지 않습니다. 봐야 할 건 나머지 둘입니다.<br><strong>증권사가 자기 돈으로 건 거래는 전체의 7.8%</strong>뿐이지만, 이쪽은 남의 주문이 아니라 자기 판단입니다. 어제 이들은 손님들보다 <strong>내릴 때 버는 쪽(풋)으로 훨씬</strong> 기울었습니다 (증권사 1.26 vs 손님 0.33).<br>자기 돈 거는 쪽이 손님과 다른 방향을 보면 눈여겨볼 만합니다. 다만 이것도 산 건지 판 건지는 나오지 않습니다.</div><p class="desc" style="margin:0 0 10px">기준일 2026-07-30 · 전 거래소 합산.</p><div class="occ-bar"><div class="occ-seg" style="width:37.58%;background:var(--call)" data-tip="고객 (개인·기관 주문) · 21,437계약 (37.6%)"></div><div class="occ-seg" style="width:7.82%;background:var(--mp)" data-tip="증권사 자기매매 · 4,459계약 (7.8%)"></div><div class="occ-seg" style="width:54.60%;background:var(--muted)" data-tip="마켓메이커 · 31,142계약 (54.6%)"></div></div><div class="legend" style="margin-top:8px"><span><span class="sw" style="background:var(--call)"></span>고객</span><span><span class="sw" style="background:var(--mp)"></span>증권사 자기매매</span><span><span class="sw" style="background:var(--muted)"></span>마켓메이커</span></div><table class="ladder" style="margin-top:10px"><thead><tr><th>주체</th><th>합계</th><th>비중</th><th>콜</th><th>풋</th><th>풋/콜</th></tr></thead><tbody><tr><td>고객 (개인·기관 주문)</td><td class="num">21,437</td><td class="num">37.6%</td><td class="num">16,071</td><td class="num">5,366</td><td class="num">0.33</td></tr><tr><td>증권사 자기매매</td><td class="num">4,459</td><td class="num">7.8%</td><td class="num">1,971</td><td class="num">2,488</td><td class="num">1.26</td></tr><tr><td>마켓메이커</td><td class="num">31,142</td><td class="num">54.6%</td><td class="num">19,706</td><td class="num">11,436</td><td class="num">0.58</td></tr></tbody></table><p class="muted">증권사 자기매매(자기 돈을 거는 쪽)의 풋/콜은 1.26, 고객은 0.33 — 증권사가 고객보다 내릴 때 버는 쪽(풋)으로 기울어 있습니다. 마켓메이커는 상대를 받아주는 쪽이라 방향 신호로 읽지 않습니다. 매수·매도 방향과 신규·청산 구분은 이 데이터에 없습니다.</p></div></section>
+<section><h2>언제 큰 만기가 오나</h2>
+ <div class="note-box"><p class="n-head">큰 만기가 언제 오는지 보는 표.</p><p class="n-body">보험 계약이 끝나는 날(만기)별로 얼마나 쌓였는지 봅니다. 만기가 지나면 그 계약들은 한꺼번에 사라집니다. 그러면 증권사가 대비하려고 하던 매매도 같이 사라집니다. 그래서 그 날 앞뒤로 흐름이 달라지기 쉽습니다.</p><div class="n-rows"><div><span class="n-ar up">↑</span>한 날짜에 몰린 비중이 크면 그 날 전후로 흐름이 바뀌기 쉽습니다.</div><div><span class="n-ar dn">↓</span>비중이 고르게 흩어져 있으면 특정 날짜의 영향은 작습니다.</div></div><div class="n-cav">⚠ 어느 방향으로 풀릴지는 이 표가 말해 주지 않습니다.</div></div>
+ <div class="card"><div class="callout"><strong>이 표 읽는 법</strong><br>가장 큰 만기는 <strong>2026-08-14, 15일 뒤</strong>입니다. 전체의 47%인 2,283개 계약이 이날 한꺼번에 사라집니다. 아주 큰 만기입니다.<br>만기가 지나면 그 계약들 때문에 증권사가 하던 매매도 같이 없어집니다. 값을 붙잡고 있던 것이든 밀고 있던 것이든, 그 힘이 사라지는 겁니다. 그래서 큰 만기 직후에는 그 전과 다른 움직임이 나오기 쉽습니다. 어느 방향으로 갈지는 이 표가 말해주지 않습니다.</div><table class="ladder"><thead><tr><th>만기 날짜</th><th>남은 날</th><th>그 만기의 증권사 성격</th><th>쌓인 계약</th><th>규모</th></tr></thead><tbody><tr><td class="num">2026-07-31</td><td class="num">1일 뒤</td><td>변동성 줄임</td><td class="num">2,990개</td><td style="width:36%"><div class="minibar" style="width:0.0%;background:var(--call)" data-tip="2026-07-31 · 쌓인 계약 2,990개 · 전체의 2.9%"></div></td></tr><tr><td class="num">2026-08-07</td><td class="num">8일 뒤</td><td>변동성 줄임</td><td class="num">1,625개</td><td style="width:36%"><div class="minibar" style="width:0.0%;background:var(--call)" data-tip="2026-08-07 · 쌓인 계약 1,625개 · 전체의 0.9%"></div></td></tr><tr style="font-weight:700"><td class="num">2026-08-14</td><td class="num">15일 뒤</td><td>변동성 줄임</td><td class="num">2,283개</td><td style="width:36%"><div class="minibar" style="width:0.0%;background:var(--call)" data-tip="2026-08-14 · 쌓인 계약 2,283개 · 전체의 47.0%"></div></td></tr><tr><td class="num">2026-08-21</td><td class="num">22일 뒤</td><td>변동성 줄임</td><td class="num">1,645개</td><td style="width:36%"><div class="minibar" style="width:0.0%;background:var(--call)" data-tip="2026-08-21 · 쌓인 계약 1,645개 · 전체의 3.3%"></div></td></tr><tr><td class="num">2026-08-28</td><td class="num">29일 뒤</td><td>변동성 줄임</td><td class="num">1,239개</td><td style="width:36%"><div class="minibar" style="width:0.0%;background:var(--call)" data-tip="2026-08-28 · 쌓인 계약 1,239개 · 전체의 1.1%"></div></td></tr><tr><td class="num">2026-09-04</td><td class="num">36일 뒤</td><td>변동성 줄임</td><td class="num">86개</td><td style="width:36%"><div class="minibar" style="width:0.0%;background:var(--call)" data-tip="2026-09-04 · 쌓인 계약 86개 · 전체의 0.2%"></div></td></tr><tr><td class="num">2026-09-18</td><td class="num">50일 뒤</td><td>변동성 줄임</td><td class="num">60,277개</td><td style="width:36%"><div class="minibar" style="width:0.0%;background:var(--call)" data-tip="2026-09-18 · 쌓인 계약 60,277개 · 전체의 29.7%"></div></td></tr><tr><td class="num">2026-10-16</td><td class="num">78일 뒤</td><td>변동성 줄임</td><td class="num">15,969개</td><td style="width:36%"><div class="minibar" style="width:0.0%;background:var(--call)" data-tip="2026-10-16 · 쌓인 계약 15,969개 · 전체의 0.1%"></div></td></tr><tr><td class="num">2026-11-20</td><td class="num">113일 뒤</td><td>변동성 줄임</td><td class="num">10,744개</td><td style="width:36%"><div class="minibar" style="width:0.0%;background:var(--call)" data-tip="2026-11-20 · 쌓인 계약 10,744개 · 전체의 14.8%"></div></td></tr></tbody></table></div></section>
+<section><h2>보험료가 언제 제일 비싼가</h2>
+ <div class="note-box"><p class="n-head">어느 만기 보험료가 비싼가.</p><p class="n-body">가까운 만기와 먼 만기의 보험료를 곡선으로 비교합니다. 보통은 먼 만기가 더 비쌉니다. 시간이 길수록 무슨 일이 생길지 모르기 때문입니다. 가까운 쪽이 더 비싸지면 코앞의 일을 무서워한다는 뜻입니다.</p><div class="n-rows"><div><span class="n-ar up">↑</span>가까운 만기 값이 높으면 곧 있을 발표나 결정을 겁낸다는 뜻입니다.</div><div><span class="n-ar dn">↓</span>먼 만기가 더 높은 평소 모양이면 급한 걱정은 적다는 뜻입니다.</div></div><div class="n-cav">⚠ 이 곡선은 오를지 내릴지를 알려주지 않습니다. 모양은 며칠 만에도 뒤집힐 수 있습니다.</div></div>
+ <div class="card"><p class='muted'>만기별 IV 데이터가 부족합니다.</p></div></section>
+<section><h2>이 페이지 말이 맞았나 (성적표)</h2>
+ <div class="note-box"><p class="n-head">이 페이지가 맞았는지 채점한 표.</p><p class="n-body">지난 1년 실제 데이터로 이 지표들을 채점했습니다. 아무 자리나 찍었을 때와 비교했습니다. 옵션이 몰린 자리와 만기 자석 가격은 차이가 없었습니다. 다만 증권사가 어떻게 사고파는지는 다음날 움직임이 2배로 갈렸습니다.</p><div class="n-rows"><div><span class="n-ar up">↑</span>점수가 아무 자리나 찍은 것보다 높으면 쓸모가 있다는 뜻입니다.</div><div><span class="n-ar dn">↓</span>차이가 없으면 그 지표는 예측이 아니라 위치 정보일 뿐입니다.</div></div><div class="n-cav">⚠ 채점을 통과한 것은 증권사 상태 하나뿐입니다. 나머지는 예측이 아니라 위치 정보입니다.</div></div>
+ <div class="card"><p class="desc" style="margin:0 0 10px">검증 기간 2025-07-30 ~ 2026-07-28 · 표본 250일. 실제 과거 데이터로 각 지표가 맞았는지 채점한 것입니다.</p><table class="ladder"><thead><tr><th>검증한 주장</th><th>지표</th><th>대조군</th><th>차이</th><th>표본</th><th>판정</th></tr></thead><tbody><tr><td>OI가 몰린 자리가 정말 잘 버티나 (풋)</td><td class="num">52.5%</td><td class="num">49.7%</td><td class="num">+2.8%p</td><td class="num">802건</td><td><span class="chip" style="color:var(--serious);border-color:var(--serious)">차이 없음</span></td></tr><tr><td>OI가 몰린 자리가 정말 잘 막나 (콜)</td><td class="num">41.4%</td><td class="num">41.6%</td><td class="num">-0.2%p</td><td class="num">734건</td><td><span class="chip" style="color:var(--serious);border-color:var(--serious)">차이 없음</span></td></tr><tr><td>아래쪽 두꺼운 곳에서 정말 반등하나</td><td class="num">60.0%</td><td class="num">66.7%</td><td class="num">-6.7%p</td><td class="num">60회</td><td><span class="chip" style="color:var(--crit);border-color:var(--crit)">근거 없음</span></td></tr><tr><td>위쪽 두꺼운 곳에서 정말 막히나</td><td class="num">35.3%</td><td class="num">44.7%</td><td class="num">-9.4%p</td><td class="num">68회</td><td><span class="chip" style="color:var(--crit);border-color:var(--crit)">근거 없음</span></td></tr><tr><td>손해 제일 큰 값이 만기 가격을 맞히나</td><td class="num">오차 1.62%</td><td class="num">오차 0.93%</td><td class="num">-0.69%p</td><td class="num">250회</td><td><span class="chip" style="color:var(--crit);border-color:var(--crit)">근거 없음</span></td></tr><tr><td>갈림길 아래면 정말 더 흔들리나</td><td class="num">0.972%</td><td class="num">0.48%</td><td class="num">2.0배</td><td class="num">125일</td><td><span class="chip" style="color:var(--good);border-color:var(--good)">근거 있음</span></td></tr></tbody></table><p class="muted">맨 위 두 줄이 가장 공정한 비교입니다. 현물에서 같은 거리에 있는 행사가들만 모아 OI 상위 4분의 1과 하위 4분의 1로 갈라, 가격이 닿았을 때 되돌아왔는지를 비교했습니다. 거리 조건이 같으니 차이가 있다면 그건 OI 밀집 때문입니다. 아래 두 줄은 벽에서 1% 벗어난 자리를, 맥스페인은 "그냥 오늘 가격 그대로 쓰기"를 대조군으로 삼았습니다. 대조군을 못 이기면 그 지표엔 예측력이 없다는 뜻입니다. 한 종목·1년 결과라 확정은 아니지만, 벽을 "여기서 반등한다"가 아니라 "돈이 여기 몰려 있다"로만 읽어야 할 근거로는 충분합니다.</p></div></section>
+<section><h2>전망 <span class="byline">사람이 쓴 부분</span></h2>
+ <p class="desc">위쪽은 전부 자동 계산이고, 이 아래만 뉴스와 일정을 찾아 사람이 씁니다.</p>
+ <div class="card prose"><p class='muted'>전망 메모가 아직 없습니다.</p></div></section>
+<footer>데이터: 야후 파이낸스 (주가는 15~20분 지연, 보험 계약 수는 하루 한 번 갱신) · 증권사 행동 계산은 표준 공식을 쓴 근사치입니다.<br>
+본 대시보드는 정보 제공 목적이며 투자 자문이 아닙니다. 매매 판단과 책임은 이용자 본인에게 있습니다.</footer>
+</div>
+
+<script>
+(function(){
+ var tip=document.getElementById('tip');
+ var hoverOK=window.matchMedia&&window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+ if(!hoverOK){tip.remove();return;}          // 폰·태블릿에서는 떠 있는 설명을 아예 쓰지 않는다
+ function hide(){tip.style.opacity=0;}
+ document.querySelectorAll('[data-tip]').forEach(function(el){
+  el.addEventListener('mousemove',function(e){
+   tip.textContent=el.dataset.tip;tip.style.opacity=1;
+   tip.style.left=Math.min(e.clientX+12,window.innerWidth-280)+'px';
+   tip.style.top=Math.min(e.clientY+14,window.innerHeight-90)+'px';});
+  el.addEventListener('mouseleave',hide);
+ });
+ window.addEventListener('scroll',hide,{passive:true});
+ window.addEventListener('blur',hide);
+ document.addEventListener('touchstart',hide,{passive:true});
+})();
+</script>
+</body></html>
