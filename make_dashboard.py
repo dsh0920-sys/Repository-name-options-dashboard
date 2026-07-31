@@ -318,10 +318,37 @@ def build_price_chart(a, px):
             '<strong>손해최대</strong>는 옵션 산 사람이 가장 많이 잃는 값입니다.</p>')
 
 
+def build_history_read(hist_df, days=20):
+    """보험벽이 최근 어느 쪽으로 옮겨갔는지 문장으로 풀어준다."""
+    d = hist_df.tail(days).dropna(subset=["put_wall", "call_wall"])
+    if len(d) < 5:
+        return ""
+    first, last = d.iloc[0], d.iloc[-1]
+    parts = []
+    for key, name in (("put_wall", "아래 보험벽"), ("call_wall", "위 보험벽")):
+        a, b = float(first[key]), float(last[key])
+        if b > a:
+            parts.append(f"<strong>{name}</strong>은 {fmt(a)} → {fmt(b)}로 <strong>올라갔습니다</strong>")
+        elif b < a:
+            parts.append(f"<strong>{name}</strong>은 {fmt(a)} → {fmt(b)}로 <strong>내려갔습니다</strong>")
+        else:
+            parts.append(f"<strong>{name}</strong>은 {fmt(a)}에서 <strong>그대로</strong>입니다")
+    ps, cs = float(last["put_wall"]) - float(first["put_wall"]), float(last["call_wall"]) - float(first["call_wall"])
+    if ps > 0 and cs > 0:
+        read = "둘 다 위로 올라갔습니다. 사람들이 대비하는 가격대 자체가 높아졌다는 뜻입니다."
+    elif ps < 0 and cs < 0:
+        read = "둘 다 아래로 내려갔습니다. 사람들이 더 낮은 가격을 염두에 두고 있다는 뜻입니다."
+    elif ps < 0 and cs > 0:
+        read = "위아래로 벌어졌습니다. 더 넓은 범위를 열어두고 있다는 뜻입니다."
+    else:
+        read = "위아래가 좁혀졌습니다. 좁은 범위를 예상하고 있다는 뜻입니다."
+    return (f'<div class="callout"><strong>최근 {len(d)}거래일 동안</strong><br>'
+            f'{parts[0]}. {parts[1]}. {read}</div>')
+
 def build_history_chart(hist_df):
     series = [("spot", "주가", "hs-spot"), ("put_wall", "아래 보험벽", "hs-put"),
               ("call_wall", "위 보험벽", "hs-call"), ("max_pain_near", "손해최대", "hs-mp")]
-    df = hist_df.tail(30).reset_index(drop=True)
+    df = hist_df.tail(60).reset_index(drop=True)
     vals = [v for key, _, _ in series for v in df[key].dropna().tolist() if key in df]
     if not vals:
         return "<p class='muted'>히스토리가 없습니다.</p>"
@@ -1191,9 +1218,9 @@ def generate(ticker):
 <section><h2>최근 3개월 가격과 주요 선</h2>
  {note('price_chart')}
  <div class="card">{build_price_chart(a, px)}</div></section>
-<section><h2>주요 가격선이 매일 어떻게 옮겨갔나</h2>
+<section><h2>보험벽이 매일 어디로 옮겨갔나</h2>
  {note('level_history')}
- <div class="card">{legend_hist}{build_history_chart(hist)}{hist_note}</div></section>
+ <div class="card">{build_history_read(hist)}{legend_hist}{build_history_chart(hist)}{hist_note}</div></section>
 <section><h2>어제 대비 늘고 준 자리</h2>
  {note('oi_change')}
  <div class="card">{build_oi_change(a)}</div></section>

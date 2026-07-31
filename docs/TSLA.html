@@ -356,34 +356,266 @@ details summary{cursor:pointer;color:var(--ink2);font-size:.84rem;margin-top:10p
 <text x="320.0" y="292" class="axis" text-anchor="middle">05-27</text>
 <text x="588.0" y="292" class="axis" text-anchor="end">07-30</text>
 </svg><p class="muted" style="margin-top:6px">오른쪽 이름표 — <strong>위 보험벽</strong>·<strong>아래 보험벽</strong>은 보험이 제일 두껍게 깔린 가격, <strong>갈림길</strong>은 증권사 성격이 바뀌는 값, <strong>손해최대</strong>는 옵션 산 사람이 가장 많이 잃는 값입니다.</p></div></section>
-<section><h2>주요 가격선이 매일 어떻게 옮겨갔나</h2>
- <div class="note-box"><p class="n-head">주요 가격선이 날마다 옮겨간 길.</p><p class="n-body">매일 계산한 주요 가격 자리를 이어 그린 선입니다. 값 자체보다 움직이는 방향이 핵심입니다. 하루 변화보다 며칠 연속 같은 방향인지를 보는 게 좋습니다.</p><div class="n-rows"><div><span class="n-ar up">↑</span>선이 계속 올라가면 대비하는 자리가 점점 높아지고 있다는 뜻입니다.</div><div><span class="n-ar dn">↓</span>선이 계속 내려가면 대비하는 자리가 점점 낮아지고 있다는 뜻입니다.</div></div><div class="n-cav">⚠ 이 자리들은 1년 검증에서 예측력이 없었습니다. 자리가 내려가도 주가가 따라 내려간다는 뜻은 아닙니다.</div></div>
- <div class="card"><div class="legend"><span><span class="sw" style="background:var(--ink)"></span>주가</span><span><span class="sw" style="background:var(--put)"></span>아래 보험벽</span><span><span class="sw" style="background:var(--call)"></span>위 보험벽</span><span><span class="sw" style="background:var(--mp)"></span>손해최대</span></div><p class="muted" style="margin:0 0 10px">각 선이 뜻하는 것 — <strong>아래 보험벽</strong>은 지금 가격 <em>아래쪽</em>에서 내릴 때 버는 보험(풋)이 제일 두껍게 깔린 가격, <strong>위 보험벽</strong>은 <em>위쪽</em>에서 오를 때 버는 보험(콜)이 제일 두꺼운 가격입니다. <strong>손해최대</strong>는 가장 가까운 만기에 <em>옵션을 산 사람들 전체가 가장 많이 잃는 가격</em>입니다. 셋 다 달러 값이고, 주가와 같은 눈금 위에 그려집니다.</p><svg viewBox="0 0 720 240" role="img" aria-label="주요 레벨 일별 추이">
+<section><h2>보험벽이 매일 어디로 옮겨갔나</h2>
+ <div class="note-box"><p class="n-head">보험이 몰린 자리가 날마다 어디로 옮겨갔나.</p><p class="n-body">보험벽은 고정된 자리가 아닙니다. 사람들이 매일 새로 걸고 정리하니까 날마다 움직입니다. 그 움직임을 이어 그린 것이 이 그래프입니다. 검은 선이 실제 주가이고, 나머지 세 선은 그날그날 계산한 보험 자리입니다. 값 하나하나보다 어느 쪽으로 옮겨가고 있는지를 보세요.</p><div class="n-rows"><div><span class="n-ar up">↑</span>보험벽이 계속 위로 올라가면, 사람들이 더 높은 가격을 염두에 두고 있다는 뜻입니다.</div><div><span class="n-ar dn">↓</span>계속 내려가면, 더 낮은 가격에 대비하고 있다는 뜻입니다.</div></div><div class="n-cav">⚠ 자리가 내려간다고 주가가 따라 내려간다는 뜻은 아닙니다. 1년 검증에서 이 자리들은 예측력이 없었습니다.</div></div>
+ <div class="card"><div class="callout"><strong>최근 20거래일 동안</strong><br><strong>아래 보험벽</strong>은 350 → 300로 <strong>내려갔습니다</strong>. <strong>위 보험벽</strong>은 450 → 350로 <strong>내려갔습니다</strong>. 둘 다 아래로 내려갔습니다. 사람들이 더 낮은 가격을 염두에 두고 있다는 뜻입니다.</div><div class="legend"><span><span class="sw" style="background:var(--ink)"></span>주가</span><span><span class="sw" style="background:var(--put)"></span>아래 보험벽</span><span><span class="sw" style="background:var(--call)"></span>위 보험벽</span><span><span class="sw" style="background:var(--mp)"></span>손해최대</span></div><p class="muted" style="margin:0 0 10px">각 선이 뜻하는 것 — <strong>아래 보험벽</strong>은 지금 가격 <em>아래쪽</em>에서 내릴 때 버는 보험(풋)이 제일 두껍게 깔린 가격, <strong>위 보험벽</strong>은 <em>위쪽</em>에서 오를 때 버는 보험(콜)이 제일 두꺼운 가격입니다. <strong>손해최대</strong>는 가장 가까운 만기에 <em>옵션을 산 사람들 전체가 가장 많이 잃는 가격</em>입니다. 셋 다 달러 값이고, 주가와 같은 눈금 위에 그려집니다.</p><svg viewBox="0 0 720 240" role="img" aria-label="주요 레벨 일별 추이">
 <line x1="46" y1="64.0" x2="640" y2="64.0" class="grid"/>
-<text x="40" y="68.0" class="axis" text-anchor="end">339</text>
+<text x="40" y="68.0" class="axis" text-anchor="end">453</text>
 <line x1="46" y1="114.0" x2="640" y2="114.0" class="grid"/>
-<text x="40" y="118.0" class="axis" text-anchor="end">325</text>
+<text x="40" y="118.0" class="axis" text-anchor="end">401</text>
 <line x1="46" y1="164.0" x2="640" y2="164.0" class="grid"/>
-<text x="40" y="168.0" class="axis" text-anchor="end">311</text>
-<polyline points="46.0,172.1 640.0,172.1" class="hs-spot" fill="none"/>
-<circle cx="46.0" cy="172.1" r="3.5" class="hs-spot-dot" data-tip="2026-07-29 · 주가 308.85"/>
-<circle cx="640.0" cy="172.1" r="3.5" class="hs-spot-dot" data-tip="2026-07-30 · 주가 308.85"/>
-<text x="648.0" y="176.1" class="hs-spot-t">주가</text>
-<polyline points="46.0,203.4 640.0,203.4" class="hs-put" fill="none"/>
-<circle cx="46.0" cy="203.4" r="3.5" class="hs-put-dot" data-tip="2026-07-29 · 아래 보험벽 300"/>
-<circle cx="640.0" cy="203.4" r="3.5" class="hs-put-dot" data-tip="2026-07-30 · 아래 보험벽 300"/>
-<text x="648.0" y="207.4" class="hs-put-t">아래 보험벽</text>
-<polyline points="46.0,26.4 640.0,26.4" class="hs-call" fill="none"/>
-<circle cx="46.0" cy="26.4" r="3.5" class="hs-call-dot" data-tip="2026-07-29 · 위 보험벽 350"/>
-<circle cx="640.0" cy="26.4" r="3.5" class="hs-call-dot" data-tip="2026-07-30 · 위 보험벽 350"/>
-<text x="648.0" y="30.4" class="hs-call-t">위 보험벽</text>
-<polyline points="46.0,168.0 640.0,176.8" class="hs-mp" fill="none"/>
-<circle cx="46.0" cy="168.0" r="3.5" class="hs-mp-dot" data-tip="2026-07-29 · 손해최대 310"/>
-<circle cx="640.0" cy="176.8" r="3.5" class="hs-mp-dot" data-tip="2026-07-30 · 손해최대 307.5"/>
-<text x="648.0" y="180.8" class="hs-mp-t">손해최대</text>
-<text x="46.0" y="232" class="axis" text-anchor="start">07-29</text>
+<text x="40" y="168.0" class="axis" text-anchor="end">349</text>
+<polyline points="46.0,125.2 56.1,116.2 66.1,103.6 76.2,87.7 86.3,71.7 96.3,82.8 106.4,71.4 116.5,73.3 126.5,93.6 136.6,105.4 146.7,111.0 156.7,98.4 166.8,97.8 176.9,90.0 186.9,82.7 197.0,76.2 207.1,74.5 217.2,80.5 227.2,99.7 237.3,92.1 247.4,92.2 257.4,97.2 267.5,123.6 277.6,106.4 287.6,118.2 297.7,132.7 307.8,115.8 317.8,108.8 327.9,104.2 338.0,110.5 348.0,118.4 358.1,114.5 368.2,110.1 378.2,132.6 388.3,138.5 398.4,138.9 408.4,134.5 418.5,103.6 428.6,95.2 438.6,90.6 448.7,121.3 458.8,96.0 468.8,112.2 478.9,120.7 489.0,108.7 499.1,107.5 509.1,120.0 519.2,118.6 529.3,120.3 539.3,123.6 549.4,133.4 559.5,144.2 569.5,135.2 579.6,140.0 589.7,192.2 599.7,198.6 609.8,202.2 619.9,204.0 629.9,202.6 640.0,202.6" class="hs-spot" fill="none"/>
+<circle cx="46.0" cy="125.2" r="3.5" class="hs-spot-dot" data-tip="2026-05-05 · 주가 389.37"/>
+<circle cx="56.1" cy="116.2" r="3.5" class="hs-spot-dot" data-tip="2026-05-06 · 주가 398.73"/>
+<circle cx="66.1" cy="103.6" r="3.5" class="hs-spot-dot" data-tip="2026-05-07 · 주가 411.79"/>
+<circle cx="76.2" cy="87.7" r="3.5" class="hs-spot-dot" data-tip="2026-05-08 · 주가 428.35"/>
+<circle cx="86.3" cy="71.7" r="3.5" class="hs-spot-dot" data-tip="2026-05-11 · 주가 445"/>
+<circle cx="96.3" cy="82.8" r="3.5" class="hs-spot-dot" data-tip="2026-05-12 · 주가 433.45"/>
+<circle cx="106.4" cy="71.4" r="3.5" class="hs-spot-dot" data-tip="2026-05-13 · 주가 445.27"/>
+<circle cx="116.5" cy="73.3" r="3.5" class="hs-spot-dot" data-tip="2026-05-14 · 주가 443.3"/>
+<circle cx="126.5" cy="93.6" r="3.5" class="hs-spot-dot" data-tip="2026-05-15 · 주가 422.24"/>
+<circle cx="136.6" cy="105.4" r="3.5" class="hs-spot-dot" data-tip="2026-05-18 · 주가 409.99"/>
+<circle cx="146.7" cy="111.0" r="3.5" class="hs-spot-dot" data-tip="2026-05-19 · 주가 404.11"/>
+<circle cx="156.7" cy="98.4" r="3.5" class="hs-spot-dot" data-tip="2026-05-20 · 주가 417.26"/>
+<circle cx="166.8" cy="97.8" r="3.5" class="hs-spot-dot" data-tip="2026-05-21 · 주가 417.85"/>
+<circle cx="176.9" cy="90.0" r="3.5" class="hs-spot-dot" data-tip="2026-05-22 · 주가 426.01"/>
+<circle cx="186.9" cy="82.7" r="3.5" class="hs-spot-dot" data-tip="2026-05-26 · 주가 433.59"/>
+<circle cx="197.0" cy="76.2" r="3.5" class="hs-spot-dot" data-tip="2026-05-27 · 주가 440.36"/>
+<circle cx="207.1" cy="74.5" r="3.5" class="hs-spot-dot" data-tip="2026-05-28 · 주가 442.1"/>
+<circle cx="217.2" cy="80.5" r="3.5" class="hs-spot-dot" data-tip="2026-05-29 · 주가 435.79"/>
+<circle cx="227.2" cy="99.7" r="3.5" class="hs-spot-dot" data-tip="2026-06-01 · 주가 415.88"/>
+<circle cx="237.3" cy="92.1" r="3.5" class="hs-spot-dot" data-tip="2026-06-02 · 주가 423.74"/>
+<circle cx="247.4" cy="92.2" r="3.5" class="hs-spot-dot" data-tip="2026-06-03 · 주가 423.7"/>
+<circle cx="257.4" cy="97.2" r="3.5" class="hs-spot-dot" data-tip="2026-06-04 · 주가 418.45"/>
+<circle cx="267.5" cy="123.6" r="3.5" class="hs-spot-dot" data-tip="2026-06-05 · 주가 391"/>
+<circle cx="277.6" cy="106.4" r="3.5" class="hs-spot-dot" data-tip="2026-06-08 · 주가 408.95"/>
+<circle cx="287.6" cy="118.2" r="3.5" class="hs-spot-dot" data-tip="2026-06-09 · 주가 396.68"/>
+<circle cx="297.7" cy="132.7" r="3.5" class="hs-spot-dot" data-tip="2026-06-10 · 주가 381.59"/>
+<circle cx="307.8" cy="115.8" r="3.5" class="hs-spot-dot" data-tip="2026-06-11 · 주가 399.15"/>
+<circle cx="317.8" cy="108.8" r="3.5" class="hs-spot-dot" data-tip="2026-06-12 · 주가 406.43"/>
+<circle cx="327.9" cy="104.2" r="3.5" class="hs-spot-dot" data-tip="2026-06-15 · 주가 411.15"/>
+<circle cx="338.0" cy="110.5" r="3.5" class="hs-spot-dot" data-tip="2026-06-16 · 주가 404.66"/>
+<circle cx="348.0" cy="118.4" r="3.5" class="hs-spot-dot" data-tip="2026-06-17 · 주가 396.38"/>
+<circle cx="358.1" cy="114.5" r="3.5" class="hs-spot-dot" data-tip="2026-06-18 · 주가 400.49"/>
+<circle cx="368.2" cy="110.1" r="3.5" class="hs-spot-dot" data-tip="2026-06-22 · 주가 405.05"/>
+<circle cx="378.2" cy="132.6" r="3.5" class="hs-spot-dot" data-tip="2026-06-23 · 주가 381.61"/>
+<circle cx="388.3" cy="138.5" r="3.5" class="hs-spot-dot" data-tip="2026-06-24 · 주가 375.53"/>
+<circle cx="398.4" cy="138.9" r="3.5" class="hs-spot-dot" data-tip="2026-06-25 · 주가 375.12"/>
+<circle cx="408.4" cy="134.5" r="3.5" class="hs-spot-dot" data-tip="2026-06-26 · 주가 379.71"/>
+<circle cx="418.5" cy="103.6" r="3.5" class="hs-spot-dot" data-tip="2026-06-29 · 주가 411.84"/>
+<circle cx="428.6" cy="95.2" r="3.5" class="hs-spot-dot" data-tip="2026-06-30 · 주가 420.6"/>
+<circle cx="438.6" cy="90.6" r="3.5" class="hs-spot-dot" data-tip="2026-07-01 · 주가 425.3"/>
+<circle cx="448.7" cy="121.3" r="3.5" class="hs-spot-dot" data-tip="2026-07-02 · 주가 393.45"/>
+<circle cx="458.8" cy="96.0" r="3.5" class="hs-spot-dot" data-tip="2026-07-06 · 주가 419.77"/>
+<circle cx="468.8" cy="112.2" r="3.5" class="hs-spot-dot" data-tip="2026-07-07 · 주가 402.9"/>
+<circle cx="478.9" cy="120.7" r="3.5" class="hs-spot-dot" data-tip="2026-07-08 · 주가 394.06"/>
+<circle cx="489.0" cy="108.7" r="3.5" class="hs-spot-dot" data-tip="2026-07-09 · 주가 406.55"/>
+<circle cx="499.1" cy="107.5" r="3.5" class="hs-spot-dot" data-tip="2026-07-10 · 주가 407.76"/>
+<circle cx="509.1" cy="120.0" r="3.5" class="hs-spot-dot" data-tip="2026-07-13 · 주가 394.76"/>
+<circle cx="519.2" cy="118.6" r="3.5" class="hs-spot-dot" data-tip="2026-07-14 · 주가 396.18"/>
+<circle cx="529.3" cy="120.3" r="3.5" class="hs-spot-dot" data-tip="2026-07-15 · 주가 394.46"/>
+<circle cx="539.3" cy="123.6" r="3.5" class="hs-spot-dot" data-tip="2026-07-16 · 주가 391.06"/>
+<circle cx="549.4" cy="133.4" r="3.5" class="hs-spot-dot" data-tip="2026-07-17 · 주가 380.84"/>
+<circle cx="559.5" cy="144.2" r="3.5" class="hs-spot-dot" data-tip="2026-07-20 · 주가 369.57"/>
+<circle cx="569.5" cy="135.2" r="3.5" class="hs-spot-dot" data-tip="2026-07-21 · 주가 378.93"/>
+<circle cx="579.6" cy="140.0" r="3.5" class="hs-spot-dot" data-tip="2026-07-22 · 주가 374.01"/>
+<circle cx="589.7" cy="192.2" r="3.5" class="hs-spot-dot" data-tip="2026-07-23 · 주가 319.69"/>
+<circle cx="599.7" cy="198.6" r="3.5" class="hs-spot-dot" data-tip="2026-07-24 · 주가 313.03"/>
+<circle cx="609.8" cy="202.2" r="3.5" class="hs-spot-dot" data-tip="2026-07-27 · 주가 309.22"/>
+<circle cx="619.9" cy="204.0" r="3.5" class="hs-spot-dot" data-tip="2026-07-28 · 주가 307.44"/>
+<circle cx="629.9" cy="202.6" r="3.5" class="hs-spot-dot" data-tip="2026-07-29 · 주가 308.85"/>
+<circle cx="640.0" cy="202.6" r="3.5" class="hs-spot-dot" data-tip="2026-07-30 · 주가 308.85"/>
+<text x="648.0" y="206.6" class="hs-spot-t">주가</text>
+<polyline points="46.0,163.0 56.1,163.0 66.1,115.0 76.2,115.0 86.3,115.0 96.3,115.0 106.4,115.0 116.5,115.0 126.5,115.0 136.6,163.0 146.7,163.0 156.7,115.0 166.8,115.0 176.9,115.0 186.9,115.0 197.0,115.0 207.1,115.0 217.2,115.0 227.2,115.0 237.3,115.0 247.4,115.0 257.4,115.0 267.5,163.0 277.6,115.0 287.6,163.0 297.7,182.3 307.8,163.0 317.8,163.0 327.9,163.0 338.0,115.0 348.0,163.0 358.1,115.0 368.2,115.0 378.2,163.0 388.3,163.0 398.4,163.0 408.4,163.0 418.5,115.0 428.6,115.0 438.6,115.0 448.7,163.0 458.8,115.0 468.8,115.0 478.9,163.0 489.0,115.0 499.1,115.0 509.1,163.0 519.2,163.0 529.3,163.0 539.3,163.0 549.4,163.0 559.5,163.0 569.5,163.0 579.6,163.0 589.7,211.1 599.7,211.1 609.8,211.1 619.9,211.1 629.9,211.1 640.0,211.1" class="hs-put" fill="none"/>
+<circle cx="46.0" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-05-05 · 아래 보험벽 350"/>
+<circle cx="56.1" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-05-06 · 아래 보험벽 350"/>
+<circle cx="66.1" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-05-07 · 아래 보험벽 400"/>
+<circle cx="76.2" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-05-08 · 아래 보험벽 400"/>
+<circle cx="86.3" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-05-11 · 아래 보험벽 400"/>
+<circle cx="96.3" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-05-12 · 아래 보험벽 400"/>
+<circle cx="106.4" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-05-13 · 아래 보험벽 400"/>
+<circle cx="116.5" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-05-14 · 아래 보험벽 400"/>
+<circle cx="126.5" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-05-15 · 아래 보험벽 400"/>
+<circle cx="136.6" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-05-18 · 아래 보험벽 350"/>
+<circle cx="146.7" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-05-19 · 아래 보험벽 350"/>
+<circle cx="156.7" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-05-20 · 아래 보험벽 400"/>
+<circle cx="166.8" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-05-21 · 아래 보험벽 400"/>
+<circle cx="176.9" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-05-22 · 아래 보험벽 400"/>
+<circle cx="186.9" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-05-26 · 아래 보험벽 400"/>
+<circle cx="197.0" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-05-27 · 아래 보험벽 400"/>
+<circle cx="207.1" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-05-28 · 아래 보험벽 400"/>
+<circle cx="217.2" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-05-29 · 아래 보험벽 400"/>
+<circle cx="227.2" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-06-01 · 아래 보험벽 400"/>
+<circle cx="237.3" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-06-02 · 아래 보험벽 400"/>
+<circle cx="247.4" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-06-03 · 아래 보험벽 400"/>
+<circle cx="257.4" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-06-04 · 아래 보험벽 400"/>
+<circle cx="267.5" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-06-05 · 아래 보험벽 350"/>
+<circle cx="277.6" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-06-08 · 아래 보험벽 400"/>
+<circle cx="287.6" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-06-09 · 아래 보험벽 350"/>
+<circle cx="297.7" cy="182.3" r="3.5" class="hs-put-dot" data-tip="2026-06-10 · 아래 보험벽 330"/>
+<circle cx="307.8" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-06-11 · 아래 보험벽 350"/>
+<circle cx="317.8" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-06-12 · 아래 보험벽 350"/>
+<circle cx="327.9" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-06-15 · 아래 보험벽 350"/>
+<circle cx="338.0" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-06-16 · 아래 보험벽 400"/>
+<circle cx="348.0" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-06-17 · 아래 보험벽 350"/>
+<circle cx="358.1" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-06-18 · 아래 보험벽 400"/>
+<circle cx="368.2" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-06-22 · 아래 보험벽 400"/>
+<circle cx="378.2" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-06-23 · 아래 보험벽 350"/>
+<circle cx="388.3" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-06-24 · 아래 보험벽 350"/>
+<circle cx="398.4" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-06-25 · 아래 보험벽 350"/>
+<circle cx="408.4" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-06-26 · 아래 보험벽 350"/>
+<circle cx="418.5" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-06-29 · 아래 보험벽 400"/>
+<circle cx="428.6" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-06-30 · 아래 보험벽 400"/>
+<circle cx="438.6" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-07-01 · 아래 보험벽 400"/>
+<circle cx="448.7" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-07-02 · 아래 보험벽 350"/>
+<circle cx="458.8" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-07-06 · 아래 보험벽 400"/>
+<circle cx="468.8" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-07-07 · 아래 보험벽 400"/>
+<circle cx="478.9" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-07-08 · 아래 보험벽 350"/>
+<circle cx="489.0" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-07-09 · 아래 보험벽 400"/>
+<circle cx="499.1" cy="115.0" r="3.5" class="hs-put-dot" data-tip="2026-07-10 · 아래 보험벽 400"/>
+<circle cx="509.1" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-07-13 · 아래 보험벽 350"/>
+<circle cx="519.2" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-07-14 · 아래 보험벽 350"/>
+<circle cx="529.3" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-07-15 · 아래 보험벽 350"/>
+<circle cx="539.3" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-07-16 · 아래 보험벽 350"/>
+<circle cx="549.4" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-07-17 · 아래 보험벽 350"/>
+<circle cx="559.5" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-07-20 · 아래 보험벽 350"/>
+<circle cx="569.5" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-07-21 · 아래 보험벽 350"/>
+<circle cx="579.6" cy="163.0" r="3.5" class="hs-put-dot" data-tip="2026-07-22 · 아래 보험벽 350"/>
+<circle cx="589.7" cy="211.1" r="3.5" class="hs-put-dot" data-tip="2026-07-23 · 아래 보험벽 300"/>
+<circle cx="599.7" cy="211.1" r="3.5" class="hs-put-dot" data-tip="2026-07-24 · 아래 보험벽 300"/>
+<circle cx="609.8" cy="211.1" r="3.5" class="hs-put-dot" data-tip="2026-07-27 · 아래 보험벽 300"/>
+<circle cx="619.9" cy="211.1" r="3.5" class="hs-put-dot" data-tip="2026-07-28 · 아래 보험벽 300"/>
+<circle cx="629.9" cy="211.1" r="3.5" class="hs-put-dot" data-tip="2026-07-29 · 아래 보험벽 300"/>
+<circle cx="640.0" cy="211.1" r="3.5" class="hs-put-dot" data-tip="2026-07-30 · 아래 보험벽 300"/>
+<text x="648.0" y="215.1" class="hs-put-t">아래 보험벽</text>
+<polyline points="46.0,115.0 56.1,115.0 66.1,66.9 76.2,66.9 86.3,66.9 96.3,66.9 106.4,18.8 116.5,18.8 126.5,66.9 136.6,66.9 146.7,66.9 156.7,66.9 166.8,66.9 176.9,66.9 186.9,66.9 197.0,18.8 207.1,18.8 217.2,18.8 227.2,66.9 237.3,66.9 247.4,66.9 257.4,66.9 267.5,86.1 277.6,66.9 287.6,66.9 297.7,86.1 307.8,66.9 317.8,66.9 327.9,66.9 338.0,66.9 348.0,66.9 358.1,66.9 368.2,95.7 378.2,95.7 388.3,95.7 398.4,115.0 408.4,115.0 418.5,95.7 428.6,66.9 438.6,66.9 448.7,66.9 458.8,66.9 468.8,66.9 478.9,95.7 489.0,95.7 499.1,95.7 509.1,95.7 519.2,95.7 529.3,95.7 539.3,95.7 549.4,95.7 559.5,95.7 569.5,95.7 579.6,95.7 589.7,163.0 599.7,163.0 609.8,163.0 619.9,163.0 629.9,163.0 640.0,163.0" class="hs-call" fill="none"/>
+<circle cx="46.0" cy="115.0" r="3.5" class="hs-call-dot" data-tip="2026-05-05 · 위 보험벽 400"/>
+<circle cx="56.1" cy="115.0" r="3.5" class="hs-call-dot" data-tip="2026-05-06 · 위 보험벽 400"/>
+<circle cx="66.1" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-05-07 · 위 보험벽 450"/>
+<circle cx="76.2" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-05-08 · 위 보험벽 450"/>
+<circle cx="86.3" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-05-11 · 위 보험벽 450"/>
+<circle cx="96.3" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-05-12 · 위 보험벽 450"/>
+<circle cx="106.4" cy="18.8" r="3.5" class="hs-call-dot" data-tip="2026-05-13 · 위 보험벽 500"/>
+<circle cx="116.5" cy="18.8" r="3.5" class="hs-call-dot" data-tip="2026-05-14 · 위 보험벽 500"/>
+<circle cx="126.5" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-05-15 · 위 보험벽 450"/>
+<circle cx="136.6" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-05-18 · 위 보험벽 450"/>
+<circle cx="146.7" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-05-19 · 위 보험벽 450"/>
+<circle cx="156.7" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-05-20 · 위 보험벽 450"/>
+<circle cx="166.8" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-05-21 · 위 보험벽 450"/>
+<circle cx="176.9" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-05-22 · 위 보험벽 450"/>
+<circle cx="186.9" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-05-26 · 위 보험벽 450"/>
+<circle cx="197.0" cy="18.8" r="3.5" class="hs-call-dot" data-tip="2026-05-27 · 위 보험벽 500"/>
+<circle cx="207.1" cy="18.8" r="3.5" class="hs-call-dot" data-tip="2026-05-28 · 위 보험벽 500"/>
+<circle cx="217.2" cy="18.8" r="3.5" class="hs-call-dot" data-tip="2026-05-29 · 위 보험벽 500"/>
+<circle cx="227.2" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-06-01 · 위 보험벽 450"/>
+<circle cx="237.3" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-06-02 · 위 보험벽 450"/>
+<circle cx="247.4" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-06-03 · 위 보험벽 450"/>
+<circle cx="257.4" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-06-04 · 위 보험벽 450"/>
+<circle cx="267.5" cy="86.1" r="3.5" class="hs-call-dot" data-tip="2026-06-05 · 위 보험벽 430"/>
+<circle cx="277.6" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-06-08 · 위 보험벽 450"/>
+<circle cx="287.6" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-06-09 · 위 보험벽 450"/>
+<circle cx="297.7" cy="86.1" r="3.5" class="hs-call-dot" data-tip="2026-06-10 · 위 보험벽 430"/>
+<circle cx="307.8" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-06-11 · 위 보험벽 450"/>
+<circle cx="317.8" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-06-12 · 위 보험벽 450"/>
+<circle cx="327.9" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-06-15 · 위 보험벽 450"/>
+<circle cx="338.0" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-06-16 · 위 보험벽 450"/>
+<circle cx="348.0" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-06-17 · 위 보험벽 450"/>
+<circle cx="358.1" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-06-18 · 위 보험벽 450"/>
+<circle cx="368.2" cy="95.7" r="3.5" class="hs-call-dot" data-tip="2026-06-22 · 위 보험벽 420"/>
+<circle cx="378.2" cy="95.7" r="3.5" class="hs-call-dot" data-tip="2026-06-23 · 위 보험벽 420"/>
+<circle cx="388.3" cy="95.7" r="3.5" class="hs-call-dot" data-tip="2026-06-24 · 위 보험벽 420"/>
+<circle cx="398.4" cy="115.0" r="3.5" class="hs-call-dot" data-tip="2026-06-25 · 위 보험벽 400"/>
+<circle cx="408.4" cy="115.0" r="3.5" class="hs-call-dot" data-tip="2026-06-26 · 위 보험벽 400"/>
+<circle cx="418.5" cy="95.7" r="3.5" class="hs-call-dot" data-tip="2026-06-29 · 위 보험벽 420"/>
+<circle cx="428.6" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-06-30 · 위 보험벽 450"/>
+<circle cx="438.6" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-07-01 · 위 보험벽 450"/>
+<circle cx="448.7" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-07-02 · 위 보험벽 450"/>
+<circle cx="458.8" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-07-06 · 위 보험벽 450"/>
+<circle cx="468.8" cy="66.9" r="3.5" class="hs-call-dot" data-tip="2026-07-07 · 위 보험벽 450"/>
+<circle cx="478.9" cy="95.7" r="3.5" class="hs-call-dot" data-tip="2026-07-08 · 위 보험벽 420"/>
+<circle cx="489.0" cy="95.7" r="3.5" class="hs-call-dot" data-tip="2026-07-09 · 위 보험벽 420"/>
+<circle cx="499.1" cy="95.7" r="3.5" class="hs-call-dot" data-tip="2026-07-10 · 위 보험벽 420"/>
+<circle cx="509.1" cy="95.7" r="3.5" class="hs-call-dot" data-tip="2026-07-13 · 위 보험벽 420"/>
+<circle cx="519.2" cy="95.7" r="3.5" class="hs-call-dot" data-tip="2026-07-14 · 위 보험벽 420"/>
+<circle cx="529.3" cy="95.7" r="3.5" class="hs-call-dot" data-tip="2026-07-15 · 위 보험벽 420"/>
+<circle cx="539.3" cy="95.7" r="3.5" class="hs-call-dot" data-tip="2026-07-16 · 위 보험벽 420"/>
+<circle cx="549.4" cy="95.7" r="3.5" class="hs-call-dot" data-tip="2026-07-17 · 위 보험벽 420"/>
+<circle cx="559.5" cy="95.7" r="3.5" class="hs-call-dot" data-tip="2026-07-20 · 위 보험벽 420"/>
+<circle cx="569.5" cy="95.7" r="3.5" class="hs-call-dot" data-tip="2026-07-21 · 위 보험벽 420"/>
+<circle cx="579.6" cy="95.7" r="3.5" class="hs-call-dot" data-tip="2026-07-22 · 위 보험벽 420"/>
+<circle cx="589.7" cy="163.0" r="3.5" class="hs-call-dot" data-tip="2026-07-23 · 위 보험벽 350"/>
+<circle cx="599.7" cy="163.0" r="3.5" class="hs-call-dot" data-tip="2026-07-24 · 위 보험벽 350"/>
+<circle cx="609.8" cy="163.0" r="3.5" class="hs-call-dot" data-tip="2026-07-27 · 위 보험벽 350"/>
+<circle cx="619.9" cy="163.0" r="3.5" class="hs-call-dot" data-tip="2026-07-28 · 위 보험벽 350"/>
+<circle cx="629.9" cy="163.0" r="3.5" class="hs-call-dot" data-tip="2026-07-29 · 위 보험벽 350"/>
+<circle cx="640.0" cy="163.0" r="3.5" class="hs-call-dot" data-tip="2026-07-30 · 위 보험벽 350"/>
+<text x="648.0" y="167.0" class="hs-call-t">위 보험벽</text>
+<polyline points="46.0,124.6 56.1,129.4 66.1,124.6 76.2,117.4 86.3,105.3 96.3,90.9 106.4,115.0 116.5,110.2 126.5,81.3 136.6,86.1 146.7,98.1 156.7,105.3 166.8,105.3 176.9,100.5 186.9,90.9 197.0,95.7 207.1,93.3 217.2,81.3 227.2,78.9 237.3,93.3 247.4,95.7 257.4,95.7 267.5,93.3 277.6,100.5 287.6,107.8 297.7,107.8 307.8,115.0 317.8,115.0 327.9,115.0 338.0,105.3 348.0,143.8 358.1,115.0 368.2,117.4 378.2,112.6 388.3,119.8 398.4,124.6 408.4,134.2 418.5,134.2 428.6,119.8 438.6,124.6 448.7,107.8 458.8,112.6 468.8,105.3 478.9,115.0 489.0,115.0 499.1,115.0 509.1,110.2 519.2,115.0 529.3,115.0 539.3,117.4 549.4,122.2 559.5,122.2 569.5,124.6 579.6,129.4 589.7,134.2 599.7,184.7 609.8,191.9 619.9,196.7 629.9,201.5 640.0,203.9" class="hs-mp" fill="none"/>
+<circle cx="46.0" cy="124.6" r="3.5" class="hs-mp-dot" data-tip="2026-05-05 · 손해최대 390"/>
+<circle cx="56.1" cy="129.4" r="3.5" class="hs-mp-dot" data-tip="2026-05-06 · 손해최대 385"/>
+<circle cx="66.1" cy="124.6" r="3.5" class="hs-mp-dot" data-tip="2026-05-07 · 손해최대 390"/>
+<circle cx="76.2" cy="117.4" r="3.5" class="hs-mp-dot" data-tip="2026-05-08 · 손해최대 397.5"/>
+<circle cx="86.3" cy="105.3" r="3.5" class="hs-mp-dot" data-tip="2026-05-11 · 손해최대 410"/>
+<circle cx="96.3" cy="90.9" r="3.5" class="hs-mp-dot" data-tip="2026-05-12 · 손해최대 425"/>
+<circle cx="106.4" cy="115.0" r="3.5" class="hs-mp-dot" data-tip="2026-05-13 · 손해최대 400"/>
+<circle cx="116.5" cy="110.2" r="3.5" class="hs-mp-dot" data-tip="2026-05-14 · 손해최대 405"/>
+<circle cx="126.5" cy="81.3" r="3.5" class="hs-mp-dot" data-tip="2026-05-15 · 손해최대 435"/>
+<circle cx="136.6" cy="86.1" r="3.5" class="hs-mp-dot" data-tip="2026-05-18 · 손해최대 430"/>
+<circle cx="146.7" cy="98.1" r="3.5" class="hs-mp-dot" data-tip="2026-05-19 · 손해최대 417.5"/>
+<circle cx="156.7" cy="105.3" r="3.5" class="hs-mp-dot" data-tip="2026-05-20 · 손해최대 410"/>
+<circle cx="166.8" cy="105.3" r="3.5" class="hs-mp-dot" data-tip="2026-05-21 · 손해최대 410"/>
+<circle cx="176.9" cy="100.5" r="3.5" class="hs-mp-dot" data-tip="2026-05-22 · 손해최대 415"/>
+<circle cx="186.9" cy="90.9" r="3.5" class="hs-mp-dot" data-tip="2026-05-26 · 손해최대 425"/>
+<circle cx="197.0" cy="95.7" r="3.5" class="hs-mp-dot" data-tip="2026-05-27 · 손해최대 420"/>
+<circle cx="207.1" cy="93.3" r="3.5" class="hs-mp-dot" data-tip="2026-05-28 · 손해최대 422.5"/>
+<circle cx="217.2" cy="81.3" r="3.5" class="hs-mp-dot" data-tip="2026-05-29 · 손해최대 435"/>
+<circle cx="227.2" cy="78.9" r="3.5" class="hs-mp-dot" data-tip="2026-06-01 · 손해최대 437.5"/>
+<circle cx="237.3" cy="93.3" r="3.5" class="hs-mp-dot" data-tip="2026-06-02 · 손해최대 422.5"/>
+<circle cx="247.4" cy="95.7" r="3.5" class="hs-mp-dot" data-tip="2026-06-03 · 손해최대 420"/>
+<circle cx="257.4" cy="95.7" r="3.5" class="hs-mp-dot" data-tip="2026-06-04 · 손해최대 420"/>
+<circle cx="267.5" cy="93.3" r="3.5" class="hs-mp-dot" data-tip="2026-06-05 · 손해최대 422.5"/>
+<circle cx="277.6" cy="100.5" r="3.5" class="hs-mp-dot" data-tip="2026-06-08 · 손해최대 415"/>
+<circle cx="287.6" cy="107.8" r="3.5" class="hs-mp-dot" data-tip="2026-06-09 · 손해최대 407.5"/>
+<circle cx="297.7" cy="107.8" r="3.5" class="hs-mp-dot" data-tip="2026-06-10 · 손해최대 407.5"/>
+<circle cx="307.8" cy="115.0" r="3.5" class="hs-mp-dot" data-tip="2026-06-11 · 손해최대 400"/>
+<circle cx="317.8" cy="115.0" r="3.5" class="hs-mp-dot" data-tip="2026-06-12 · 손해최대 400"/>
+<circle cx="327.9" cy="115.0" r="3.5" class="hs-mp-dot" data-tip="2026-06-15 · 손해최대 400"/>
+<circle cx="338.0" cy="105.3" r="3.5" class="hs-mp-dot" data-tip="2026-06-16 · 손해최대 410"/>
+<circle cx="348.0" cy="143.8" r="3.5" class="hs-mp-dot" data-tip="2026-06-17 · 손해최대 370"/>
+<circle cx="358.1" cy="115.0" r="3.5" class="hs-mp-dot" data-tip="2026-06-18 · 손해최대 400"/>
+<circle cx="368.2" cy="117.4" r="3.5" class="hs-mp-dot" data-tip="2026-06-22 · 손해최대 397.5"/>
+<circle cx="378.2" cy="112.6" r="3.5" class="hs-mp-dot" data-tip="2026-06-23 · 손해최대 402.5"/>
+<circle cx="388.3" cy="119.8" r="3.5" class="hs-mp-dot" data-tip="2026-06-24 · 손해최대 395"/>
+<circle cx="398.4" cy="124.6" r="3.5" class="hs-mp-dot" data-tip="2026-06-25 · 손해최대 390"/>
+<circle cx="408.4" cy="134.2" r="3.5" class="hs-mp-dot" data-tip="2026-06-26 · 손해최대 380"/>
+<circle cx="418.5" cy="134.2" r="3.5" class="hs-mp-dot" data-tip="2026-06-29 · 손해최대 380"/>
+<circle cx="428.6" cy="119.8" r="3.5" class="hs-mp-dot" data-tip="2026-06-30 · 손해최대 395"/>
+<circle cx="438.6" cy="124.6" r="3.5" class="hs-mp-dot" data-tip="2026-07-01 · 손해최대 390"/>
+<circle cx="448.7" cy="107.8" r="3.5" class="hs-mp-dot" data-tip="2026-07-02 · 손해최대 407.5"/>
+<circle cx="458.8" cy="112.6" r="3.5" class="hs-mp-dot" data-tip="2026-07-06 · 손해최대 402.5"/>
+<circle cx="468.8" cy="105.3" r="3.5" class="hs-mp-dot" data-tip="2026-07-07 · 손해최대 410"/>
+<circle cx="478.9" cy="115.0" r="3.5" class="hs-mp-dot" data-tip="2026-07-08 · 손해최대 400"/>
+<circle cx="489.0" cy="115.0" r="3.5" class="hs-mp-dot" data-tip="2026-07-09 · 손해최대 400"/>
+<circle cx="499.1" cy="115.0" r="3.5" class="hs-mp-dot" data-tip="2026-07-10 · 손해최대 400"/>
+<circle cx="509.1" cy="110.2" r="3.5" class="hs-mp-dot" data-tip="2026-07-13 · 손해최대 405"/>
+<circle cx="519.2" cy="115.0" r="3.5" class="hs-mp-dot" data-tip="2026-07-14 · 손해최대 400"/>
+<circle cx="529.3" cy="115.0" r="3.5" class="hs-mp-dot" data-tip="2026-07-15 · 손해최대 400"/>
+<circle cx="539.3" cy="117.4" r="3.5" class="hs-mp-dot" data-tip="2026-07-16 · 손해최대 397.5"/>
+<circle cx="549.4" cy="122.2" r="3.5" class="hs-mp-dot" data-tip="2026-07-17 · 손해최대 392.5"/>
+<circle cx="559.5" cy="122.2" r="3.5" class="hs-mp-dot" data-tip="2026-07-20 · 손해최대 392.5"/>
+<circle cx="569.5" cy="124.6" r="3.5" class="hs-mp-dot" data-tip="2026-07-21 · 손해최대 390"/>
+<circle cx="579.6" cy="129.4" r="3.5" class="hs-mp-dot" data-tip="2026-07-22 · 손해최대 385"/>
+<circle cx="589.7" cy="134.2" r="3.5" class="hs-mp-dot" data-tip="2026-07-23 · 손해최대 380"/>
+<circle cx="599.7" cy="184.7" r="3.5" class="hs-mp-dot" data-tip="2026-07-24 · 손해최대 327.5"/>
+<circle cx="609.8" cy="191.9" r="3.5" class="hs-mp-dot" data-tip="2026-07-27 · 손해최대 320"/>
+<circle cx="619.9" cy="196.7" r="3.5" class="hs-mp-dot" data-tip="2026-07-28 · 손해최대 315"/>
+<circle cx="629.9" cy="201.5" r="3.5" class="hs-mp-dot" data-tip="2026-07-29 · 손해최대 310"/>
+<circle cx="640.0" cy="203.9" r="3.5" class="hs-mp-dot" data-tip="2026-07-30 · 손해최대 307.5"/>
+<text x="648.0" y="207.9" class="hs-mp-t">손해최대</text>
+<text x="46.0" y="232" class="axis" text-anchor="start">05-05</text>
 <text x="640.0" y="232" class="axis" text-anchor="end">07-30</text>
-</svg><p class="muted">일별 스냅샷이 쌓이면 추세선이 그려집니다. (현재 2일치)</p></div></section>
+</svg></div></section>
 <section><h2>어제 대비 늘고 준 자리</h2>
  <div class="note-box"><p class="n-head">어제보다 늘어난 자리, 줄어든 자리.</p><p class="n-body">어제와 오늘의 계약 수를 가격별로 비교한 표입니다. 늘었으면 그 가격에 새 돈이 걸린 것이고, 줄었으면 걸어놨던 돈을 정리한 것입니다.</p><div class="n-rows"><div><span class="n-ar up">↑</span>늘어난 숫자가 클수록 그 가격에 새로 걸린 돈이 많습니다.</div><div><span class="n-ar dn">↓</span>줄어든 숫자가 클수록 그 가격에서 돈이 빠져나갔습니다.</div></div><div class="n-cav">⚠ 이 표는 지금 위치를 보여줄 뿐, 앞으로의 방향을 맞히지는 못합니다.</div></div>
  <div class="card"><p class="desc" style="margin:0 0 10px">비교 기준: 2026-07-29 → 2026-07-30. 만기 소멸 0개(풋 0·콜 0계약 소멸), 신규 상장 만기 0개.</p>
