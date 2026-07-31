@@ -148,11 +148,58 @@ def fetch_occ(ticker, trade_date):
 
 
 def atm_strike(sub, spot):
-    # 콜·풋이 모두 존재하는 행사가 중 현물에 가장 가까운 것
-    both = set(sub[sub["type"] == "C"]["strike"]) & set(sub[sub["type"] == "P"]["strike"])
-    if not both:
+    # 콜·풋이 모두 있고, 실제로 값이 붙어 있는(호가나 미결제약정이 있는) 행사가만 후보로 쓴다.
+    # 텅 빈 행사가를 잡으면 내재변동성·기대변동폭이 통째로 엉킨다.
+    live = sub[(sub["oi"] > 0) | ((sub["bid"] > 0) & (sub["ask"] > 0))]
+    for cand in (live, sub):
+        both = set(cand[cand["type"] == "C"]["strike"]) & set(cand[cand["type"] == "P"]["strike"])
+        if both:
+            return min(both, key=lambda k: abs(k - spot))
+    return None
+
+
+def clean_iv(series):
+    """말이 되는 범위의 내재변동성만 남긴다 (0.00001 같은 쓰레기 값 제거)."""
+    s = pd.to_numeric(series, errors="coerce")
+    return s[(s >= 0.03) & (s <= 3.0)]
+
+
+def bs_price(spot, strike, sig, t_years, is_call):
+    d1 = (math.log(spot / strike) + (RISK_FREE + 0.5 * sig * sig) * t_years) / (sig * math.sqrt(t_years))
+    d2 = d1 - sig * math.sqrt(t_years)
+    disc = math.exp(-RISK_FREE * t_years)
+    call = spot * norm_cdf(d1) - strike * disc * norm_cdf(d2)
+    return call if is_call else call - spot + strike * disc
+
+
+def solve_iv(price, spot, strike, t_years, is_call):
+    """옵션 값에서 내재변동성을 직접 역산한다.
+    야후가 주는 iv 필드는 계산이 실패하면 0.5·0.25·0.125 같은 값을 그대로 뱉으므로 믿을 수 없다."""
+    if price <= 0 or t_years <= 0 or spot <= 0 or strike <= 0:
         return None
-    return min(both, key=lambda k: abs(k - spot))
+    intrinsic = max(0.0, spot - strike) if is_call else max(0.0, strike - spot)
+    if price <= intrinsic + 1e-6:
+        return None
+    lo, hi = 0.01, 3.0
+    for _ in range(60):
+        mid = 0.5 * (lo + hi)
+        if bs_price(spot, strike, mid, t_years, is_call) > price:
+            hi = mid
+        else:
+            lo = mid
+    iv = 0.5 * (lo + hi)
+    return iv if 0.02 < iv < 2.9 else None
+
+
+def atm_iv_from_prices(atm, spot, strike, t_years):
+    """ATM 콜·풋 값에서 각각 변동성을 역산해 평균낸다."""
+    vals = []
+    for _, r in atm.iterrows():
+        px = (r["bid"] + r["ask"]) / 2 if (r["bid"] > 0 and r["ask"] > 0) else r["last"]
+        v = solve_iv(px, spot, strike, t_years, r["type"] == "C")
+        if v:
+            vals.append(v)
+    return float(np.mean(vals)) if vals else None
 
 
 def mid_price(sub):
@@ -206,7 +253,10 @@ def extra_metrics(df, hist, spot, today):
         if atm_k is None:
             continue
         atm = sub[sub["strike"] == atm_k]
-        iv = float(atm[atm["iv"] > 0.03]["iv"].mean() or 0)
+        iv = atm_iv_from_prices(atm, spot, atm_k, max(0.5, dte) / 365.0)
+        if iv is None:
+            ivs = clean_iv(atm["iv"])
+            iv = float(ivs.median()) if len(ivs) else 0.0
         strad = mid_price(atm[atm["type"] == "C"]) + mid_price(atm[atm["type"] == "P"])
         if iv > 0:
             term.append({"expiry": e, "dte": dte, "iv": round(iv, 4)})
@@ -341,7 +391,11 @@ def analyze(ticker, df, hist, spot, today_str):
     ne = df[df["expiry"] == nearest]
     atm_k = atm_strike(ne, spot) or float(ne.iloc[(ne["strike"] - spot).abs().argsort()]["strike"].iloc[0])
     atm = ne[ne["strike"] == atm_k]
-    atm_iv = float(atm[atm["iv"] > 0]["iv"].mean() or 0)
+    near_dte = max(0.5, (datetime.strptime(nearest, "%Y-%m-%d").date() - today).days)
+    atm_iv = atm_iv_from_prices(atm, spot, atm_k, near_dte / 365.0)
+    if atm_iv is None:  # 역산이 안 되면 야후 값 중 말이 되는 것으로 대체
+        iv_ok = clean_iv(atm["iv"])
+        atm_iv = float(iv_ok.median()) if len(iv_ok) else 0.0
     straddle = mid_price(atm[atm["type"] == "C"]) + mid_price(atm[atm["type"] == "P"])
 
     # OTM 5% 스큐
@@ -404,7 +458,9 @@ def run(ticker):
         raise RuntimeError(f"{ticker} OI 기준 거래일을 정할 수 없음")
     trade_date = older[-1]
 
-    prev_close = float(hist.loc[hist.index.strftime("%Y-%m-%d") == trade_date, "Close"].iloc[-1])
+    # 등락률은 '직전 거래일 대비'여야 한다. OI 기준일과는 무관하게 계산한다.
+    closes = hist["Close"]
+    prev_close = float(closes.iloc[-1] if live else closes.iloc[-2] if len(closes) >= 2 else closes.iloc[-1])
     if live:
         print(f"  [안내] 장중 실행 — 현물은 실시간 {spot:.2f}, 옵션 숫자는 {trade_date} 마감 기준입니다.")
     elif sessions[-1] != trade_date:
