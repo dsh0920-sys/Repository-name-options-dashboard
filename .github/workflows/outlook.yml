@@ -7,11 +7,9 @@ on:
     - cron: "7 12 * * 1-5"
     # 아침분 — 한국시간 06:45 (update.yml의 06:30 데이터 갱신 직후, 미국장 마감 뒤)
     - cron: "45 21 * * 1-5"
+  # 클로드 액션은 push 이벤트를 받지 않는다. 파일을 고쳤을 때의 시험 실행은
+  # kick-outlook.yml이 이 workflow_dispatch를 대신 눌러준다.
   workflow_dispatch: {}
-  # 이 워크플로 파일 자체를 고치면 바로 한 번 돌려 확인한다.
-  push:
-    paths:
-      - ".github/workflows/outlook.yml"
 
 permissions:
   contents: write

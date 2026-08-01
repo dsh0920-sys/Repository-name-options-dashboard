@@ -1,0 +1,21 @@
+# 전망 워크플로를 고쳐 올렸을 때 사람 클릭 없이 한 번 돌려보게 하는 보조 워크플로.
+name: 전망 워크플로 시험 실행
+
+on:
+  push:
+    paths:
+      - ".github/workflows/outlook.yml"
+      - ".github/workflows/kick-outlook.yml"
+  workflow_dispatch: {}
+
+permissions:
+  actions: write
+
+jobs:
+  kick:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 전망 워크플로 실행 요청
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run outlook.yml --repo "${{ github.repository }}"
