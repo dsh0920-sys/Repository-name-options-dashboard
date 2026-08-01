@@ -50,8 +50,10 @@ jobs:
           fi
 
       - name: 전망 글 쓰기
+        id: claude
         uses: anthropics/claude-code-action@v1.0.183
         with:
+          show_full_output: true
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # 예약 실행과 시험 실행 모두 깃허브 로봇 이름으로 들어온다. 없으면 사람이 아니라며 거부한다.
@@ -112,6 +114,31 @@ jobs:
             지표이므로(변동성을 키우는 구간의 다음날 흔들림이 2배) 변동성 서술의 주된 근거로 삼아라.
 
             **12종목을 하나도 빠뜨리지 마라.** 12개 파일을 다 쓴 뒤에 끝내라.
+
+      # 실행 로그는 열쇠 없이 못 읽으므로, 실패하면 오류 내용을 저장소에 남긴다.
+      - name: 실패하면 오류를 저장소에 적기
+        if: failure()
+        env:
+          EXEC: ${{ steps.claude.outputs.execution_file }}
+        run: |
+          mkdir -p .debug
+          {
+            echo "=== 실행 $GITHUB_RUN_ID / $(date -u '+%Y-%m-%d %H:%M UTC') ==="
+            echo "execution_file 경로: '$EXEC'"
+            if [ -n "$EXEC" ] && [ -f "$EXEC" ]; then
+              echo "--- 내용 ---"
+              head -c 30000 "$EXEC"
+            else
+              echo "--- 파일이 없어 후보 경로를 훑는다 ---"
+              ls -la /tmp/claude-execution* /home/runner/work/_temp/claude-execution* 2>/dev/null || echo "후보 없음"
+              find /tmp /home/runner/work/_temp -maxdepth 2 -name "*.json" -newermt "-10 minutes" 2>/dev/null | head -20
+            fi
+          } > .debug/last-error.txt 2>&1
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f .debug/last-error.txt
+          git commit -q -m "실행 오류 기록 $GITHUB_RUN_ID" || exit 0
+          git pull --rebase -q -X theirs origin main && git push -q origin main && echo "오류 기록 올림"
 
       - name: 12종목이 다 나왔는지 검사
         run: |
