@@ -1076,7 +1076,14 @@ def generate(ticker):
     chg = a.get("chg_pct")
     if chg is None:
         chg = (closes[-1] / closes[-2] - 1) * 100 if len(closes) > 1 else 0
-    neg_gamma = bool(a.get("gamma_flip") and spot < a["gamma_flip"])
+    # 구간 판정은 갈림길 위치가 아니라 '지금 감마의 부호'로 한다.
+    # 가격이 크게 움직이면 갈림길이 화면 범위 밖으로 나가 못 잡히는데,
+    # 그때 임의로 한쪽으로 표시하면 가장 중요한 지표가 거꾸로 나온다.
+    gex_now = a.get("gex_total_bn", 0) or 0
+    neg_gamma = gex_now < 0
+    flip = a.get("gamma_flip")
+    curve = [abs(c["gex_bn"]) for c in (a.get("gex_curve") or [])]
+    borderline = bool(curve and abs(gex_now) < max(curve) * 0.2)
     gw = gamma_words(neg_gamma)
     regime_pill = (f'<span class="pill {"neg" if neg_gamma else "pos"}"><span class="dot"></span>'
                    f'증권사는 지금 {gw["short"]}</span>')
@@ -1093,11 +1100,11 @@ def generate(ticker):
  <p><strong>증권사가 하는 일.</strong> 보험을 팔아준 증권사는 손해를 막으려고 주식을 사고팝니다.
  그 방향이 두 가지입니다. 값이 오를 때 <em>같이 사주면</em> 값이 더 오르고, 반대로 <em>팔아버리면</em> 더 못 오릅니다.
  이 규모가 워낙 커서 그날 시장이 얼마나 흔들릴지가 여기서 갈립니다.</p>
- <p><strong>가격에 선이 하나 있습니다 — 지금은 {fmt(a.get('gamma_flip'))}달러.</strong> 이 선을 기준으로 증권사가 하는 일이 정반대가 됩니다.</p>
+ <p><strong>증권사가 하는 일은 두 가지로 갈립니다.</strong>{' 지금 갈리는 지점은 ' + fmt(flip) + '달러입니다.' if flip else ''}</p>
  <ul class="zones">
-  <li><span class="zb put"></span><strong>{fmt(a.get('gamma_flip'))}달러 아래 = 변동성을 키우는 구간.</strong>
+  <li><span class="zb put"></span><strong>변동성을 키우는 구간.</strong>
    증권사가 오르면 같이 사고, 내리면 같이 팝니다. 같이 밀어주니 <strong>움직임이 커집니다.</strong></li>
-  <li><span class="zb call"></span><strong>{fmt(a.get('gamma_flip'))}달러 위 = 변동성을 줄이는 구간.</strong>
+  <li><span class="zb call"></span><strong>변동성을 줄이는 구간.</strong>
    증권사가 더 오르면 팔고, 더 내리면 사줍니다. 가려는 쪽을 막으니 <strong>가격이 묶입니다.</strong></li>
  </ul>
  <p><strong>오늘 한 줄.</strong> {a['ticker']}는 {fmt(spot)}달러({chg:+.2f}%)로
@@ -1108,27 +1115,32 @@ def generate(ticker):
 </div>"""
 
     # 1년치 검증을 통과한 유일한 신호라, 위험 구간이면 맨 위에 크게 띄운다
-    gap = abs(spot - (a.get("gamma_flip") or spot)) / spot * 100
-    near_edge = gap < 0.7
+    if flip:
+        gap = abs(spot - flip) / spot * 100
+        where = (f'지금 {fmt(spot)}달러는 갈림길({fmt(flip)}) '
+                 f'<strong>{"아래" if neg_gamma else "위"}</strong>입니다.')
+        edge = (f' 다만 갈림길과 {gap:.1f}%밖에 차이가 안 나서 곧 성격이 바뀔 수 있습니다.'
+                if gap < 0.7 else '')
+    else:
+        where = (f'지금 {fmt(spot)}달러 기준으로 계산한 결과입니다. '
+                 '가격이 크게 움직여서 성격이 바뀌는 갈림길은 화면 범위 밖에 있습니다.')
+        edge = ''
+    if borderline:
+        edge += ' 지금은 경계에 가까운 상태라 작은 움직임에도 성격이 뒤집힐 수 있습니다.'
+
     if neg_gamma:
         alert = (f'<div class="alert danger"><div class="al-ic">⚠</div><div>'
                  f'<div class="al-t">오늘은 크게 움직이기 쉬운 날입니다</div>'
-                 f'<div class="al-b">지금 {fmt(spot)}달러는 갈림길({fmt(a.get("gamma_flip"))}) '
-                 f'<strong>아래</strong>입니다. 이 구간에서는 증권사가 오르면 같이 사고 내리면 같이 팔아, '
+                 f'<div class="al-b">{where} 이 구간에서는 증권사가 오르면 같이 사고 내리면 같이 팔아, '
                  f'움직임이 <strong>한번 시작되면 더 커집니다</strong>. '
                  f'1년치로 채점했을 때 이 구간의 다음날 움직임이 반대 구간의 <strong>2배</strong>였습니다. '
-                 f'이 페이지에서 <strong>검증을 통과한 유일한 신호</strong>라 크게 띄웁니다.'
-                 + (f' 다만 지금은 갈림길과 {gap:.1f}%밖에 차이가 안 나서 곧 성격이 바뀔 수 있습니다.' if near_edge else '')
-                 + '</div></div></div>')
+                 f'이 페이지에서 <strong>검증을 통과한 유일한 신호</strong>라 크게 띄웁니다.{edge}</div></div></div>')
     else:
         alert = (f'<div class="alert calm"><div class="al-ic">✓</div><div>'
                  f'<div class="al-t">오늘은 비교적 얌전할 가능성이 큽니다</div>'
-                 f'<div class="al-b">지금 {fmt(spot)}달러는 갈림길({fmt(a.get("gamma_flip"))}) '
-                 f'<strong>위</strong>입니다. 이 구간에서는 증권사가 더 오르면 팔고 더 내리면 사줘서 '
+                 f'<div class="al-b">{where} 이 구간에서는 증권사가 더 오르면 팔고 더 내리면 사줘서 '
                  f'<strong>가격이 한쪽으로 멀리 가기 어렵습니다</strong>. '
-                 f'1년치 검증에서 이 구간의 다음날 움직임이 반대 구간의 <strong>절반</strong>이었습니다.'
-                 + (f' 다만 갈림길과 {gap:.1f}% 차이라 아래로 내려가면 성격이 바뀝니다.' if near_edge else '')
-                 + '</div></div></div>')
+                 f'1년치 검증에서 이 구간의 다음날 움직임이 반대 구간의 <strong>절반</strong>이었습니다.{edge}</div></div></div>')
 
     T = lambda k: f'data-tip="{esc(tip(k))}"'
     TILE_KEYS = [("price", "지금 가격"), ("walls", "보험이 제일 많이 깔린 곳"),
@@ -1141,7 +1153,7 @@ def generate(ticker):
 <div class="tiles">
  <div class="tile" {T('price')}><div class="k">지금 가격</div><div class="v {'down' if chg < 0 else 'up'}">{fmt(spot)}</div><div class="s">{chg:+.2f}% · 어제보다</div></div>
  <div class="tile" {T('walls')}><div class="k">보험이 제일 두꺼운 곳</div><div class="v">{fmt(a['put_wall'], 0)} / {fmt(a['call_wall'], 0)}</div><div class="s">아래쪽 / 위쪽</div></div>
- <div class="tile wide" {T('gamma_tile')}><div class="k">지금 어느 구간인가</div><div class="v {'down' if neg_g else 'up'}" style="font-size:1.12rem">{gw['act']}</div><div class="s">증권사가 {gw['how']} · 갈림길 {fmt(a.get('gamma_flip'))}</div></div>
+ <div class="tile wide" {T('gamma_tile')}><div class="k">지금 어느 구간인가</div><div class="v {'down' if neg_g else 'up'}" style="font-size:1.12rem">{gw['act']}</div><div class="s">증권사가 {gw['how']}{' · 갈림길 ' + fmt(flip) if flip else ' · 갈림길은 범위 밖'}{' · 경계 근처' if borderline else ''}</div></div>
  <div class="tile wide" {T('expected_move')}><div class="k">{a['nearest_expiry'][5:].replace('-', '/')}까지 갈 만한 범위</div><div class="v" style="font-size:1.16rem">{fmt(spot - a['straddle_move'])} ~ {fmt(spot + a['straddle_move'])}</div><div class="s">지금 {fmt(spot)} · 3번 중 2번은 이 안에서 끝납니다</div></div>
  <div class="tile" {T('iv_vs_hv')}><div class="k">보험료 비싼 정도</div><div class="v">{a['atm_iv'] * 100:.1f}%</div><div class="s">실제 흔들림은 {(a.get('hv21') or 0)*100:.1f}%</div></div>
  <div class="tile" {T('pcr')}><div class="k">내릴 쪽 vs 오를 쪽</div><div class="v">{a['pcr_oi']:.2f}</div><div class="s">1보다 크면 내릴 쪽이 많음 · 풋콜비율</div></div>
