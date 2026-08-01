@@ -49,6 +49,23 @@ jobs:
             echo "text=지금은 한국시간 ${KST}, 저녁이다. 미국장은 밤 10시 30분에 열려 새벽 5시에 닫는다. 개장 전 대비 관점으로 쓴다." >> "$GITHUB_OUTPUT"
           fi
 
+      # 열쇠가 제대로 들어왔는지 먼저 본다. 값은 절대 찍지 않고 길이와 앞글자만 확인한다.
+      - name: 열쇠 확인
+        env:
+          TOK: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: |
+          if [ -z "$TOK" ]; then
+            echo "::error::열쇠가 비어 있습니다. 시크릿 이름이 CLAUDE_CODE_OAUTH_TOKEN 이 맞는지 확인하세요."
+            exit 1
+          fi
+          echo "::notice::열쇠 길이 ${#TOK}자"
+          case "$TOK" in
+            sk-ant-oat01-*) echo "::notice::형식 정상 (sk-ant-oat01- 로 시작)" ;;
+            sk-ant-api*)    echo "::error::이건 API 키입니다. setup-token 으로 만든 sk-ant-oat01- 값이 필요합니다." ; exit 1 ;;
+            sk-ant-*)       echo "::error::sk-ant- 로 시작하지만 oat01 이 아닙니다. 값을 다시 확인하세요." ; exit 1 ;;
+            *)              echo "::error::형식이 다릅니다. sk-ant-oat01- 로 시작해야 합니다. 복사할 때 앞부분이 빠졌을 수 있습니다." ; exit 1 ;;
+          esac
+
       - name: 전망 글 쓰기
         id: claude
         uses: anthropics/claude-code-action@v1.0.183
