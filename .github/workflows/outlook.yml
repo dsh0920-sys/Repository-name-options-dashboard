@@ -54,6 +54,8 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          # 예약 실행과 시험 실행 모두 깃허브 로봇 이름으로 들어온다. 없으면 사람이 아니라며 거부한다.
+          allowed_bots: "github-actions"
           claude_args: --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch"
           prompt: |
             이 저장소는 미국 옵션 대시보드다. 너의 일은 딱 하나 — 종목별 '전망 글'을 새로 쓰는 것이다.
