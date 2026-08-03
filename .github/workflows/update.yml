@@ -1,24 +1,35 @@
 name: 옵션 대시보드 자동 갱신
 
 on:
+  # 깃허브 예약 실행은 정시를 보장하지 않는다. 부하가 높으면 회차가 통째로 버려진다
+  # (실측: 하루 39회 예약 중 4~9회만 실행). 그래서 '정시에 돌게' 대신
+  # '창 전체에 흩뿌려 한 번은 걸리게' 한다.
+  #
+  # 미결제약정(OI) 기준일은 미 동부 06:30(=10:30 UTC)에 넘어가고, collect.py는
+  # 같은 날짜 행을 통째로 교체한다. 그래서 한 창(10:30 UTC ~ 다음날 10:30 UTC) 안에서
+  # 어느 회차든 한 번만 성공하면 그날 데이터가 완성된다. 아래 10회가 그 창을 덮는다.
+  #
+  # 12:15 UTC 이전에는 걸지 않는다. 야후 OI 갱신이 겨울에 11:58 UTC까지 밀리는데,
+  # 그 전에 돌면 '라벨은 새 날짜인데 내용은 옛 OI'가 저장된다.
   schedule:
-    # UTC 기준. 한 번 도는 데 1분도 안 걸리고 비용도 없어서 촘촘히 돌린다.
-    # 미국 정규장 = 13:30~20:00 UTC (한국 밤 10:30~새벽 5:00, 서머타임 기준)
-    - cron: "*/15 13-20 * * 1-5"
-    # 장 마감 직후 정리분
-    - cron: "5,20 20 * * 1-5"
-    # 새 계약 수는 OPRA 발표(10:30 UTC)보다 늦게, 실측상 11:00 UTC 무렵 야후에 들어온다.
-    # 도착 직후부터 저녁 전망 글 쓰기 전까지 촘촘히 확인한다 (한국 저녁 8시~9시).
-    - cron: "0,15,30,45 11 * * 1-5"
-    # 아침 전망 글 쓰기 직전 (한국 아침 6시 30분)
-    - cron: "30 21 * * 1-5"
+    - cron: "33 12 * * 1-5"   # KST 21:33 — 새 OI 첫 확보. 이 회차만 OI일=주가일로 깨끗하다
+    - cron: "6 13 * * 1-5"    # KST 22:06 — 위가 씹혔을 때 백업
+    - cron: "47 13 * * 1-5"   # KST 22:47 — 미국장 개장 17분 뒤
+    - cron: "26 16 * * 1-5"   # KST 01:26 — 장중 1
+    - cron: "52 18 * * 1-5"   # KST 03:52 — 장중 2 (마감 1시간 전)
+    - cron: "22 20 * * 1-5"   # KST 05:22 — 마감 22분 뒤. 종가와 하루치 거래량 확정
+    - cron: "58 20 * * 1-5"   # KST 05:58 — 종가 회차 백업
+    - cron: "38 21 * * 1-5"   # KST 06:38 — 아침 전망 글 직전
+    - cron: "24 23 * * 1-5"   # KST 08:24 — 아침 글 이후 마무리
+    - cron: "41 2 * * 2-6"    # KST 11:41 — 창이 닫히기 전 최후 메꿈 (화~토)
   workflow_dispatch: {}
 
 permissions:
   contents: write
 
+# 전망 워크플로와 그룹을 나눈다. 같은 그룹이면 대기 중인 회차가 취소된다.
 concurrency:
-  group: dashboard
+  group: dashboard-update
   cancel-in-progress: false
 
 jobs:
@@ -57,9 +68,10 @@ jobs:
           done
           cp docs/QQQ.html docs/index.html
           touch docs/.nojekyll
-          # 스냅샷은 직전 2개만 남긴다 (저장소가 무한정 커지는 것 방지)
+          # 스냅샷은 직전 8개만 남긴다. 야후는 지난 계약 수를 다시 주지 않으므로,
+          # 하루가 통째로 씹혀도 건너뛴 유입·이탈 한 줄은 계산되게 여유를 둔다.
           for TK in $TICKERS; do
-            ls -1 data/snapshots/${TK}_*.csv 2>/dev/null | head -n -2 | xargs -r rm -f
+            ls -1 data/snapshots/${TK}_*.csv 2>/dev/null | head -n -8 | xargs -r rm -f
           done
 
       - name: 변경분 커밋
@@ -69,7 +81,18 @@ jobs:
           git add -A
           if git diff --staged --quiet; then
             echo "바뀐 내용 없음"
-          else
-            git commit -m "자동 갱신 $(date -u '+%Y-%m-%d %H:%M UTC')"
-            git push
+            exit 0
           fi
+          git commit -m "자동 갱신 $(date -u '+%Y-%m-%d %H:%M UTC')"
+          # 전망 워크플로가 그 사이 밀어넣었으면 단발 push는 실패하고 이 회차가 통째로 버려진다.
+          # HTML은 양쪽 다 새로 만드므로 충돌 시 방금 만든 쪽(-X theirs)을 남긴다.
+          for i in 1 2 3; do
+            if git pull --rebase -X theirs origin main && git push origin main; then
+              echo "푸시 완료"
+              exit 0
+            fi
+            git rebase --abort 2>/dev/null || true
+            sleep 10
+          done
+          echo "::error::세 번 시도했지만 푸시하지 못했습니다."
+          exit 1
