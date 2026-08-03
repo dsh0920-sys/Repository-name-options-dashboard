@@ -16,7 +16,9 @@ jobs:
   kick:
     runs-on: ubuntu-latest
     steps:
-      - name: 전망 워크플로 실행 요청
+      - name: 데이터·전망 워크플로 실행 요청
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh workflow run outlook.yml --repo "${{ github.repository }}"
+        run: |
+          gh workflow run update.yml --repo "${{ github.repository }}"
+          gh workflow run outlook.yml --repo "${{ github.repository }}"
