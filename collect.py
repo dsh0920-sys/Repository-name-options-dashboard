@@ -459,8 +459,10 @@ def run(ticker):
     trade_date = older[-1]
 
     # 등락률은 '직전 거래일 대비'여야 한다. OI 기준일과는 무관하게 계산한다.
+    # 장중이면 마지막 행이 오늘의 진행 중인 봉이라, 장중이든 아니든 비교 대상은 언제나 그 앞 행이다.
+    # (예전에는 장중일 때 마지막 행을 썼는데, 그러면 자기 자신과 비교해 +0.00%가 나왔다)
     closes = hist["Close"]
-    prev_close = float(closes.iloc[-1] if live else closes.iloc[-2] if len(closes) >= 2 else closes.iloc[-1])
+    prev_close = float(closes.iloc[-2] if len(closes) >= 2 else closes.iloc[-1])
     if live:
         print(f"  [안내] 장중 실행 — 현물은 실시간 {spot:.2f}, 옵션 숫자는 {trade_date} 마감 기준입니다.")
     elif sessions[-1] != trade_date:
