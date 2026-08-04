@@ -18,9 +18,17 @@ jobs:
   kick:
     runs-on: ubuntu-latest
     steps:
-      - name: 데이터·전망 워크플로 실행 요청
+      # 둘을 동시에 깨우면 같은 파일을 서로 덮어써서 이력과 화면용 파일이 어긋난다.
+      # 데이터를 먼저 끝내고 전망 글을 깨운다.
+      - name: 데이터 워크플로 실행 요청
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh workflow run update.yml --repo "${{ github.repository }}"
-          gh workflow run outlook.yml --repo "${{ github.repository }}"
+        run: gh workflow run update.yml --repo "${{ github.repository }}"
+
+      - name: 데이터가 끝날 때까지 대기
+        run: sleep 300
+
+      - name: 전망 워크플로 실행 요청
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run outlook.yml --repo "${{ github.repository }}"
