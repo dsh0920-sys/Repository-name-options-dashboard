@@ -1018,6 +1018,14 @@ details summary{cursor:pointer;color:var(--ink2);font-size:.84rem;margin-top:10p
 .th-name{font-size:.8rem;font-weight:700;color:var(--ink);
  letter-spacing:.02em;margin:0 0 4px}
 .th-item .note-box{margin:0}
+/* 매일 안 보는 것들은 이 안으로 접어둔다 */
+.more{margin:34px 0 10px;border:1px solid var(--border);border-radius:12px;
+ background:var(--surface);padding:14px 18px}
+.more>summary{margin:0;font-weight:700;font-size:1rem;color:var(--ink)}
+.more[open]>summary{margin-bottom:6px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.more-body>section:first-child{margin-top:14px}
+.asof-fold{margin-top:10px}
+.asof-fold>summary{margin:0}
 </style>
 """
 
@@ -1070,6 +1078,12 @@ def generate(ticker):
         outlook = outlook_badge + md_to_html(opath.read_text(encoding="utf-8"))
     else:
         outlook = "<p class='muted'>전망 메모가 아직 없습니다.</p>"
+
+    # 화면을 시황·해석·옵션 세 덩이로 나누므로 전망 글도 둘로 자른다.
+    # 첫 '##' 제목(= <h4>)이 경계다. 앞은 지금 상황, 뒤는 앞으로 벌어질 일.
+    _cut = outlook.find("<h4>")
+    outlook_now = outlook[:_cut] if _cut > 0 else outlook
+    outlook_next = outlook[_cut:] if _cut > 0 else ""
 
     spot = a["spot"]
     closes = px["Close"].tolist()
@@ -1149,12 +1163,16 @@ def generate(ticker):
                  ("zero_dte", "당일치기 비중"), ("max_pain", "만기 자석 가격")]
     tile_help = "".join(note(k) and f'<div class="th-item"><div class="th-name">{esc(nm)}</div>{note(k)}</div>'
                         for k, nm in TILE_KEYS)
+    # 맨 위에는 매일 보는 네 칸만 둔다. 나머지 네 칸은 '더 보기' 안으로 내린다.
     tiles = f"""
 <div class="tiles">
  <div class="tile" {T('price')}><div class="k">지금 가격</div><div class="v {'down' if chg < 0 else 'up'}">{fmt(spot)}</div><div class="s">{chg:+.2f}% · 어제보다</div></div>
- <div class="tile" {T('walls')}><div class="k">보험이 제일 두꺼운 곳</div><div class="v">{fmt(a['put_wall'], 0)} / {fmt(a['call_wall'], 0)}</div><div class="s">아래쪽 / 위쪽</div></div>
  <div class="tile wide" {T('gamma_tile')}><div class="k">지금 어느 구간인가</div><div class="v {'down' if neg_g else 'up'}" style="font-size:1.12rem">{gw['act']}</div><div class="s">증권사가 {gw['how']}{' · 갈림길 ' + fmt(flip) if flip else ' · 갈림길은 범위 밖'}{' · 경계 근처' if borderline else ''}</div></div>
  <div class="tile wide" {T('expected_move')}><div class="k">{a['nearest_expiry'][5:].replace('-', '/')}까지 갈 만한 범위</div><div class="v" style="font-size:1.16rem">{fmt(spot - a['straddle_move'])} ~ {fmt(spot + a['straddle_move'])}</div><div class="s">지금 {fmt(spot)} · 3번 중 2번은 이 안에서 끝납니다</div></div>
+ <div class="tile" {T('walls')}><div class="k">보험이 제일 두꺼운 곳</div><div class="v">{fmt(a['put_wall'], 0)} / {fmt(a['call_wall'], 0)}</div><div class="s">아래쪽 / 위쪽</div></div>
+</div>"""
+    tiles_more = f"""
+<div class="tiles">
  <div class="tile" {T('iv_vs_hv')}><div class="k">보험료 비싼 정도</div><div class="v">{a['atm_iv'] * 100:.1f}%</div><div class="s">실제 흔들림은 {(a.get('hv21') or 0)*100:.1f}%</div></div>
  <div class="tile" {T('pcr')}><div class="k">내릴 쪽 vs 오를 쪽</div><div class="v">{a['pcr_oi']:.2f}</div><div class="s">1보다 크면 내릴 쪽이 많음 · 풋콜비율</div></div>
  <div class="tile" {T('zero_dte')}><div class="k">당일치기 비중</div><div class="v">{(a.get('volume_mix', {}).get('0-1일', 0))*100:.0f}%</div><div class="s">오늘 안에 끝나는 계약 · 0DTE</div></div>
@@ -1198,31 +1216,39 @@ def generate(ticker):
    {'<strong>오늘 지금까지</strong> (실시간)' if a.get('volume_is_live') else '<strong>' + (a.get('volume_date') or a['date']) + '</strong> 하루치'}</div>
   <div class="asof-row"><span class="asof-tag day">옵션 계약 수</span>
    <strong>{a['date']} 장 마감 기준</strong>{' — <strong style="color:var(--serious)">' + str(a['oi_lag_sessions']) + '거래일 뒤처져 있습니다.</strong>' if a.get('oi_lag_sessions', 0) >= 1 else ''}</div>
-  <div class="asof-when">왜 다르냐면 — 보험이 얼마나 깔렸는지는 미국 정산소가 밤새 계산해서
+  <details class="asof-fold"><summary>왜 옵션 숫자만 하루 늦나</summary>
+  <div class="asof-when">보험이 얼마나 깔렸는지는 미국 정산소가 밤새 계산해서
    <strong>미 동부 오전 6시 30분(한국 저녁 7시 30분)에 하루 딱 한 번</strong> 발표합니다.
    그래서 장이 끝나도 그날 옵션 숫자는 <strong>다음 날 저녁에야</strong> 나옵니다.
    이 페이지는 <strong>미국장이 열린 동안 15분마다</strong> 자동으로 새로 받습니다.
    새 계약 수가 화면에 들어오는 건 <strong>미국장이 열리는 한국시간 밤 10시 30분 무렵</strong>입니다.<br>
    <strong>거래량은 다릅니다 — 실시간으로 들어옵니다.</strong> 그래서 "평소보다 많이 거래된 자리"를 보면
    계약 수가 갱신되기 전에도 <strong>지금 어디가 뜨거운지</strong> 알 수 있습니다.</div>
+  </details>
  </div>
 </header>
-{intro}
 {alert}
-{tiles}
-<section><h2>지금 가격이 어느 구간에 있나</h2>
+<section><h2>1. 시황 정리</h2>
+ {tiles}
+ <div class="card prose" style="margin-top:14px">{outlook_now}</div></section>
+
+<section><h2>2. 해석</h2>
  <p class="desc">갈림길을 기준으로 증권사가 하는 일이 뒤집힙니다. 동그라미는 계약이 많이 쌓인 자리입니다.</p>
- <div class="card">{build_zone_map(a, snap)}</div></section>
-<section><h2>돈이 들어오고 나간 흐름</h2>
- {note('flow_chart')}
- <div class="card">{build_flow_read(a['ticker'], px)}</div>
+ <div class="card">{build_zone_map(a, snap)}</div>
+ <div class="card prose" style="margin-top:12px">{outlook_next}</div></section>
+
+<section><h2>3. 옵션</h2>
+ {note('ladder')}
+ <div class="card">{build_ladder(a)}</div>
+ <div class="card" style="margin-top:12px">{build_flow_read(a['ticker'], px)}</div>
  <div class="card" style="margin-top:12px">{build_flows(a['ticker'])}</div></section>
-<div class="duo">
- <section><h2>가격 지도</h2>{note('ladder')}
-  <div class="card">{build_ladder(a)}</div></section>
- <section><h2>어느 가격에 보험이 깔렸나</h2>{note('oi_by_strike')}
-  <div class="card">{legend_pc}{build_oi_chart(a, snap)}{build_oi_table(a)}</div></section>
-</div>
+
+<details class="more">
+<summary>더 보기 — 자세한 그래프와 표</summary>
+<div class="more-body">
+{tiles_more}
+<section><h2>어느 가격에 보험이 깔렸나</h2>{note('oi_by_strike')}
+ <div class="card">{legend_pc}{build_oi_chart(a, snap)}{build_oi_table(a)}</div></section>
 <section><h2>이 가격이 되면 증권사가 뭘 하나</h2>
  {note('gamma_tile')}
  <div class="card">{build_gex_curve(a)}
@@ -1249,9 +1275,9 @@ def generate(ticker):
  {note('term_structure')}
  <div class="card">{build_term_structure(a)}</div></section>
 {bt_section}
-<section><h2>전망 <span class="byline">사람이 쓴 부분</span></h2>
- <p class="desc">위쪽은 전부 자동 계산이고, 이 아래만 뉴스와 일정을 찾아 사람이 씁니다.</p>
- <div class="card prose">{outlook}</div></section>
+<section><h2>이 페이지 읽는 법</h2>
+ {intro}</section>
+</div></details>
 <footer>데이터: 야후 파이낸스 (주가는 15~20분 지연, 보험 계약 수는 하루 한 번 갱신) · 증권사 행동 계산은 표준 공식을 쓴 근사치입니다.<br>
 본 대시보드는 정보 제공 목적이며 투자 자문이 아닙니다. 매매 판단과 책임은 이용자 본인에게 있습니다.</footer>
 </div>
