@@ -7,6 +7,8 @@ on:
     paths:
       - ".github/workflows/outlook.yml"
       - ".github/workflows/kick-outlook.yml"
+      # 예약이 씹혔을 때 손으로 깨우는 용도. 이 파일 내용만 바꿔 올리면 한 바퀴 돈다.
+      - ".github/workflows/.kick"
   workflow_dispatch: {}
 
 permissions:
