@@ -1,7 +1,7 @@
 {
   "ticker": "TEM",
   "date": "2026-08-10",
-  "spot": 54.32,
+  "spot": 54.41,
   "put_wall": 50.0,
   "call_wall": 60.0,
   "top_put_oi": [
@@ -65,16 +65,16 @@
     }
   ],
   "pcr_oi": 0.449,
-  "pcr_vol": 0.541,
+  "pcr_vol": 0.545,
   "max_pain": {
-    "2026-08-14": 49.0,
-    "2026-09-18": 50.0
+    "2026-09-18": 50.0,
+    "2026-08-14": 49.0
   },
   "nearest_expiry": "2026-08-14",
   "biggest_oi_expiry": "2026-09-18",
-  "atm_iv": 0.5105,
-  "straddle_move": 2.33,
-  "skew_5pct": -0.0898,
+  "atm_iv": 0.4957,
+  "straddle_move": 2.27,
+  "skew_5pct": -0.0664,
   "gex_total_bn": 0.0,
   "gamma_flip": null,
   "gex_by_strike_bn": {
@@ -101,323 +101,327 @@
   },
   "gex_curve": [
     {
-      "price": 49.02,
+      "price": 48.97,
       "gex_bn": 0.001
     },
     {
-      "price": 49.16,
+      "price": 49.11,
       "gex_bn": 0.001
     },
     {
-      "price": 49.3,
+      "price": 49.24,
       "gex_bn": 0.001
     },
     {
-      "price": 49.43,
+      "price": 49.38,
       "gex_bn": 0.002
     },
     {
-      "price": 49.57,
+      "price": 49.51,
       "gex_bn": 0.002
     },
     {
-      "price": 49.7,
+      "price": 49.65,
       "gex_bn": 0.002
     },
     {
-      "price": 49.84,
+      "price": 49.79,
       "gex_bn": 0.002
     },
     {
-      "price": 49.97,
+      "price": 49.92,
       "gex_bn": 0.002
     },
     {
-      "price": 50.11,
+      "price": 50.06,
       "gex_bn": 0.002
     },
     {
-      "price": 50.25,
+      "price": 50.19,
       "gex_bn": 0.002
     },
     {
-      "price": 50.38,
+      "price": 50.33,
       "gex_bn": 0.002
     },
     {
-      "price": 50.52,
+      "price": 50.47,
       "gex_bn": 0.002
     },
     {
-      "price": 50.65,
+      "price": 50.6,
       "gex_bn": 0.002
     },
     {
-      "price": 50.79,
+      "price": 50.74,
       "gex_bn": 0.002
     },
     {
-      "price": 50.92,
+      "price": 50.87,
       "gex_bn": 0.002
     },
     {
-      "price": 51.06,
+      "price": 51.01,
       "gex_bn": 0.002
     },
     {
-      "price": 51.2,
+      "price": 51.15,
       "gex_bn": 0.002
     },
     {
-      "price": 51.33,
+      "price": 51.28,
       "gex_bn": 0.002
     },
     {
-      "price": 51.47,
+      "price": 51.42,
       "gex_bn": 0.002
     },
     {
-      "price": 51.6,
+      "price": 51.55,
       "gex_bn": 0.002
     },
     {
-      "price": 51.74,
+      "price": 51.69,
       "gex_bn": 0.002
     },
     {
-      "price": 51.88,
+      "price": 51.83,
       "gex_bn": 0.002
     },
     {
-      "price": 52.01,
-      "gex_bn": 0.002
-    },
-    {
-      "price": 52.15,
+      "price": 51.96,
       "gex_bn": 0.003
     },
     {
-      "price": 52.28,
+      "price": 52.1,
       "gex_bn": 0.003
     },
     {
-      "price": 52.42,
+      "price": 52.23,
       "gex_bn": 0.003
     },
     {
-      "price": 52.55,
+      "price": 52.37,
       "gex_bn": 0.003
     },
     {
-      "price": 52.69,
+      "price": 52.51,
       "gex_bn": 0.003
     },
     {
-      "price": 52.83,
+      "price": 52.64,
       "gex_bn": 0.003
     },
     {
-      "price": 52.96,
+      "price": 52.78,
       "gex_bn": 0.003
     },
     {
-      "price": 53.1,
+      "price": 52.91,
       "gex_bn": 0.003
     },
     {
-      "price": 53.23,
+      "price": 53.05,
       "gex_bn": 0.003
     },
     {
-      "price": 53.37,
+      "price": 53.19,
       "gex_bn": 0.003
     },
     {
-      "price": 53.51,
+      "price": 53.32,
       "gex_bn": 0.003
     },
     {
-      "price": 53.64,
+      "price": 53.46,
       "gex_bn": 0.003
     },
     {
-      "price": 53.78,
+      "price": 53.59,
       "gex_bn": 0.003
     },
     {
-      "price": 53.91,
+      "price": 53.73,
       "gex_bn": 0.003
     },
     {
-      "price": 54.05,
+      "price": 53.87,
       "gex_bn": 0.003
     },
     {
-      "price": 54.18,
+      "price": 54.0,
       "gex_bn": 0.003
     },
     {
-      "price": 54.32,
+      "price": 54.14,
       "gex_bn": 0.003
     },
     {
-      "price": 54.46,
+      "price": 54.27,
       "gex_bn": 0.003
     },
     {
-      "price": 54.59,
+      "price": 54.41,
       "gex_bn": 0.003
     },
     {
-      "price": 54.73,
+      "price": 54.55,
       "gex_bn": 0.004
     },
     {
-      "price": 54.86,
+      "price": 54.68,
       "gex_bn": 0.004
     },
     {
-      "price": 55.0,
+      "price": 54.82,
       "gex_bn": 0.004
     },
     {
-      "price": 55.13,
+      "price": 54.95,
       "gex_bn": 0.004
     },
     {
-      "price": 55.27,
+      "price": 55.09,
       "gex_bn": 0.004
     },
     {
-      "price": 55.41,
+      "price": 55.23,
       "gex_bn": 0.004
     },
     {
-      "price": 55.54,
+      "price": 55.36,
       "gex_bn": 0.004
     },
     {
-      "price": 55.68,
+      "price": 55.5,
       "gex_bn": 0.004
     },
     {
-      "price": 55.81,
+      "price": 55.63,
       "gex_bn": 0.004
     },
     {
-      "price": 55.95,
+      "price": 55.77,
       "gex_bn": 0.004
     },
     {
-      "price": 56.09,
+      "price": 55.91,
       "gex_bn": 0.004
     },
     {
-      "price": 56.22,
+      "price": 56.04,
       "gex_bn": 0.004
     },
     {
-      "price": 56.36,
+      "price": 56.18,
       "gex_bn": 0.004
     },
     {
-      "price": 56.49,
+      "price": 56.31,
       "gex_bn": 0.004
     },
     {
-      "price": 56.63,
+      "price": 56.45,
       "gex_bn": 0.004
     },
     {
-      "price": 56.76,
+      "price": 56.59,
       "gex_bn": 0.004
     },
     {
-      "price": 56.9,
+      "price": 56.72,
       "gex_bn": 0.004
     },
     {
-      "price": 57.04,
+      "price": 56.86,
       "gex_bn": 0.004
     },
     {
-      "price": 57.17,
+      "price": 56.99,
       "gex_bn": 0.004
     },
     {
-      "price": 57.31,
+      "price": 57.13,
       "gex_bn": 0.004
     },
     {
-      "price": 57.44,
+      "price": 57.27,
       "gex_bn": 0.004
     },
     {
-      "price": 57.58,
+      "price": 57.4,
       "gex_bn": 0.004
     },
     {
-      "price": 57.71,
+      "price": 57.54,
       "gex_bn": 0.004
     },
     {
-      "price": 57.85,
+      "price": 57.67,
       "gex_bn": 0.004
     },
     {
-      "price": 57.99,
+      "price": 57.81,
       "gex_bn": 0.004
     },
     {
-      "price": 58.12,
+      "price": 57.95,
       "gex_bn": 0.004
     },
     {
-      "price": 58.26,
+      "price": 58.08,
       "gex_bn": 0.004
     },
     {
-      "price": 58.39,
+      "price": 58.22,
       "gex_bn": 0.004
     },
     {
-      "price": 58.53,
+      "price": 58.35,
       "gex_bn": 0.004
     },
     {
-      "price": 58.67,
+      "price": 58.49,
       "gex_bn": 0.004
     },
     {
-      "price": 58.8,
+      "price": 58.63,
       "gex_bn": 0.004
     },
     {
-      "price": 58.94,
+      "price": 58.76,
       "gex_bn": 0.004
     },
     {
-      "price": 59.07,
+      "price": 58.9,
       "gex_bn": 0.004
     },
     {
-      "price": 59.21,
+      "price": 59.03,
       "gex_bn": 0.004
     },
     {
-      "price": 59.34,
+      "price": 59.17,
       "gex_bn": 0.004
     },
     {
-      "price": 59.48,
+      "price": 59.31,
       "gex_bn": 0.004
     },
     {
-      "price": 59.62,
+      "price": 59.44,
       "gex_bn": 0.004
     },
     {
-      "price": 59.75,
+      "price": 59.58,
+      "gex_bn": 0.004
+    },
+    {
+      "price": 59.71,
+      "gex_bn": 0.004
+    },
+    {
+      "price": 59.85,
       "gex_bn": 0.004
     }
   ],
@@ -458,7 +462,7 @@
     }
   ],
   "ma": {
-    "MA20": 47.96,
+    "MA20": 47.97,
     "MA50": 51.29,
     "MA200": 58.0
   },
@@ -492,178 +496,178 @@
     "firm_total": 2456,
     "mm_total": 32906
   },
-  "dex_total_bn": -0.12,
+  "dex_total_bn": -0.13,
   "expiry_gex": [
     {
       "expiry": "2026-08-14",
       "dte": 4,
       "gex_bn": 0.001,
-      "oi": 13394,
-      "share": 0.2662
+      "oi": 13424,
+      "share": 0.2715
     },
     {
       "expiry": "2026-08-21",
       "dte": 11,
       "gex_bn": 0.002,
       "oi": 55076,
-      "share": 0.3731
+      "share": 0.3728
     },
     {
       "expiry": "2026-08-28",
       "dte": 18,
       "gex_bn": 0.0,
       "oi": 4657,
-      "share": 0.0445
+      "share": 0.0435
     },
     {
       "expiry": "2026-09-04",
       "dte": 25,
       "gex_bn": 0.0,
       "oi": 3132,
-      "share": 0.0094
+      "share": 0.0097
     },
     {
       "expiry": "2026-09-11",
       "dte": 32,
       "gex_bn": 0.0,
       "oi": 1652,
-      "share": 0.0089
+      "share": 0.0088
     },
     {
       "expiry": "2026-09-18",
       "dte": 39,
       "gex_bn": 0.001,
       "oi": 82818,
-      "share": 0.1257
+      "share": 0.125
     },
     {
       "expiry": "2026-09-25",
       "dte": 46,
       "gex_bn": 0.0,
       "oi": 452,
-      "share": 0.0074
+      "share": 0.0073
     },
     {
       "expiry": "2026-10-16",
       "dte": 67,
       "gex_bn": 0.0,
       "oi": 21414,
-      "share": 0.07
+      "share": 0.0688
     },
     {
       "expiry": "2026-11-20",
       "dte": 102,
       "gex_bn": 0.0,
       "oi": 17362,
-      "share": 0.0947
+      "share": 0.0926
     }
   ],
   "opex_biggest": {
     "expiry": "2026-08-21",
     "dte": 11,
-    "share": 0.3731,
+    "share": 0.3728,
     "oi": 55076
   },
   "iv_term": [
     {
       "expiry": "2026-08-14",
       "dte": 4,
-      "iv": 0.5105
+      "iv": 0.4957
     },
     {
       "expiry": "2026-08-21",
       "dte": 11,
-      "iv": 0.589
+      "iv": 0.5912
     },
     {
       "expiry": "2026-08-28",
       "dte": 18,
-      "iv": 0.6227
+      "iv": 0.6275
     },
     {
       "expiry": "2026-09-04",
       "dte": 25,
-      "iv": 0.6357
+      "iv": 0.6333
     },
     {
       "expiry": "2026-09-11",
       "dte": 32,
-      "iv": 0.6796
+      "iv": 0.6582
     },
     {
       "expiry": "2026-09-18",
       "dte": 39,
-      "iv": 0.6351
+      "iv": 0.6347
     },
     {
       "expiry": "2026-09-25",
       "dte": 46,
-      "iv": 0.6412
+      "iv": 0.6397
     },
     {
       "expiry": "2026-10-16",
       "dte": 67,
-      "iv": 0.671
+      "iv": 0.6596
     },
     {
       "expiry": "2026-11-20",
       "dte": 102,
-      "iv": 0.6908
+      "iv": 0.688
     }
   ],
   "expected_move": [
     {
       "expiry": "2026-08-14",
       "dte": 4,
-      "move": 2.33,
-      "pct": 4.28
+      "move": 2.27,
+      "pct": 4.17
     },
     {
       "expiry": "2026-08-21",
       "dte": 11,
-      "move": 4.43,
-      "pct": 8.15
+      "move": 4.45,
+      "pct": 8.18
     },
     {
       "expiry": "2026-08-28",
       "dte": 18,
-      "move": 5.97,
-      "pct": 11.0
+      "move": 6.03,
+      "pct": 11.08
     },
     {
       "expiry": "2026-09-04",
       "dte": 25,
-      "move": 7.25,
-      "pct": 13.35
+      "move": 7.22,
+      "pct": 13.28
     },
     {
       "expiry": "2026-09-11",
       "dte": 32,
-      "move": 9.11,
-      "pct": 16.76
+      "move": 8.9,
+      "pct": 16.37
     },
     {
       "expiry": "2026-09-18",
       "dte": 39,
-      "move": 9.02,
-      "pct": 16.61
+      "move": 9.03,
+      "pct": 16.59
     }
   ],
-  "iv_backwardation": -0.1572,
+  "iv_backwardation": -0.1667,
   "volume_mix": {
     "0-1일": 0.0,
-    "2-7일": 0.2464,
-    "8-30일": 0.4946,
-    "31일+": 0.259
+    "2-7일": 0.2554,
+    "8-30일": 0.4914,
+    "31일+": 0.2532
   },
-  "pcr_dollar": 0.421,
-  "hv10": 0.7599,
-  "hv21": 0.7801,
-  "vrp10": -0.2494,
-  "vrp21": -0.2696,
+  "pcr_dollar": 0.432,
+  "hv10": 0.7576,
+  "hv21": 0.7798,
+  "vrp10": -0.2619,
+  "vrp21": -0.2841,
   "spot_is_live": true,
   "prev_close": 55.06,
-  "chg_pct": -1.34,
+  "chg_pct": -1.18,
   "price_date": "2026-08-12",
   "oi_lag_sessions": 1,
   "volume_date": "2026-08-12",
