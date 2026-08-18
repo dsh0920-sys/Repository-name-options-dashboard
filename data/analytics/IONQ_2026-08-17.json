@@ -6,17 +6,16 @@
   "call_wall": null,
   "top_put_oi": [],
   "top_call_oi": [],
-  "pcr_oi": 0.944,
+  "pcr_oi": 0.816,
   "pcr_vol": 0.702,
   "max_pain": {
-    "2026-08-21": 55.0,
-    "2026-09-18": 50.0
+    "2026-08-21": 45.0
   },
   "nearest_expiry": "2026-08-21",
-  "biggest_oi_expiry": "2026-09-18",
+  "biggest_oi_expiry": "2026-08-21",
   "atm_iv": 0.5,
-  "straddle_move": 18.92,
-  "skew_5pct": 0.375,
+  "straddle_move": 31.81,
+  "skew_5pct": 0.4687,
   "gex_total_bn": 0.0,
   "gamma_flip": null,
   "gex_by_strike_bn": {},
@@ -42,21 +41,21 @@
     "2026-11-20"
   ],
   "occ": {
-    "as_of": "2026-08-14",
-    "stale": true,
-    "call_customer": 40879,
-    "call_firm": 2932,
-    "call_market_maker": 43983,
-    "put_customer": 21626,
-    "put_firm": 401,
-    "put_market_maker": 23963,
-    "customer_share": 0.4672,
-    "firm_share": 0.0249,
-    "customer_pcr": 0.529,
-    "firm_pcr": 0.137,
-    "customer_total": 62505,
-    "firm_total": 3333,
-    "mm_total": 67946
+    "as_of": "2026-08-17",
+    "stale": false,
+    "call_customer": 27295,
+    "call_firm": 666,
+    "call_market_maker": 27085,
+    "put_customer": 14498,
+    "put_firm": 554,
+    "put_market_maker": 15922,
+    "customer_share": 0.4859,
+    "firm_share": 0.0142,
+    "customer_pcr": 0.531,
+    "firm_pcr": 0.832,
+    "customer_total": 41793,
+    "firm_total": 1220,
+    "mm_total": 43007
   },
   "dex_total_bn": 0.0,
   "expiry_gex": [
@@ -64,7 +63,7 @@
       "expiry": "2026-08-21",
       "dte": 4,
       "gex_bn": 0.0,
-      "oi": 10889,
+      "oi": 116457,
       "share": 0.0
     },
     {
@@ -85,7 +84,7 @@
       "expiry": "2026-09-11",
       "dte": 25,
       "gex_bn": 0.0,
-      "oi": 865,
+      "oi": 7636,
       "share": 0.0
     },
     {
@@ -99,7 +98,7 @@
       "expiry": "2026-09-25",
       "dte": 39,
       "gex_bn": 0.0,
-      "oi": 112,
+      "oi": 1753,
       "share": 0.0
     },
     {
@@ -128,7 +127,7 @@
     "expiry": "2026-08-21",
     "dte": 4,
     "share": 0.0,
-    "oi": 10889
+    "oi": 116457
   },
   "iv_term": [
     {
@@ -176,7 +175,7 @@
     {
       "expiry": "2026-08-21",
       "dte": 4,
-      "move": 18.92,
+      "move": 31.81,
       "pct": NaN
     },
     {
@@ -206,7 +205,7 @@
     {
       "expiry": "2026-09-25",
       "dte": 39,
-      "move": 12.69,
+      "move": 14.08,
       "pct": NaN
     }
   ],
