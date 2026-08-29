@@ -67,14 +67,14 @@
   "pcr_oi": 0.584,
   "pcr_vol": 0.376,
   "max_pain": {
-    "2026-09-18": 335.0,
-    "2026-08-31": 340.0
+    "2026-08-31": 340.0,
+    "2026-09-18": 335.0
   },
   "nearest_expiry": "2026-08-31",
   "biggest_oi_expiry": "2026-09-18",
   "atm_iv": 0.167,
   "straddle_move": 4.24,
-  "skew_5pct": -0.0245,
+  "skew_5pct": -0.0115,
   "gex_total_bn": 0.21,
   "gamma_flip": 336.31,
   "gex_by_strike_bn": {
@@ -488,7 +488,23 @@
     "2026-11-20",
     "2026-12-18"
   ],
-  "occ": null,
+  "occ": {
+    "as_of": "2026-08-27",
+    "stale": true,
+    "call_customer": 275171,
+    "call_firm": 5178,
+    "call_market_maker": 294151,
+    "put_customer": 62415,
+    "put_firm": 6936,
+    "put_market_maker": 75141,
+    "customer_share": 0.4695,
+    "firm_share": 0.0168,
+    "customer_pcr": 0.227,
+    "firm_pcr": 1.34,
+    "customer_total": 337586,
+    "firm_total": 12114,
+    "mm_total": 369292
+  },
   "dex_total_bn": -5.6,
   "expiry_gex": [
     {
@@ -551,7 +567,7 @@
       "expiry": "2026-11-20",
       "dte": 84,
       "gex_bn": 0.004,
-      "oi": 169686,
+      "oi": 169708,
       "share": 0.0109
     },
     {
@@ -665,7 +681,7 @@
     "8-30일": 0.229,
     "31일+": 0.1833
   },
-  "pcr_dollar": 0.529,
+  "pcr_dollar": 0.528,
   "hv10": 0.1621,
   "hv21": 0.3748,
   "vrp10": 0.0049,

@@ -67,8 +67,8 @@
   "pcr_oi": 0.909,
   "pcr_vol": 0.777,
   "max_pain": {
-    "2026-09-18": 45.0,
-    "2026-09-04": 41.0
+    "2026-09-04": 41.0,
+    "2026-09-18": 45.0
   },
   "nearest_expiry": "2026-09-04",
   "biggest_oi_expiry": "2026-09-18",
@@ -479,7 +479,23 @@
     "2026-11-20",
     "2026-12-18"
   ],
-  "occ": null,
+  "occ": {
+    "as_of": "2026-08-27",
+    "stale": true,
+    "call_customer": 287181,
+    "call_firm": 29210,
+    "call_market_maker": 315979,
+    "put_customer": 136716,
+    "put_firm": 20961,
+    "put_market_maker": 127387,
+    "customer_share": 0.462,
+    "firm_share": 0.0547,
+    "customer_pcr": 0.476,
+    "firm_pcr": 0.718,
+    "customer_total": 423897,
+    "firm_total": 50171,
+    "mm_total": 443366
+  },
   "dex_total_bn": 0.42,
   "expiry_gex": [
     {
