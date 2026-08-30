@@ -67,14 +67,14 @@
   "pcr_oi": 0.941,
   "pcr_vol": 0.832,
   "max_pain": {
-    "2026-09-04": 175.0,
-    "2026-09-18": 140.0
+    "2026-09-18": 140.0,
+    "2026-09-04": 175.0
   },
   "nearest_expiry": "2026-09-04",
   "biggest_oi_expiry": "2026-09-18",
   "atm_iv": 0.4317,
   "straddle_move": 8.95,
-  "skew_5pct": -0.0709,
+  "skew_5pct": 0.0264,
   "gex_total_bn": 0.14,
   "gamma_flip": null,
   "gex_by_strike_bn": {
@@ -540,7 +540,7 @@
       "expiry": "2026-11-20",
       "dte": 84,
       "gex_bn": 0.007,
-      "oi": 204133,
+      "oi": 204150,
       "share": 0.0509
     },
     {
