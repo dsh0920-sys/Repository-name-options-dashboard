@@ -67,14 +67,14 @@
   "pcr_oi": 0.463,
   "pcr_vol": 0.534,
   "max_pain": {
-    "2026-09-18": 55.0,
-    "2026-09-04": 61.0
+    "2026-09-04": 61.0,
+    "2026-09-18": 55.0
   },
   "nearest_expiry": "2026-09-04",
   "biggest_oi_expiry": "2026-09-18",
   "atm_iv": 0.6924,
   "straddle_move": 4.89,
-  "skew_5pct": -0.0234,
+  "skew_5pct": -0.0254,
   "gex_total_bn": 0.0,
   "gamma_flip": null,
   "gex_by_strike_bn": {
@@ -265,11 +265,11 @@
     },
     {
       "price": 64.36,
-      "gex_bn": 0.003
+      "gex_bn": 0.002
     },
     {
       "price": 64.52,
-      "gex_bn": 0.003
+      "gex_bn": 0.002
     },
     {
       "price": 64.68,
@@ -496,64 +496,64 @@
       "expiry": "2026-09-04",
       "dte": 7,
       "gex_bn": 0.0,
-      "oi": 14199,
-      "share": 0.0422
+      "oi": 13814,
+      "share": 0.0431
     },
     {
       "expiry": "2026-09-11",
       "dte": 14,
       "gex_bn": 0.0,
       "oi": 6038,
-      "share": 0.0063
+      "share": 0.006
     },
     {
       "expiry": "2026-09-18",
       "dte": 21,
       "gex_bn": 0.003,
-      "oi": 106183,
-      "share": 0.431
+      "oi": 106146,
+      "share": 0.4308
     },
     {
       "expiry": "2026-09-25",
       "dte": 28,
       "gex_bn": 0.0,
       "oi": 6044,
-      "share": 0.0022
+      "share": 0.0021
     },
     {
       "expiry": "2026-10-02",
       "dte": 35,
       "gex_bn": -0.0,
       "oi": 2843,
-      "share": 0.0079
+      "share": 0.008
     },
     {
       "expiry": "2026-10-16",
       "dte": 49,
       "gex_bn": 0.001,
       "oi": 35478,
-      "share": 0.1497
+      "share": 0.1491
     },
     {
       "expiry": "2026-11-20",
       "dte": 84,
       "gex_bn": 0.001,
       "oi": 20653,
-      "share": 0.1259
+      "share": 0.1258
     },
     {
       "expiry": "2026-12-18",
       "dte": 112,
       "gex_bn": 0.001,
       "oi": 31827,
-      "share": 0.2348
+      "share": 0.2351
     }
   ],
   "opex_biggest": {
     "expiry": "2026-09-18",
     "dte": 21,
-    "share": 0.431,
-    "oi": 106183
+    "share": 0.4308,
+    "oi": 106146
   },
   "iv_term": [
     {

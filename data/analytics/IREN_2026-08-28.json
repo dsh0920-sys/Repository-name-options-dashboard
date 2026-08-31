@@ -74,7 +74,7 @@
   "biggest_oi_expiry": "2026-09-18",
   "atm_iv": 0.7561,
   "straddle_move": 2.96,
-  "skew_5pct": -0.0918,
+  "skew_5pct": -0.019,
   "gex_total_bn": -0.01,
   "gamma_flip": null,
   "gex_by_strike_bn": {
@@ -151,15 +151,15 @@
     },
     {
       "price": 32.97,
-      "gex_bn": -0.008
+      "gex_bn": -0.007
     },
     {
       "price": 33.06,
-      "gex_bn": -0.008
+      "gex_bn": -0.007
     },
     {
       "price": 33.15,
-      "gex_bn": -0.008
+      "gex_bn": -0.007
     },
     {
       "price": 33.23,
@@ -496,69 +496,69 @@
     "firm_total": 75883,
     "mm_total": 770027
   },
-  "dex_total_bn": 0.41,
+  "dex_total_bn": 0.4,
   "expiry_gex": [
     {
       "expiry": "2026-09-04",
       "dte": 7,
       "gex_bn": -0.001,
-      "oi": 92060,
-      "share": 0.1814
+      "oi": 91336,
+      "share": 0.1612
     },
     {
       "expiry": "2026-09-11",
       "dte": 14,
       "gex_bn": -0.001,
-      "oi": 37365,
-      "share": 0.1901
+      "oi": 37321,
+      "share": 0.1948
     },
     {
       "expiry": "2026-09-18",
       "dte": 21,
       "gex_bn": -0.003,
       "oi": 406554,
-      "share": 0.5075
+      "share": 0.5204
     },
     {
       "expiry": "2026-09-25",
       "dte": 28,
       "gex_bn": -0.0,
       "oi": 25114,
-      "share": 0.0515
+      "share": 0.0533
     },
     {
       "expiry": "2026-10-02",
       "dte": 35,
       "gex_bn": -0.0,
       "oi": 13528,
-      "share": 0.0083
+      "share": 0.0078
     },
     {
       "expiry": "2026-10-16",
       "dte": 49,
       "gex_bn": -0.0,
       "oi": 129439,
-      "share": 0.0455
+      "share": 0.046
     },
     {
       "expiry": "2026-11-20",
       "dte": 84,
       "gex_bn": 0.0,
       "oi": 139862,
-      "share": 0.0083
+      "share": 0.0098
     },
     {
       "expiry": "2026-12-18",
       "dte": 112,
       "gex_bn": -0.0,
       "oi": 223099,
-      "share": 0.0074
+      "share": 0.0068
     }
   ],
   "opex_biggest": {
     "expiry": "2026-09-18",
     "dte": 21,
-    "share": 0.5075,
+    "share": 0.5204,
     "oi": 406554
   },
   "iv_term": [
