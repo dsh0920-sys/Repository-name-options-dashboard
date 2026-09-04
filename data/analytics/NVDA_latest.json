@@ -1,7 +1,7 @@
 {
   "ticker": "NVDA",
   "date": "2026-09-02",
-  "spot": NaN,
+  "spot": 228.45,
   "put_wall": null,
   "call_wall": null,
   "top_put_oi": [],
@@ -14,19 +14,49 @@
   },
   "nearest_expiry": "2026-09-04",
   "biggest_oi_expiry": "2026-12-18",
-  "atm_iv": 0.5,
-  "straddle_move": 28.71,
-  "skew_5pct": -8.3125,
+  "atm_iv": 0.2515,
+  "straddle_move": 3.48,
+  "skew_5pct": -11.1165,
   "gex_total_bn": 0.0,
   "gamma_flip": null,
   "gex_by_strike_bn": {},
   "gex_curve": [],
-  "supports": [],
-  "resistances": [],
+  "supports": [
+    {
+      "price": 179.59,
+      "touches": 5
+    },
+    {
+      "price": 185.41,
+      "touches": 7
+    },
+    {
+      "price": 190.47,
+      "touches": 6
+    },
+    {
+      "price": 193.8,
+      "touches": 6
+    }
+  ],
+  "resistances": [
+    {
+      "price": 230.47,
+      "touches": 1
+    },
+    {
+      "price": 232.28,
+      "touches": 1
+    },
+    {
+      "price": 236.54,
+      "touches": 1
+    }
+  ],
   "ma": {
-    "MA20": NaN,
-    "MA50": NaN,
-    "MA200": NaN
+    "MA20": 219.76,
+    "MA50": 209.87,
+    "MA200": 196.46
   },
   "high_52w": 236.54,
   "low_52w": 164.07,
@@ -64,103 +94,108 @@
     {
       "expiry": "2026-12-18",
       "dte": 107,
-      "gex_bn": 0.0,
+      "gex_bn": -0.0,
       "oi": 17509,
-      "share": 0.0
+      "share": 1.0
     }
   ],
   "opex_biggest": {
     "expiry": "2026-12-18",
     "dte": 107,
-    "share": 0.0,
+    "share": 1.0,
     "oi": 17509
   },
   "iv_term": [
     {
       "expiry": "2026-09-04",
       "dte": 2,
-      "iv": 0.5
+      "iv": 0.2515
     },
     {
       "expiry": "2026-09-09",
       "dte": 7,
-      "iv": 0.25
+      "iv": 0.2589
     },
     {
       "expiry": "2026-09-11",
       "dte": 9,
-      "iv": 0.125
+      "iv": 0.2959
     },
     {
       "expiry": "2026-09-18",
       "dte": 16,
-      "iv": 0.5
+      "iv": 0.3157
     },
     {
       "expiry": "2026-09-25",
       "dte": 23,
-      "iv": 0.5
+      "iv": 0.3169
     },
     {
       "expiry": "2026-10-02",
       "dte": 30,
-      "iv": 0.125
+      "iv": 0.3246
     },
     {
       "expiry": "2026-10-09",
       "dte": 37,
-      "iv": 0.25
+      "iv": 0.3254
     },
     {
       "expiry": "2026-10-16",
       "dte": 44,
-      "iv": 0.25
+      "iv": 0.3351
     },
     {
       "expiry": "2026-11-20",
       "dte": 79,
-      "iv": 0.25
+      "iv": 0.3757
+    },
+    {
+      "expiry": "2026-12-18",
+      "dte": 107,
+      "iv": 1.534
     }
   ],
   "expected_move": [
     {
       "expiry": "2026-09-04",
       "dte": 2,
-      "move": 28.71,
-      "pct": NaN
+      "move": 3.48,
+      "pct": 1.52
     },
     {
       "expiry": "2026-09-09",
       "dte": 7,
-      "move": 30.09,
-      "pct": NaN
+      "move": 6.58,
+      "pct": 2.88
     },
     {
       "expiry": "2026-09-11",
       "dte": 9,
-      "move": 37.14,
-      "pct": NaN
+      "move": 8.5,
+      "pct": 3.72
     },
     {
       "expiry": "2026-09-18",
       "dte": 16,
-      "move": 223.73,
-      "pct": NaN
+      "move": 12.06,
+      "pct": 5.28
     },
     {
       "expiry": "2026-09-25",
       "dte": 23,
-      "move": 88.24,
-      "pct": NaN
+      "move": 14.55,
+      "pct": 6.37
     },
     {
       "expiry": "2026-10-02",
       "dte": 30,
-      "move": 34.41,
-      "pct": NaN
+      "move": 17.0,
+      "pct": 7.44
     }
   ],
-  "iv_backwardation": 0.0417,
+  "iv_backwardation": -0.6861,
   "volume_mix": {
     "0-1일": 0.0,
     "2-7일": 0.7276,
@@ -168,13 +203,13 @@
     "31일+": 0.0756
   },
   "pcr_dollar": 0.279,
-  "hv10": 0.586,
-  "hv21": 0.4529,
-  "vrp10": -0.086,
-  "vrp21": 0.0471,
+  "hv10": 0.5892,
+  "hv21": 0.4423,
+  "vrp10": -0.3377,
+  "vrp21": -0.1908,
   "spot_is_live": false,
   "prev_close": 224.41,
-  "chg_pct": NaN,
+  "chg_pct": 1.8,
   "price_date": "2026-09-03",
   "oi_lag_sessions": 1,
   "volume_date": "2026-09-03",
