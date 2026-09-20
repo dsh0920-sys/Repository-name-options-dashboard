@@ -676,7 +676,23 @@
     "2026-12-18",
     "2027-01-15"
   ],
-  "occ": null,
+  "occ": {
+    "as_of": "2026-09-18",
+    "stale": false,
+    "call_customer": 3197157,
+    "call_firm": 145397,
+    "call_market_maker": 3830362,
+    "put_customer": 3483200,
+    "put_firm": 274669,
+    "put_market_maker": 3848877,
+    "customer_share": 0.452,
+    "firm_share": 0.0284,
+    "customer_pcr": 1.089,
+    "firm_pcr": 1.889,
+    "customer_total": 6680357,
+    "firm_total": 420066,
+    "mm_total": 7679239
+  },
   "dex_total_bn": -21.86,
   "expiry_gex": [
     {
@@ -881,7 +897,7 @@
     "8-30일": 0.2077,
     "31일+": 0.0694
   },
-  "pcr_dollar": 0.79,
+  "pcr_dollar": 0.789,
   "hv10": 0.134,
   "hv21": 0.1319,
   "vrp10": -0.0359,

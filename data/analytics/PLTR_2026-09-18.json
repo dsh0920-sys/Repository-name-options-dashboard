@@ -480,7 +480,23 @@
     "2026-12-18",
     "2027-01-15"
   ],
-  "occ": null,
+  "occ": {
+    "as_of": "2026-09-18",
+    "stale": false,
+    "call_customer": 359074,
+    "call_firm": 3284,
+    "call_market_maker": 408286,
+    "put_customer": 170862,
+    "put_firm": 10032,
+    "put_market_maker": 212358,
+    "customer_share": 0.4553,
+    "firm_share": 0.0114,
+    "customer_pcr": 0.476,
+    "firm_pcr": 3.055,
+    "customer_total": 529936,
+    "firm_total": 13316,
+    "mm_total": 620644
+  },
   "dex_total_bn": -6.71,
   "expiry_gex": [
     {
@@ -529,8 +545,8 @@
       "expiry": "2026-11-20",
       "dte": 63,
       "gex_bn": 0.009,
-      "oi": 246287,
-      "share": 0.1414
+      "oi": 246304,
+      "share": 0.1413
     },
     {
       "expiry": "2026-12-18",
