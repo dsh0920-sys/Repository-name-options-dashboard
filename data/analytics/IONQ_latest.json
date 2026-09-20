@@ -74,7 +74,7 @@
   "biggest_oi_expiry": "2027-01-15",
   "atm_iv": 0.6461,
   "straddle_move": 2.79,
-  "skew_5pct": -0.0791,
+  "skew_5pct": -0.0542,
   "gex_total_bn": -0.0,
   "gamma_flip": null,
   "gex_by_strike_bn": {
@@ -201,15 +201,15 @@
     },
     {
       "price": 37.56,
-      "gex_bn": -0.002
+      "gex_bn": -0.001
     },
     {
       "price": 37.66,
-      "gex_bn": -0.002
+      "gex_bn": -0.001
     },
     {
       "price": 37.76,
-      "gex_bn": -0.002
+      "gex_bn": -0.001
     },
     {
       "price": 37.86,
@@ -499,35 +499,35 @@
     "firm_total": 8941,
     "mm_total": 74455
   },
-  "dex_total_bn": -0.02,
+  "dex_total_bn": -0.03,
   "expiry_gex": [
     {
       "expiry": "2026-09-25",
       "dte": 7,
       "gex_bn": 0.001,
-      "oi": 31105,
-      "share": 0.2438
+      "oi": 31082,
+      "share": 0.2464
     },
     {
       "expiry": "2026-10-02",
       "dte": 14,
       "gex_bn": 0.0,
       "oi": 14279,
-      "share": 0.0769
+      "share": 0.0763
     },
     {
       "expiry": "2026-10-09",
       "dte": 21,
       "gex_bn": 0.0,
       "oi": 8186,
-      "share": 0.014
+      "share": 0.0141
     },
     {
       "expiry": "2026-10-16",
       "dte": 28,
       "gex_bn": -0.002,
-      "oi": 75427,
-      "share": 0.3691
+      "oi": 74910,
+      "share": 0.3645
     },
     {
       "expiry": "2026-10-23",
@@ -548,28 +548,28 @@
       "dte": 63,
       "gex_bn": 0.0,
       "oi": 63225,
-      "share": 0.1047
+      "share": 0.1059
     },
     {
       "expiry": "2026-12-18",
       "dte": 91,
       "gex_bn": 0.0,
       "oi": 71462,
-      "share": 0.0009
+      "share": 0.0013
     },
     {
       "expiry": "2027-01-15",
       "dte": 119,
       "gex_bn": 0.001,
       "oi": 130164,
-      "share": 0.1705
+      "share": 0.1716
     }
   ],
   "opex_biggest": {
     "expiry": "2026-10-16",
     "dte": 28,
-    "share": 0.3691,
-    "oi": 75427
+    "share": 0.3645,
+    "oi": 74910
   },
   "iv_term": [
     {
@@ -663,7 +663,7 @@
     "8-30일": 0.4167,
     "31일+": 0.2465
   },
-  "pcr_dollar": 7.6,
+  "pcr_dollar": 7.596,
   "hv10": 0.6524,
   "hv21": 0.762,
   "vrp10": -0.0063,
