@@ -6,14 +6,14 @@
   "call_wall": null,
   "top_put_oi": [],
   "top_call_oi": [],
-  "pcr_oi": 0.643,
+  "pcr_oi": 0.579,
   "pcr_vol": 0.355,
   "max_pain": {
-    "2026-12-18": 300.0,
+    "2027-01-15": 300.0,
     "2026-09-23": 352.5
   },
   "nearest_expiry": "2026-09-23",
-  "biggest_oi_expiry": "2026-12-18",
+  "biggest_oi_expiry": "2027-01-15",
   "atm_iv": 0.5,
   "straddle_move": 87.39,
   "skew_5pct": 0.4375,
@@ -46,21 +46,21 @@
     "2027-01-15"
   ],
   "occ": {
-    "as_of": "2026-09-21",
-    "stale": true,
-    "call_customer": 366218,
-    "call_firm": 5247,
-    "call_market_maker": 409507,
-    "put_customer": 125309,
-    "put_firm": 6353,
-    "put_market_maker": 152486,
-    "customer_share": 0.4615,
-    "firm_share": 0.0109,
-    "customer_pcr": 0.342,
-    "firm_pcr": 1.211,
-    "customer_total": 491527,
-    "firm_total": 11600,
-    "mm_total": 561993
+    "as_of": "2026-09-22",
+    "stale": false,
+    "call_customer": 449359,
+    "call_firm": 6553,
+    "call_market_maker": 538126,
+    "put_customer": 129007,
+    "put_firm": 11699,
+    "put_market_maker": 191756,
+    "customer_share": 0.436,
+    "firm_share": 0.0138,
+    "customer_pcr": 0.287,
+    "firm_pcr": 1.785,
+    "customer_total": 578366,
+    "firm_total": 18252,
+    "mm_total": 729882
   },
   "dex_total_bn": 0.0,
   "expiry_gex": [
@@ -103,28 +103,28 @@
       "expiry": "2026-10-09",
       "dte": 17,
       "gex_bn": 0.0,
-      "oi": 15271,
+      "oi": 21904,
       "share": 0.0
     },
     {
       "expiry": "2026-10-16",
       "dte": 24,
       "gex_bn": 0.0,
-      "oi": 255233,
+      "oi": 399166,
       "share": 0.0
     },
     {
       "expiry": "2026-10-23",
       "dte": 31,
       "gex_bn": 0.0,
-      "oi": 8781,
+      "oi": 21959,
       "share": 0.0
     },
     {
       "expiry": "2026-10-30",
       "dte": 38,
       "gex_bn": 0.0,
-      "oi": 6169,
+      "oi": 10584,
       "share": 0.0
     },
     {
@@ -145,7 +145,7 @@
       "expiry": "2027-01-15",
       "dte": 115,
       "gex_bn": 0.0,
-      "oi": 111935,
+      "oi": 361289,
       "share": 0.0
     }
   ],
@@ -241,11 +241,11 @@
     {
       "expiry": "2026-10-05",
       "dte": 13,
-      "move": 13.53,
+      "move": 14.92,
       "pct": NaN
     }
   ],
-  "iv_backwardation": 0.2167,
+  "iv_backwardation": 0.0708,
   "volume_mix": {
     "0-1일": 0.429,
     "2-7일": 0.2094,
