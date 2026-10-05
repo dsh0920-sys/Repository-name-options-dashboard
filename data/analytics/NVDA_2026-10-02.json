@@ -74,7 +74,7 @@
   "biggest_oi_expiry": "2027-01-15",
   "atm_iv": 0.1909,
   "straddle_move": 3.33,
-  "skew_5pct": 0.0,
+  "skew_5pct": -0.125,
   "gex_total_bn": 0.04,
   "gamma_flip": 233.42,
   "gex_by_strike_bn": {
@@ -494,14 +494,14 @@
     "firm_total": 91292,
     "mm_total": 4631654
   },
-  "dex_total_bn": -0.13,
+  "dex_total_bn": -0.04,
   "expiry_gex": [
     {
       "expiry": "2026-10-05",
       "dte": 3,
       "gex_bn": 0.192,
       "oi": 249912,
-      "share": 0.8129
+      "share": 0.8131
     },
     {
       "expiry": "2026-10-07",
@@ -515,7 +515,7 @@
       "dte": 7,
       "gex_bn": 0.022,
       "oi": 585806,
-      "share": 0.0927
+      "share": 0.0926
     },
     {
       "expiry": "2026-10-12",
@@ -542,7 +542,7 @@
       "expiry": "2026-10-23",
       "dte": 21,
       "gex_bn": 0.002,
-      "oi": 114520,
+      "oi": 114510,
       "share": 0.0093
     },
     {
@@ -584,14 +584,14 @@
       "expiry": "2027-01-15",
       "dte": 105,
       "gex_bn": 0.002,
-      "oi": 1856152,
-      "share": 0.009
+      "oi": 1852676,
+      "share": 0.0089
     }
   ],
   "opex_biggest": {
     "expiry": "2026-10-05",
     "dte": 3,
-    "share": 0.8129,
+    "share": 0.8131,
     "oi": 249912
   },
   "iv_term": [
@@ -691,7 +691,7 @@
     "8-30일": 0.1969,
     "31일+": 0.1256
   },
-  "pcr_dollar": 0.391,
+  "pcr_dollar": 0.392,
   "hv10": 0.1824,
   "hv21": 0.2485,
   "vrp10": 0.0085,
