@@ -6,11 +6,11 @@
   "call_wall": null,
   "top_put_oi": [],
   "top_call_oi": [],
-  "pcr_oi": 1.078,
+  "pcr_oi": 1.155,
   "pcr_vol": 0.793,
   "max_pain": {
     "2026-12-18": 690.0,
-    "2026-10-16": 10.0
+    "2026-10-16": 20.0
   },
   "nearest_expiry": "2026-10-16",
   "biggest_oi_expiry": "2026-12-18",
@@ -101,28 +101,28 @@
       "dte": 10,
       "gex_bn": 0.0,
       "oi": 50,
-      "share": 0.3182
+      "share": 0.1915
     },
     {
       "expiry": "2026-12-18",
       "dte": 66,
       "gex_bn": -0.0,
-      "oi": 2815,
-      "share": 0.4444
+      "oi": 3687,
+      "share": 0.6658
     },
     {
       "expiry": "2027-01-15",
       "dte": 94,
       "gex_bn": -0.0,
       "oi": 1,
-      "share": 0.2373
+      "share": 0.1428
     }
   ],
   "opex_biggest": {
     "expiry": "2026-12-18",
     "dte": 66,
-    "share": 0.4444,
-    "oi": 2815
+    "share": 0.6658,
+    "oi": 3687
   },
   "iv_term": [
     {
@@ -173,7 +173,7 @@
     {
       "expiry": "2026-12-18",
       "dte": 66,
-      "iv": 2.4601
+      "iv": 2.0666
     }
   ],
   "expected_move": [
@@ -214,7 +214,7 @@
       "pct": 6.98
     }
   ],
-  "iv_backwardation": -0.7179,
+  "iv_backwardation": -0.5868,
   "volume_mix": {
     "0-1일": 0.0,
     "2-7일": 0.5343,
