@@ -67,14 +67,14 @@
   "pcr_oi": 0.769,
   "pcr_vol": 0.523,
   "max_pain": {
-    "2026-10-23": 35.0,
-    "2027-01-15": 32.0
+    "2027-01-15": 32.0,
+    "2026-10-23": 35.0
   },
   "nearest_expiry": "2026-10-23",
   "biggest_oi_expiry": "2027-01-15",
   "atm_iv": 1.0708,
   "straddle_move": 3.19,
-  "skew_5pct": 0.0508,
+  "skew_5pct": -0.0146,
   "gex_total_bn": -0.0,
   "gamma_flip": null,
   "gex_by_strike_bn": {
@@ -467,70 +467,70 @@
     "firm_total": 22514,
     "mm_total": 833522
   },
-  "dex_total_bn": 0.63,
+  "dex_total_bn": 0.61,
   "expiry_gex": [
     {
       "expiry": "2026-10-23",
       "dte": 7,
       "gex_bn": -0.0,
-      "oi": 132756,
-      "share": 0.0665
+      "oi": 131701,
+      "share": 0.0584
     },
     {
       "expiry": "2026-10-30",
       "dte": 14,
       "gex_bn": -0.0,
-      "oi": 116535,
-      "share": 0.1198
+      "oi": 116104,
+      "share": 0.113
     },
     {
       "expiry": "2026-11-06",
       "dte": 21,
       "gex_bn": -0.0,
       "oi": 53067,
-      "share": 0.086
+      "share": 0.0864
     },
     {
       "expiry": "2026-11-13",
       "dte": 28,
       "gex_bn": -0.0,
-      "oi": 29889,
-      "share": 0.1092
+      "oi": 29856,
+      "share": 0.1108
     },
     {
       "expiry": "2026-11-20",
       "dte": 35,
       "gex_bn": -0.001,
-      "oi": 371608,
-      "share": 0.3617
+      "oi": 370282,
+      "share": 0.3624
     },
     {
       "expiry": "2026-11-27",
       "dte": 42,
       "gex_bn": 0.0,
       "oi": 14039,
-      "share": 0.0094
+      "share": 0.0099
     },
     {
       "expiry": "2026-12-18",
       "dte": 63,
       "gex_bn": -0.001,
       "oi": 353263,
-      "share": 0.1941
+      "share": 0.1954
     },
     {
       "expiry": "2027-01-15",
       "dte": 91,
       "gex_bn": 0.0,
       "oi": 857762,
-      "share": 0.0533
+      "share": 0.0637
     }
   ],
   "opex_biggest": {
     "expiry": "2026-11-20",
     "dte": 35,
-    "share": 0.3617,
-    "oi": 371608
+    "share": 0.3624,
+    "oi": 370282
   },
   "iv_term": [
     {
