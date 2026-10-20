@@ -6,11 +6,11 @@
   "call_wall": null,
   "top_put_oi": [],
   "top_call_oi": [],
-  "pcr_oi": 1.096,
+  "pcr_oi": 1.024,
   "pcr_vol": 0.626,
   "max_pain": {
-    "2026-12-18": 700.0,
-    "2026-10-21": 120.0
+    "2026-10-21": 120.0,
+    "2026-12-18": 700.0
   },
   "nearest_expiry": "2026-10-21",
   "biggest_oi_expiry": "2026-12-18",
@@ -173,7 +173,7 @@
     {
       "expiry": "2026-12-18",
       "dte": 63,
-      "iv": 2.1029
+      "iv": 2.5045
     }
   ],
   "expected_move": [
@@ -214,7 +214,7 @@
       "pct": 6.31
     }
   ],
-  "iv_backwardation": -0.9717,
+  "iv_backwardation": -1.1725,
   "volume_mix": {
     "0-1일": 0.0,
     "2-7일": 0.5798,
