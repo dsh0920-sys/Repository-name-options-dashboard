@@ -64,7 +64,7 @@
       "oi": 1544
     }
   ],
-  "pcr_oi": 1.105,
+  "pcr_oi": 1.107,
   "pcr_vol": 1.836,
   "max_pain": {
     "2027-01-15": 510.0,
@@ -74,7 +74,7 @@
   "biggest_oi_expiry": "2027-01-15",
   "atm_iv": 0.5448,
   "straddle_move": 28.4,
-  "skew_5pct": -0.0029,
+  "skew_5pct": 0.1008,
   "gex_total_bn": -0.12,
   "gamma_flip": null,
   "gex_by_strike_bn": {
@@ -507,21 +507,21 @@
     "2027-02-19"
   ],
   "occ": {
-    "as_of": "2026-10-30",
-    "stale": false,
-    "call_customer": 63154,
-    "call_firm": 3823,
-    "call_market_maker": 77701,
-    "put_customer": 121114,
-    "put_firm": 58699,
-    "put_market_maker": 165333,
-    "customer_share": 0.3762,
-    "firm_share": 0.1276,
-    "customer_pcr": 1.918,
-    "firm_pcr": 15.354,
-    "customer_total": 184268,
-    "firm_total": 62522,
-    "mm_total": 243034
+    "as_of": "2026-10-29",
+    "stale": true,
+    "call_customer": 19338,
+    "call_firm": 781,
+    "call_market_maker": 20861,
+    "put_customer": 50615,
+    "put_firm": 3238,
+    "put_market_maker": 51337,
+    "customer_share": 0.4786,
+    "firm_share": 0.0275,
+    "customer_pcr": 2.617,
+    "firm_pcr": 4.146,
+    "customer_total": 69953,
+    "firm_total": 4019,
+    "mm_total": 72198
   },
   "dex_total_bn": 2.93,
   "expiry_gex": [
@@ -543,8 +543,8 @@
       "expiry": "2026-11-20",
       "dte": 21,
       "gex_bn": -0.055,
-      "oi": 110771,
-      "share": 0.4569
+      "oi": 110769,
+      "share": 0.457
     },
     {
       "expiry": "2026-11-27",
@@ -571,7 +571,7 @@
       "expiry": "2027-01-15",
       "dte": 77,
       "gex_bn": -0.02,
-      "oi": 138362,
+      "oi": 138352,
       "share": 0.1612
     },
     {
@@ -585,8 +585,8 @@
   "opex_biggest": {
     "expiry": "2026-11-20",
     "dte": 21,
-    "share": 0.4569,
-    "oi": 110771
+    "share": 0.457,
+    "oi": 110769
   },
   "iv_term": [
     {
@@ -673,9 +673,9 @@
     "0-1일": 0.0,
     "2-7일": 0.4076,
     "8-30일": 0.3196,
-    "31일+": 0.2728
+    "31일+": 0.2729
   },
-  "pcr_dollar": 2.22,
+  "pcr_dollar": 2.212,
   "hv10": 0.6661,
   "hv21": 0.5098,
   "vrp10": -0.1213,
