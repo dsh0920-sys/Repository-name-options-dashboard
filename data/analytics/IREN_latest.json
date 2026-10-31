@@ -1,6 +1,6 @@
 {
   "ticker": "IREN",
-  "date": "2026-10-29",
+  "date": "2026-10-30",
   "spot": 23.95,
   "put_wall": 22.0,
   "call_wall": 25.0,
@@ -67,12 +67,12 @@
   "pcr_oi": 0.698,
   "pcr_vol": 0.874,
   "max_pain": {
-    "2026-11-06": 30.0,
-    "2027-01-15": 32.0
+    "2027-01-15": 32.0,
+    "2026-11-06": 30.0
   },
   "nearest_expiry": "2026-11-06",
   "biggest_oi_expiry": "2027-01-15",
-  "atm_iv": 1.5222,
+  "atm_iv": 1.6272,
   "straddle_move": 4.3,
   "skew_5pct": 0.3213,
   "gex_total_bn": -0.0,
@@ -458,184 +458,184 @@
     "2027-02-19"
   ],
   "occ": {
-    "as_of": "2026-10-29",
+    "as_of": "2026-10-30",
     "stale": false,
-    "call_customer": 127844,
-    "call_firm": 9095,
-    "call_market_maker": 210541,
-    "put_customer": 46370,
-    "put_firm": 8198,
-    "put_market_maker": 168610,
-    "customer_share": 0.3053,
-    "firm_share": 0.0303,
-    "customer_pcr": 0.363,
-    "firm_pcr": 0.901,
-    "customer_total": 174214,
-    "firm_total": 17293,
-    "mm_total": 379151
+    "call_customer": 181591,
+    "call_firm": 8081,
+    "call_market_maker": 301720,
+    "put_customer": 123569,
+    "put_firm": 11189,
+    "put_market_maker": 231728,
+    "customer_share": 0.3557,
+    "firm_share": 0.0225,
+    "customer_pcr": 0.68,
+    "firm_pcr": 1.385,
+    "customer_total": 305160,
+    "firm_total": 19270,
+    "mm_total": 533448
   },
-  "dex_total_bn": 0.63,
+  "dex_total_bn": 0.64,
   "expiry_gex": [
     {
       "expiry": "2026-11-06",
-      "dte": 8,
+      "dte": 7,
       "gex_bn": 0.0,
       "oi": 125896,
-      "share": 0.0218
+      "share": 0.0041
     },
     {
       "expiry": "2026-11-13",
-      "dte": 15,
+      "dte": 14,
       "gex_bn": -0.0,
       "oi": 61193,
-      "share": 0.0985
+      "share": 0.1025
     },
     {
       "expiry": "2026-11-20",
-      "dte": 22,
+      "dte": 21,
       "gex_bn": -0.001,
       "oi": 425335,
-      "share": 0.4401
+      "share": 0.4628
     },
     {
       "expiry": "2026-11-27",
-      "dte": 29,
+      "dte": 28,
       "gex_bn": -0.0,
       "oi": 37807,
-      "share": 0.0024
+      "share": 0.0043
     },
     {
       "expiry": "2026-12-04",
-      "dte": 36,
+      "dte": 35,
       "gex_bn": -0.0,
       "oi": 12326,
-      "share": 0.0062
+      "share": 0.0065
     },
     {
       "expiry": "2026-12-18",
-      "dte": 50,
+      "dte": 49,
       "gex_bn": -0.0,
       "oi": 432350,
-      "share": 0.2252
+      "share": 0.2333
     },
     {
       "expiry": "2027-01-15",
-      "dte": 78,
+      "dte": 77,
       "gex_bn": 0.0,
       "oi": 946105,
-      "share": 0.137
+      "share": 0.1172
     },
     {
       "expiry": "2027-02-19",
-      "dte": 113,
+      "dte": 112,
       "gex_bn": -0.0,
       "oi": 123257,
-      "share": 0.0688
+      "share": 0.0693
     }
   ],
   "opex_biggest": {
     "expiry": "2026-11-20",
-    "dte": 22,
-    "share": 0.4401,
+    "dte": 21,
+    "share": 0.4628,
     "oi": 425335
   },
   "iv_term": [
     {
       "expiry": "2026-11-06",
-      "dte": 8,
-      "iv": 1.5222
+      "dte": 7,
+      "iv": 1.6272
     },
     {
       "expiry": "2026-11-13",
-      "dte": 15,
-      "iv": 1.3462
+      "dte": 14,
+      "iv": 1.3934
     },
     {
       "expiry": "2026-11-20",
-      "dte": 22,
-      "iv": 1.2607
+      "dte": 21,
+      "iv": 1.2903
     },
     {
       "expiry": "2026-11-27",
-      "dte": 29,
-      "iv": 1.1803
+      "dte": 28,
+      "iv": 1.2011
     },
     {
       "expiry": "2026-12-04",
-      "dte": 36,
-      "iv": 1.1487
+      "dte": 35,
+      "iv": 1.1649
     },
     {
       "expiry": "2026-12-18",
-      "dte": 50,
-      "iv": 1.1062
+      "dte": 49,
+      "iv": 1.1173
     },
     {
       "expiry": "2027-01-15",
-      "dte": 78,
-      "iv": 1.0536
+      "dte": 77,
+      "iv": 1.0603
     },
     {
       "expiry": "2027-02-19",
-      "dte": 113,
-      "iv": 1.0362
+      "dte": 112,
+      "iv": 1.0407
     }
   ],
   "expected_move": [
     {
       "expiry": "2026-11-06",
-      "dte": 8,
+      "dte": 7,
       "move": 4.3,
       "pct": 17.95
     },
     {
       "expiry": "2026-11-13",
-      "dte": 15,
+      "dte": 14,
       "move": 5.2,
       "pct": 21.71
     },
     {
       "expiry": "2026-11-20",
-      "dte": 22,
+      "dte": 21,
       "move": 5.89,
       "pct": 24.59
     },
     {
       "expiry": "2026-11-27",
-      "dte": 29,
+      "dte": 28,
       "move": 6.33,
       "pct": 26.41
     },
     {
       "expiry": "2026-12-04",
-      "dte": 36,
+      "dte": 35,
       "move": 6.85,
       "pct": 28.6
     },
     {
       "expiry": "2026-12-18",
-      "dte": 50,
+      "dte": 49,
       "move": 7.95,
       "pct": 33.19
     }
   ],
-  "iv_backwardation": 0.4569,
+  "iv_backwardation": 0.5544,
   "volume_mix": {
     "0-1일": 0.0,
-    "2-7일": 0.0,
-    "8-30일": 0.7179,
+    "2-7일": 0.3697,
+    "8-30일": 0.3483,
     "31일+": 0.2821
   },
   "pcr_dollar": 1.892,
   "hv10": 1.02,
   "hv21": 0.9344,
-  "vrp10": 0.5022,
-  "vrp21": 0.5878,
+  "vrp10": 0.6072,
+  "vrp21": 0.6928,
   "spot_is_live": false,
   "prev_close": 26.25,
   "chg_pct": -8.76,
   "price_date": "2026-10-30",
-  "oi_lag_sessions": 1,
+  "oi_lag_sessions": 0,
   "volume_date": "2026-10-30",
   "volume_is_live": false
 }
