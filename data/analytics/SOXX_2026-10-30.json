@@ -67,14 +67,14 @@
   "pcr_oi": 1.105,
   "pcr_vol": 1.836,
   "max_pain": {
-    "2027-01-15": 510.0,
-    "2026-11-06": 505.0
+    "2026-11-06": 505.0,
+    "2027-01-15": 510.0
   },
   "nearest_expiry": "2026-11-06",
   "biggest_oi_expiry": "2027-01-15",
   "atm_iv": 0.5448,
   "straddle_move": 28.4,
-  "skew_5pct": 0.0922,
+  "skew_5pct": 0.1689,
   "gex_total_bn": -0.12,
   "gamma_flip": null,
   "gex_by_strike_bn": {
@@ -506,7 +506,23 @@
     "2027-01-15",
     "2027-02-19"
   ],
-  "occ": null,
+  "occ": {
+    "as_of": "2026-10-27",
+    "stale": true,
+    "call_customer": 30263,
+    "call_firm": 18547,
+    "call_market_maker": 45692,
+    "put_customer": 23457,
+    "put_firm": 987,
+    "put_market_maker": 26292,
+    "customer_share": 0.3699,
+    "firm_share": 0.1345,
+    "customer_pcr": 0.775,
+    "firm_pcr": 0.053,
+    "customer_total": 53720,
+    "firm_total": 19534,
+    "mm_total": 71984
+  },
   "dex_total_bn": 2.9,
   "expiry_gex": [
     {
