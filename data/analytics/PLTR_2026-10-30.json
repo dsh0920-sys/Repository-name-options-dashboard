@@ -476,7 +476,23 @@
     "2027-01-15",
     "2027-02-19"
   ],
-  "occ": null,
+  "occ": {
+    "as_of": "2026-10-27",
+    "stale": true,
+    "call_customer": 109755,
+    "call_firm": 3037,
+    "call_market_maker": 187758,
+    "put_customer": 60955,
+    "put_firm": 6819,
+    "put_market_maker": 145100,
+    "customer_share": 0.3325,
+    "firm_share": 0.0192,
+    "customer_pcr": 0.555,
+    "firm_pcr": 2.245,
+    "customer_total": 170710,
+    "firm_total": 9856,
+    "mm_total": 332858
+  },
   "dex_total_bn": -4.86,
   "expiry_gex": [
     {
