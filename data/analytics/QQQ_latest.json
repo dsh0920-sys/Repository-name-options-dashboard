@@ -74,7 +74,7 @@
   "biggest_oi_expiry": "2026-12-18",
   "atm_iv": 0.2063,
   "straddle_move": 10.32,
-  "skew_5pct": -0.0502,
+  "skew_5pct": 0.0676,
   "gex_total_bn": -6.24,
   "gamma_flip": 735.62,
   "gex_by_strike_bn": {
@@ -600,8 +600,24 @@
     "2027-01-15",
     "2027-02-19"
   ],
-  "occ": null,
-  "dex_total_bn": 58.85,
+  "occ": {
+    "as_of": "2026-10-29",
+    "stale": true,
+    "call_customer": 2938154,
+    "call_firm": 53622,
+    "call_market_maker": 3309946,
+    "put_customer": 3297480,
+    "put_firm": 331010,
+    "put_market_maker": 4035068,
+    "customer_share": 0.4465,
+    "firm_share": 0.0275,
+    "customer_pcr": 1.122,
+    "firm_pcr": 6.173,
+    "customer_total": 6235634,
+    "firm_total": 384632,
+    "mm_total": 7345014
+  },
+  "dex_total_bn": 58.88,
   "expiry_gex": [
     {
       "expiry": "2026-11-02",
@@ -669,15 +685,15 @@
     {
       "expiry": "2026-12-18",
       "dte": 49,
-      "gex_bn": -1.056,
-      "oi": 2611791,
+      "gex_bn": -1.057,
+      "oi": 2611459,
       "share": 0.1714
     },
     {
       "expiry": "2027-01-15",
       "dte": 77,
       "gex_bn": -0.447,
-      "oi": 1249146,
+      "oi": 1249047,
       "share": 0.0726
     },
     {
