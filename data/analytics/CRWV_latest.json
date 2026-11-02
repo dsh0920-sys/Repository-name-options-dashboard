@@ -74,7 +74,7 @@
   "biggest_oi_expiry": "2027-01-15",
   "atm_iv": 1.0887,
   "straddle_move": 6.6,
-  "skew_5pct": 0.2227,
+  "skew_5pct": 0.3296,
   "gex_total_bn": -0.02,
   "gamma_flip": null,
   "gex_by_strike_bn": {
@@ -142,63 +142,63 @@
     },
     {
       "price": 50.75,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 50.89,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 51.03,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 51.17,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 51.3,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 51.44,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 51.58,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 51.71,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 51.85,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 51.99,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 52.13,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 52.26,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 52.4,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 52.54,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 52.68,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 52.81,
@@ -338,47 +338,47 @@
     },
     {
       "price": 57.48,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 57.61,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 57.75,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 57.89,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 58.03,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 58.16,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 58.3,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 58.44,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 58.57,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 58.71,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 58.85,
-      "gex_bn": -0.016
+      "gex_bn": -0.015
     },
     {
       "price": 58.99,
@@ -484,35 +484,35 @@
     "firm_total": 46037,
     "mm_total": 673330
   },
-  "dex_total_bn": 1.59,
+  "dex_total_bn": 1.57,
   "expiry_gex": [
     {
       "expiry": "2026-11-06",
       "dte": 7,
       "gex_bn": -0.001,
-      "oi": 186060,
-      "share": 0.0902
+      "oi": 182558,
+      "share": 0.0651
     },
     {
       "expiry": "2026-11-13",
       "dte": 14,
-      "gex_bn": -0.001,
+      "gex_bn": -0.0,
       "oi": 77498,
-      "share": 0.0313
+      "share": 0.0301
     },
     {
       "expiry": "2026-11-20",
       "dte": 21,
-      "gex_bn": -0.003,
-      "oi": 482704,
-      "share": 0.16
+      "gex_bn": -0.002,
+      "oi": 482010,
+      "share": 0.1579
     },
     {
       "expiry": "2026-11-27",
       "dte": 28,
       "gex_bn": 0.0,
       "oi": 38038,
-      "share": 0.0113
+      "share": 0.0124
     },
     {
       "expiry": "2026-12-04",
@@ -533,27 +533,27 @@
       "dte": 49,
       "gex_bn": -0.005,
       "oi": 419444,
-      "share": 0.2899
+      "share": 0.3005
     },
     {
       "expiry": "2027-01-15",
       "dte": 77,
       "gex_bn": -0.006,
       "oi": 635699,
-      "share": 0.3852
+      "share": 0.4005
     },
     {
       "expiry": "2027-02-19",
       "dte": 112,
-      "gex_bn": -0.001,
+      "gex_bn": -0.0,
       "oi": 97087,
-      "share": 0.0303
+      "share": 0.0315
     }
   ],
   "opex_biggest": {
     "expiry": "2027-01-15",
     "dte": 77,
-    "share": 0.3852,
+    "share": 0.4005,
     "oi": 635699
   },
   "iv_term": [
@@ -648,7 +648,7 @@
     "8-30일": 0.3246,
     "31일+": 0.2882
   },
-  "pcr_dollar": 2.039,
+  "pcr_dollar": 2.042,
   "hv10": 0.9898,
   "hv21": 1.0375,
   "vrp10": 0.0989,
