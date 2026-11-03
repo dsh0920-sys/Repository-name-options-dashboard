@@ -64,7 +64,7 @@
       "oi": 2022
     }
   ],
-  "pcr_oi": 1.251,
+  "pcr_oi": 1.252,
   "pcr_vol": 0.728,
   "max_pain": {
     "2027-01-15": 510.0,
@@ -74,7 +74,7 @@
   "biggest_oi_expiry": "2027-01-15",
   "atm_iv": 0.5359,
   "straddle_move": 26.9,
-  "skew_5pct": -0.0127,
+  "skew_5pct": 0.0005,
   "gex_total_bn": -0.14,
   "gamma_flip": null,
   "gex_by_strike_bn": {
@@ -543,7 +543,7 @@
       "dte": 21,
       "gex_bn": -0.052,
       "oi": 126454,
-      "share": 0.4454
+      "share": 0.4452
     },
     {
       "expiry": "2026-11-27",
@@ -571,13 +571,13 @@
       "dte": 49,
       "gex_bn": -0.01,
       "oi": 71050,
-      "share": 0.0833
+      "share": 0.0836
     },
     {
       "expiry": "2027-01-15",
       "dte": 77,
       "gex_bn": -0.023,
-      "oi": 140831,
+      "oi": 140821,
       "share": 0.1992
     },
     {
@@ -591,7 +591,7 @@
   "opex_biggest": {
     "expiry": "2026-11-20",
     "dte": 21,
-    "share": 0.4454,
+    "share": 0.4452,
     "oi": 126454
   },
   "iv_term": [
