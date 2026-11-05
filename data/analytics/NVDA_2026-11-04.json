@@ -1,0 +1,229 @@
+{
+  "ticker": "NVDA",
+  "date": "2026-11-04",
+  "spot": 200.13,
+  "put_wall": null,
+  "call_wall": null,
+  "top_put_oi": [],
+  "top_call_oi": [],
+  "pcr_oi": 1.021,
+  "pcr_vol": 0.748,
+  "max_pain": {
+    "2026-11-06": 50.0,
+    "2026-12-18": 630.0
+  },
+  "nearest_expiry": "2026-11-06",
+  "biggest_oi_expiry": "2026-12-18",
+  "atm_iv": 0.567,
+  "straddle_move": 6.7,
+  "skew_5pct": -0.1971,
+  "gex_total_bn": 0.0,
+  "gamma_flip": null,
+  "gex_by_strike_bn": {},
+  "gex_curve": [],
+  "supports": [
+    {
+      "price": 179.42,
+      "touches": 4
+    },
+    {
+      "price": 185.62,
+      "touches": 5
+    },
+    {
+      "price": 190.35,
+      "touches": 5
+    },
+    {
+      "price": 193.8,
+      "touches": 6
+    }
+  ],
+  "resistances": [
+    {
+      "price": 200.21,
+      "touches": 4
+    },
+    {
+      "price": 213.55,
+      "touches": 5
+    },
+    {
+      "price": 216.04,
+      "touches": 3
+    },
+    {
+      "price": 220.54,
+      "touches": 2
+    }
+  ],
+  "ma": {
+    "MA20": 216.12,
+    "MA50": 221.2,
+    "MA200": 204.67
+  },
+  "high_52w": 243.37,
+  "low_52w": 164.27,
+  "expirations_used": [
+    "2026-11-06",
+    "2026-11-09",
+    "2026-11-11",
+    "2026-11-13",
+    "2026-11-20",
+    "2026-11-27",
+    "2026-12-04",
+    "2026-12-11",
+    "2026-12-18",
+    "2027-01-15",
+    "2027-02-19"
+  ],
+  "occ": {
+    "as_of": "2026-11-04",
+    "stale": false,
+    "call_customer": 1705342,
+    "call_firm": 16022,
+    "call_market_maker": 1782622,
+    "put_customer": 1255948,
+    "put_firm": 72707,
+    "put_market_maker": 1493479,
+    "customer_share": 0.4681,
+    "firm_share": 0.014,
+    "customer_pcr": 0.736,
+    "firm_pcr": 4.538,
+    "customer_total": 2961290,
+    "firm_total": 88729,
+    "mm_total": 3276101
+  },
+  "dex_total_bn": 0.0,
+  "expiry_gex": [
+    {
+      "expiry": "2026-12-18",
+      "dte": 44,
+      "gex_bn": -0.0,
+      "oi": 19793,
+      "share": 0.9975
+    },
+    {
+      "expiry": "2027-02-19",
+      "dte": 107,
+      "gex_bn": 0.0,
+      "oi": 3,
+      "share": 0.0025
+    }
+  ],
+  "opex_biggest": {
+    "expiry": "2026-12-18",
+    "dte": 44,
+    "share": 0.9975,
+    "oi": 19793
+  },
+  "iv_term": [
+    {
+      "expiry": "2026-11-06",
+      "dte": 2,
+      "iv": 0.567
+    },
+    {
+      "expiry": "2026-11-09",
+      "dte": 5,
+      "iv": 0.4336
+    },
+    {
+      "expiry": "2026-11-11",
+      "dte": 7,
+      "iv": 0.4502
+    },
+    {
+      "expiry": "2026-11-13",
+      "dte": 9,
+      "iv": 0.4534
+    },
+    {
+      "expiry": "2026-11-20",
+      "dte": 16,
+      "iv": 0.5407
+    },
+    {
+      "expiry": "2026-11-27",
+      "dte": 23,
+      "iv": 0.4881
+    },
+    {
+      "expiry": "2026-12-04",
+      "dte": 30,
+      "iv": 0.4652
+    },
+    {
+      "expiry": "2026-12-11",
+      "dte": 37,
+      "iv": 0.4586
+    },
+    {
+      "expiry": "2027-01-15",
+      "dte": 72,
+      "iv": 0.4239
+    },
+    {
+      "expiry": "2027-02-19",
+      "dte": 107,
+      "iv": 0.4093
+    }
+  ],
+  "expected_move": [
+    {
+      "expiry": "2026-11-06",
+      "dte": 2,
+      "move": 6.7,
+      "pct": 3.35
+    },
+    {
+      "expiry": "2026-11-09",
+      "dte": 5,
+      "move": 8.1,
+      "pct": 4.05
+    },
+    {
+      "expiry": "2026-11-11",
+      "dte": 7,
+      "move": 9.95,
+      "pct": 4.97
+    },
+    {
+      "expiry": "2026-11-13",
+      "dte": 9,
+      "move": 11.36,
+      "pct": 5.68
+    },
+    {
+      "expiry": "2026-11-20",
+      "dte": 16,
+      "move": 18.05,
+      "pct": 9.02
+    },
+    {
+      "expiry": "2026-11-27",
+      "dte": 23,
+      "move": 19.53,
+      "pct": 9.76
+    }
+  ],
+  "iv_backwardation": 0.0595,
+  "volume_mix": {
+    "0-1일": 0.0,
+    "2-7일": 0.4897,
+    "8-30일": 0.2914,
+    "31일+": 0.2189
+  },
+  "pcr_dollar": 1.142,
+  "hv10": 0.3889,
+  "hv21": 0.3292,
+  "vrp10": 0.1781,
+  "vrp21": 0.2378,
+  "spot_is_live": false,
+  "prev_close": 206.69,
+  "chg_pct": -3.17,
+  "price_date": "2026-11-04",
+  "oi_lag_sessions": 0,
+  "volume_date": "2026-11-04",
+  "volume_is_live": false
+}
