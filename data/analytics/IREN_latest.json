@@ -67,14 +67,14 @@
   "pcr_oi": 0.671,
   "pcr_vol": 0.517,
   "max_pain": {
-    "2027-01-15": 32.0,
-    "2026-11-06": 26.5
+    "2026-11-06": 26.5,
+    "2027-01-15": 32.0
   },
   "nearest_expiry": "2026-11-06",
   "biggest_oi_expiry": "2027-01-15",
   "atm_iv": 2.2732,
   "straddle_move": 3.55,
-  "skew_5pct": 0.0566,
+  "skew_5pct": 0.0703,
   "gex_total_bn": -0.0,
   "gamma_flip": null,
   "gex_by_strike_bn": {
@@ -468,42 +468,35 @@
     "firm_total": 10804,
     "mm_total": 483178
   },
-  "dex_total_bn": 0.66,
+  "dex_total_bn": 0.63,
   "expiry_gex": [
-    {
-      "expiry": "2026-11-06",
-      "dte": 3,
-      "gex_bn": -0.0,
-      "oi": 4310,
-      "share": 0.0194
-    },
     {
       "expiry": "2026-11-13",
       "dte": 10,
       "gex_bn": -0.0,
-      "oi": 93274,
-      "share": 0.0965
+      "oi": 89329,
+      "share": 0.1076
     },
     {
       "expiry": "2026-11-20",
       "dte": 17,
       "gex_bn": -0.001,
-      "oi": 393344,
-      "share": 0.4687
+      "oi": 385593,
+      "share": 0.4928
     },
     {
       "expiry": "2026-11-27",
       "dte": 24,
       "gex_bn": -0.0,
       "oi": 48437,
-      "share": 0.0168
+      "share": 0.0136
     },
     {
       "expiry": "2026-12-04",
       "dte": 31,
       "gex_bn": 0.0,
       "oi": 23562,
-      "share": 0.016
+      "share": 0.0194
     },
     {
       "expiry": "2026-12-11",
@@ -516,29 +509,29 @@
       "expiry": "2026-12-18",
       "dte": 45,
       "gex_bn": -0.0,
-      "oi": 449436,
-      "share": 0.272
+      "oi": 432367,
+      "share": 0.2715
     },
     {
       "expiry": "2027-01-15",
       "dte": 73,
       "gex_bn": -0.0,
       "oi": 960444,
-      "share": 0.0243
+      "share": 0.002
     },
     {
       "expiry": "2027-02-19",
       "dte": 108,
       "gex_bn": -0.0,
       "oi": 125668,
-      "share": 0.0859
+      "share": 0.0927
     }
   ],
   "opex_biggest": {
     "expiry": "2026-11-20",
     "dte": 17,
-    "share": 0.4687,
-    "oi": 393344
+    "share": 0.4928,
+    "oi": 385593
   },
   "iv_term": [
     {
