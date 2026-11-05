@@ -6,7 +6,7 @@
   "call_wall": null,
   "top_put_oi": [],
   "top_call_oi": [],
-  "pcr_oi": 1.087,
+  "pcr_oi": 1.021,
   "pcr_vol": 0.748,
   "max_pain": {
     "2026-11-06": 50.0,
@@ -159,14 +159,14 @@
       "iv": 0.4525
     },
     {
-      "expiry": "2026-12-18",
-      "dte": 45,
-      "iv": 2.4257
-    },
-    {
       "expiry": "2027-01-15",
       "dte": 73,
       "iv": 0.421
+    },
+    {
+      "expiry": "2027-02-19",
+      "dte": 108,
+      "iv": 0.4074
     }
   ],
   "expected_move": [
@@ -207,7 +207,7 @@
       "pct": 9.76
     }
   ],
-  "iv_backwardation": -0.6572,
+  "iv_backwardation": 0.0133,
   "volume_mix": {
     "0-1일": 0.0,
     "2-7일": 0.463,
