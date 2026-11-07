@@ -1,6 +1,6 @@
 {
   "ticker": "CRWV",
-  "date": "2026-11-05",
+  "date": "2026-11-06",
   "spot": 46.4,
   "put_wall": 40.0,
   "call_wall": 50.0,
@@ -72,13 +72,13 @@
   },
   "nearest_expiry": "2026-11-13",
   "biggest_oi_expiry": "2027-01-15",
-  "atm_iv": 1.8064,
+  "atm_iv": 1.9311,
   "straddle_move": 9.8,
   "skew_5pct": 0.0508,
   "gex_total_bn": -0.01,
   "gamma_flip": null,
   "gex_by_strike_bn": {
-    "40.0": -0.002,
+    "40.0": -0.003,
     "42.0": -0.0,
     "42.5": -0.001,
     "43.0": -0.0,
@@ -156,43 +156,43 @@
     },
     {
       "price": 43.38,
-      "gex_bn": -0.009
+      "gex_bn": -0.01
     },
     {
       "price": 43.5,
-      "gex_bn": -0.009
+      "gex_bn": -0.01
     },
     {
       "price": 43.62,
-      "gex_bn": -0.009
+      "gex_bn": -0.01
     },
     {
       "price": 43.73,
-      "gex_bn": -0.009
+      "gex_bn": -0.01
     },
     {
       "price": 43.85,
-      "gex_bn": -0.009
+      "gex_bn": -0.01
     },
     {
       "price": 43.96,
-      "gex_bn": -0.009
+      "gex_bn": -0.01
     },
     {
       "price": 44.08,
-      "gex_bn": -0.009
+      "gex_bn": -0.01
     },
     {
       "price": 44.2,
-      "gex_bn": -0.009
+      "gex_bn": -0.01
     },
     {
       "price": 44.31,
-      "gex_bn": -0.009
+      "gex_bn": -0.01
     },
     {
       "price": 44.43,
-      "gex_bn": -0.009
+      "gex_bn": -0.01
     },
     {
       "price": 44.54,
@@ -460,184 +460,184 @@
     "2027-02-19"
   ],
   "occ": {
-    "as_of": "2026-11-05",
+    "as_of": "2026-11-06",
     "stale": false,
-    "call_customer": 276686,
-    "call_firm": 13734,
-    "call_market_maker": 395836,
-    "put_customer": 266587,
-    "put_firm": 19807,
-    "put_market_maker": 397172,
-    "customer_share": 0.3966,
-    "firm_share": 0.0245,
-    "customer_pcr": 0.964,
-    "firm_pcr": 1.442,
-    "customer_total": 543273,
-    "firm_total": 33541,
-    "mm_total": 793008
+    "call_customer": 193875,
+    "call_firm": 8220,
+    "call_market_maker": 257141,
+    "put_customer": 222574,
+    "put_firm": 42906,
+    "put_market_maker": 259606,
+    "customer_share": 0.4231,
+    "firm_share": 0.0519,
+    "customer_pcr": 1.148,
+    "firm_pcr": 5.22,
+    "customer_total": 416449,
+    "firm_total": 51126,
+    "mm_total": 516747
   },
-  "dex_total_bn": 1.84,
+  "dex_total_bn": 1.86,
   "expiry_gex": [
     {
       "expiry": "2026-11-13",
-      "dte": 8,
+      "dte": 7,
       "gex_bn": 0.0,
       "oi": 109001,
-      "share": 0.0111
+      "share": 0.0051
     },
     {
       "expiry": "2026-11-20",
-      "dte": 15,
+      "dte": 14,
       "gex_bn": -0.004,
       "oi": 476981,
-      "share": 0.2575
+      "share": 0.268
     },
     {
       "expiry": "2026-11-27",
-      "dte": 22,
+      "dte": 21,
       "gex_bn": 0.0,
       "oi": 49925,
-      "share": 0.0027
+      "share": 0.0016
     },
     {
       "expiry": "2026-12-04",
-      "dte": 29,
+      "dte": 28,
       "gex_bn": -0.0,
       "oi": 19619,
-      "share": 0.0141
+      "share": 0.0142
     },
     {
       "expiry": "2026-12-11",
-      "dte": 36,
+      "dte": 35,
       "gex_bn": -0.0,
       "oi": 4641,
       "share": 0.004
     },
     {
       "expiry": "2026-12-18",
-      "dte": 43,
+      "dte": 42,
       "gex_bn": -0.005,
       "oi": 460295,
-      "share": 0.3073
+      "share": 0.3067
     },
     {
       "expiry": "2027-01-15",
-      "dte": 71,
+      "dte": 70,
       "gex_bn": -0.006,
       "oi": 691692,
-      "share": 0.3649
+      "share": 0.3622
     },
     {
       "expiry": "2027-02-19",
-      "dte": 106,
+      "dte": 105,
       "gex_bn": -0.001,
       "oi": 123019,
-      "share": 0.0385
+      "share": 0.0382
     }
   ],
   "opex_biggest": {
     "expiry": "2027-01-15",
-    "dte": 71,
-    "share": 0.3649,
+    "dte": 70,
+    "share": 0.3622,
     "oi": 691692
   },
   "iv_term": [
     {
       "expiry": "2026-11-13",
-      "dte": 8,
-      "iv": 1.8064
+      "dte": 7,
+      "iv": 1.9311
     },
     {
       "expiry": "2026-11-20",
-      "dte": 15,
-      "iv": 1.5111
+      "dte": 14,
+      "iv": 1.564
     },
     {
       "expiry": "2026-11-27",
-      "dte": 22,
-      "iv": 1.3671
+      "dte": 21,
+      "iv": 1.3992
     },
     {
       "expiry": "2026-12-04",
-      "dte": 29,
-      "iv": 1.2754
+      "dte": 28,
+      "iv": 1.298
     },
     {
       "expiry": "2026-12-11",
-      "dte": 36,
-      "iv": 1.2276
+      "dte": 35,
+      "iv": 1.245
     },
     {
       "expiry": "2026-12-18",
-      "dte": 43,
-      "iv": 1.1741
+      "dte": 42,
+      "iv": 1.1879
     },
     {
       "expiry": "2027-01-15",
-      "dte": 71,
-      "iv": 1.0712
+      "dte": 70,
+      "iv": 1.0787
     },
     {
       "expiry": "2027-02-19",
-      "dte": 106,
-      "iv": 1.0153
+      "dte": 105,
+      "iv": 1.0201
     }
   ],
   "expected_move": [
     {
       "expiry": "2026-11-13",
-      "dte": 8,
+      "dte": 7,
       "move": 9.8,
       "pct": 21.12
     },
     {
       "expiry": "2026-11-20",
-      "dte": 15,
+      "dte": 14,
       "move": 11.45,
       "pct": 24.68
     },
     {
       "expiry": "2026-11-27",
-      "dte": 22,
+      "dte": 21,
       "move": 12.22,
       "pct": 26.35
     },
     {
       "expiry": "2026-12-04",
-      "dte": 29,
+      "dte": 28,
       "move": 13.07,
       "pct": 28.18
     },
     {
       "expiry": "2026-12-11",
-      "dte": 36,
+      "dte": 35,
       "move": 14.0,
       "pct": 30.17
     },
     {
       "expiry": "2026-12-18",
-      "dte": 43,
+      "dte": 42,
       "move": 14.98,
       "pct": 32.27
     }
   ],
-  "iv_backwardation": 0.7631,
+  "iv_backwardation": 0.8817,
   "volume_mix": {
     "0-1일": 0.0,
-    "2-7일": 0.0,
-    "8-30일": 0.5102,
+    "2-7일": 0.2845,
+    "8-30일": 0.2257,
     "31일+": 0.4898
   },
   "pcr_dollar": 5.534,
   "hv10": 1.2939,
   "hv21": 1.1685,
-  "vrp10": 0.5125,
-  "vrp21": 0.6379,
+  "vrp10": 0.6372,
+  "vrp21": 0.7626,
   "spot_is_live": false,
   "prev_close": 43.66,
   "chg_pct": 6.28,
   "price_date": "2026-11-06",
-  "oi_lag_sessions": 1,
+  "oi_lag_sessions": 0,
   "volume_date": "2026-11-06",
   "volume_is_live": false
 }
