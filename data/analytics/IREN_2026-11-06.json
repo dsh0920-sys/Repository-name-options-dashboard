@@ -67,14 +67,14 @@
   "pcr_oi": 0.643,
   "pcr_vol": 0.513,
   "max_pain": {
-    "2027-01-15": 30.0,
-    "2026-11-13": 24.5
+    "2026-11-13": 24.5,
+    "2027-01-15": 30.0
   },
   "nearest_expiry": "2026-11-13",
   "biggest_oi_expiry": "2027-01-15",
   "atm_iv": 1.439,
   "straddle_move": 3.42,
-  "skew_5pct": 0.0898,
+  "skew_5pct": 0.0996,
   "gex_total_bn": -0.0,
   "gamma_flip": null,
   "gex_by_strike_bn": {
@@ -467,70 +467,70 @@
     "firm_total": 41016,
     "mm_total": 1032582
   },
-  "dex_total_bn": 0.61,
+  "dex_total_bn": 0.6,
   "expiry_gex": [
     {
       "expiry": "2026-11-13",
       "dte": 7,
       "gex_bn": 0.0,
-      "oi": 129664,
-      "share": 0.0747
+      "oi": 108439,
+      "share": 0.18
     },
     {
       "expiry": "2026-11-20",
       "dte": 14,
       "gex_bn": -0.0,
-      "oi": 413681,
-      "share": 0.3708
+      "oi": 412108,
+      "share": 0.2843
     },
     {
       "expiry": "2026-11-27",
       "dte": 21,
       "gex_bn": 0.0,
-      "oi": 56764,
-      "share": 0.0041
+      "oi": 56733,
+      "share": 0.0112
     },
     {
       "expiry": "2026-12-04",
       "dte": 28,
       "gex_bn": 0.0,
       "oi": 35693,
-      "share": 0.0319
+      "share": 0.0322
     },
     {
       "expiry": "2026-12-11",
       "dte": 35,
       "gex_bn": 0.0,
       "oi": 13346,
-      "share": 0.0296
+      "share": 0.0278
     },
     {
       "expiry": "2026-12-18",
       "dte": 42,
       "gex_bn": -0.0,
-      "oi": 452749,
-      "share": 0.1021
+      "oi": 451783,
+      "share": 0.0786
     },
     {
       "expiry": "2027-01-15",
       "dte": 70,
       "gex_bn": 0.0,
-      "oi": 981798,
-      "share": 0.1899
+      "oi": 969231,
+      "share": 0.2051
     },
     {
       "expiry": "2027-02-19",
       "dte": 105,
       "gex_bn": -0.0,
       "oi": 131643,
-      "share": 0.197
+      "share": 0.1808
     }
   ],
   "opex_biggest": {
     "expiry": "2026-11-20",
     "dte": 14,
-    "share": 0.3708,
-    "oi": 413681
+    "share": 0.2843,
+    "oi": 412108
   },
   "iv_term": [
     {
