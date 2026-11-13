@@ -1,20 +1,20 @@
 {
   "ticker": "NVDA",
-  "date": "2026-11-11",
+  "date": "2026-11-12",
   "spot": 166.19,
   "put_wall": null,
   "call_wall": null,
   "top_put_oi": [],
   "top_call_oi": [],
-  "pcr_oi": 0.691,
+  "pcr_oi": 0.618,
   "pcr_vol": 0.869,
   "max_pain": {
-    "2026-11-13": 50.0,
-    "2026-12-18": 700.0
+    "2026-12-18": 700.0,
+    "2026-11-13": 50.0
   },
   "nearest_expiry": "2026-11-13",
   "biggest_oi_expiry": "2026-12-18",
-  "atm_iv": 0.6416,
+  "atm_iv": 0.9076,
   "straddle_move": 6.35,
   "skew_5pct": 0.2703,
   "gex_total_bn": 0.0,
@@ -65,27 +65,27 @@
     "2027-02-19"
   ],
   "occ": {
-    "as_of": "2026-11-11",
+    "as_of": "2026-11-12",
     "stale": false,
-    "call_customer": 3106215,
-    "call_firm": 53116,
-    "call_market_maker": 3206671,
-    "put_customer": 1710605,
-    "put_firm": 96256,
-    "put_market_maker": 1929269,
-    "customer_share": 0.4768,
-    "firm_share": 0.0148,
-    "customer_pcr": 0.551,
-    "firm_pcr": 1.812,
-    "customer_total": 4816820,
-    "firm_total": 149372,
-    "mm_total": 5135940
+    "call_customer": 4749139,
+    "call_firm": 198816,
+    "call_market_maker": 5256961,
+    "put_customer": 3839308,
+    "put_firm": 354133,
+    "put_market_maker": 4605685,
+    "customer_share": 0.4519,
+    "firm_share": 0.0291,
+    "customer_pcr": 0.808,
+    "firm_pcr": 1.781,
+    "customer_total": 8588447,
+    "firm_total": 552949,
+    "mm_total": 9862646
   },
   "dex_total_bn": 0.0,
   "expiry_gex": [
     {
       "expiry": "2027-02-19",
-      "dte": 100,
+      "dte": 99,
       "gex_bn": -0.0,
       "oi": 2,
       "share": 1.0
@@ -93,117 +93,112 @@
   ],
   "opex_biggest": {
     "expiry": "2027-02-19",
-    "dte": 100,
+    "dte": 99,
     "share": 1.0,
     "oi": 2
   },
   "iv_term": [
     {
       "expiry": "2026-11-13",
-      "dte": 2,
-      "iv": 0.6416
+      "dte": 1,
+      "iv": 0.9076
     },
     {
       "expiry": "2026-11-16",
-      "dte": 5,
-      "iv": 0.5883
+      "dte": 4,
+      "iv": 0.6578
     },
     {
       "expiry": "2026-11-18",
-      "dte": 7,
-      "iv": 0.8773
+      "dte": 6,
+      "iv": 0.9476
     },
     {
       "expiry": "2026-11-20",
-      "dte": 9,
-      "iv": 0.8284
+      "dte": 8,
+      "iv": 0.8786
     },
     {
       "expiry": "2026-11-27",
-      "dte": 16,
-      "iv": 0.6932
+      "dte": 15,
+      "iv": 0.716
     },
     {
       "expiry": "2026-12-04",
-      "dte": 23,
-      "iv": 0.6334
+      "dte": 22,
+      "iv": 0.6477
     },
     {
       "expiry": "2026-12-11",
-      "dte": 30,
-      "iv": 0.5919
-    },
-    {
-      "expiry": "2026-12-18",
-      "dte": 37,
-      "iv": 2.5194
+      "dte": 29,
+      "iv": 0.602
     },
     {
       "expiry": "2027-01-15",
-      "dte": 65,
-      "iv": 0.5248
+      "dte": 64,
+      "iv": 0.5289
     },
     {
       "expiry": "2027-02-19",
-      "dte": 100,
-      "iv": 0.4927
+      "dte": 99,
+      "iv": 0.4952
     }
   ],
   "expected_move": [
     {
       "expiry": "2026-11-13",
-      "dte": 2,
+      "dte": 1,
       "move": 6.35,
       "pct": 3.82
     },
     {
       "expiry": "2026-11-16",
-      "dte": 5,
+      "dte": 4,
       "move": 9.15,
       "pct": 5.51
     },
     {
       "expiry": "2026-11-18",
-      "dte": 7,
+      "dte": 6,
       "move": 16.07,
       "pct": 9.67
     },
     {
       "expiry": "2026-11-20",
-      "dte": 9,
+      "dte": 8,
       "move": 17.2,
       "pct": 10.35
     },
     {
       "expiry": "2026-11-27",
-      "dte": 16,
+      "dte": 15,
       "move": 19.18,
       "pct": 11.54
     },
     {
       "expiry": "2026-12-04",
-      "dte": 23,
+      "dte": 22,
       "move": 21.0,
       "pct": 12.64
     }
   ],
-  "iv_backwardation": 0.2251,
+  "iv_backwardation": 0.3358,
   "volume_mix": {
-    "0-1일": 0.0,
-    "2-7일": 0.5907,
+    "0-1일": 0.4648,
+    "2-7일": 0.1258,
     "8-30일": 0.1403,
     "31일+": 0.2691
   },
   "pcr_dollar": 0.865,
   "hv10": 0.6544,
   "hv21": 0.5262,
-  "vrp10": -0.0128,
-  "vrp21": 0.1154,
+  "vrp10": 0.2532,
+  "vrp21": 0.3814,
   "spot_is_live": false,
   "prev_close": 173.73,
   "chg_pct": -4.34,
   "price_date": "2026-11-12",
-  "oi_lag_sessions": 1,
+  "oi_lag_sessions": 0,
   "volume_date": "2026-11-12",
   "volume_is_live": false
 }
