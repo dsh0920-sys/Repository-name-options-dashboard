@@ -1,6 +1,6 @@
 {
   "ticker": "IONQ",
-  "date": "2026-11-25",
+  "date": "2026-11-27",
   "spot": 24.97,
   "put_wall": 22.5,
   "call_wall": 25.0,
@@ -67,12 +67,12 @@
   "pcr_oi": 0.708,
   "pcr_vol": 0.673,
   "max_pain": {
-    "2026-12-04": 25.0,
-    "2027-01-15": 22.5
+    "2027-01-15": 22.5,
+    "2026-12-04": 25.0
   },
   "nearest_expiry": "2026-12-04",
   "biggest_oi_expiry": "2027-01-15",
-  "atm_iv": 0.8396,
+  "atm_iv": 0.9519,
   "straddle_move": 2.62,
   "skew_5pct": 0.0332,
   "gex_total_bn": -0.0,
@@ -459,55 +459,55 @@
     "2027-03-19"
   ],
   "occ": {
-    "as_of": "2026-11-25",
+    "as_of": "2026-11-27",
     "stale": false,
-    "call_customer": 46311,
-    "call_firm": 0,
-    "call_market_maker": 50955,
-    "put_customer": 18715,
-    "put_firm": 4009,
-    "put_market_maker": 25866,
-    "customer_share": 0.4458,
-    "firm_share": 0.0275,
-    "customer_pcr": 0.404,
-    "firm_pcr": 4009.0,
-    "customer_total": 65026,
-    "firm_total": 4009,
-    "mm_total": 76821
+    "call_customer": 28121,
+    "call_firm": 4,
+    "call_market_maker": 30831,
+    "put_customer": 8898,
+    "put_firm": 1000,
+    "put_market_maker": 9942,
+    "customer_share": 0.4698,
+    "firm_share": 0.0127,
+    "customer_pcr": 0.316,
+    "firm_pcr": 250.0,
+    "customer_total": 37019,
+    "firm_total": 1004,
+    "mm_total": 40773
   },
   "dex_total_bn": 0.03,
   "expiry_gex": [
     {
       "expiry": "2026-12-04",
-      "dte": 9,
+      "dte": 7,
       "gex_bn": 0.0,
       "oi": 9503,
-      "share": 0.0788
+      "share": 0.0812
     },
     {
       "expiry": "2026-12-11",
-      "dte": 16,
+      "dte": 14,
       "gex_bn": 0.0,
       "oi": 11443,
-      "share": 0.0082
+      "share": 0.004
     },
     {
       "expiry": "2026-12-18",
-      "dte": 23,
+      "dte": 21,
       "gex_bn": -0.0,
       "oi": 57008,
-      "share": 0.5712
+      "share": 0.593
     },
     {
       "expiry": "2027-01-15",
-      "dte": 51,
+      "dte": 49,
       "gex_bn": 0.0,
       "oi": 97663,
-      "share": 0.266
+      "share": 0.2461
     },
     {
       "expiry": "2027-03-19",
-      "dte": 114,
+      "dte": 112,
       "gex_bn": 0.0,
       "oi": 35702,
       "share": 0.0757
@@ -515,86 +515,86 @@
   ],
   "opex_biggest": {
     "expiry": "2026-12-18",
-    "dte": 23,
-    "share": 0.5712,
+    "dte": 21,
+    "share": 0.593,
     "oi": 57008
   },
   "iv_term": [
     {
       "expiry": "2026-12-04",
-      "dte": 9,
-      "iv": 0.8396
+      "dte": 7,
+      "iv": 0.9519
     },
     {
       "expiry": "2026-12-11",
-      "dte": 16,
-      "iv": 0.8837
+      "dte": 14,
+      "iv": 0.9446
     },
     {
       "expiry": "2026-12-18",
-      "dte": 23,
-      "iv": 0.9154
+      "dte": 21,
+      "iv": 0.9579
     },
     {
       "expiry": "2027-01-15",
-      "dte": 51,
-      "iv": 1.3516
+      "dte": 49,
+      "iv": 1.3788
     },
     {
       "expiry": "2027-03-19",
-      "dte": 114,
-      "iv": 0.9058
+      "dte": 112,
+      "iv": 0.9137
     }
   ],
   "expected_move": [
     {
       "expiry": "2026-12-04",
-      "dte": 9,
+      "dte": 7,
       "move": 2.62,
       "pct": 10.51
     },
     {
       "expiry": "2026-12-11",
-      "dte": 16,
+      "dte": 14,
       "move": 3.68,
       "pct": 14.74
     },
     {
       "expiry": "2026-12-18",
-      "dte": 23,
+      "dte": 21,
       "move": 4.56,
       "pct": 18.28
     },
     {
       "expiry": "2027-01-15",
-      "dte": 51,
+      "dte": 49,
       "move": 9.8,
       "pct": 39.25
     },
     {
       "expiry": "2027-03-19",
-      "dte": 114,
+      "dte": 112,
       "move": 9.93,
       "pct": 39.75
     }
   ],
-  "iv_backwardation": -0.2891,
+  "iv_backwardation": -0.1944,
   "volume_mix": {
     "0-1일": 0.0,
-    "2-7일": 0.0,
-    "8-30일": 0.6154,
+    "2-7일": 0.3397,
+    "8-30일": 0.2757,
     "31일+": 0.3846
   },
   "pcr_dollar": 24.487,
   "hv10": 1.1359,
   "hv21": 1.2929,
-  "vrp10": -0.2963,
-  "vrp21": -0.4533,
+  "vrp10": -0.184,
+  "vrp21": -0.341,
   "spot_is_live": false,
   "prev_close": 23.54,
   "chg_pct": 6.07,
   "price_date": "2026-11-27",
-  "oi_lag_sessions": 1,
+  "oi_lag_sessions": 0,
   "volume_date": "2026-11-27",
   "volume_is_live": false
 }
